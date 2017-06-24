@@ -1,0 +1,946 @@
+//微信分享信息
+var userAgent=navigator.userAgent;
+var ua = userAgent.toLocaleLowerCase();
+var golabParam="";
+var shareComing = "";
+var qrcodeUrl = "";
+
+//有产品优势标记
+var globalCPYS = 0;
+/**
+ *产品明细
+ *yang.jiang 2015/12/23
+ **/
+//基金信息全局变量，使用对象
+
+var fundDetailInfoObj={
+	"detailFundCode":"",//基金详情的基金代码
+	"detailFundInfo":"",//基金信息
+	"oneMonthMarektInfo":"",//月走势图信息
+	"seasonMarektInfo":"",//季走势图信息
+    "halfYearMarektInfo":"",//半年势图信息
+	"yearMarektInfo":"",//年走势图信息
+	"fundInfo":""//基金资料
+};
+var yjqkOne = 0;
+
+appcan.ready(function() {
+    $.addimage();
+    $("body").removeClass("uhide");
+    
+    shareComing = getUrlParamByKeyName("shareComing") || "";
+    checkShare (shareComing);
+    
+	//微信使用
+	checkIsWeixinVisit();
+    //获取基金详情的fundCode
+    //获取连接url中的fundCode，直接跳转对应的基金详情页面
+    if(isDefine(getUrlParamByKeyName("fundCode"))){
+        fundDetailInfoObj.detailFundCode = getUrlParamByKeyName("fundCode");
+    }else{
+        //获取基金详情的fundCode
+        fundDetailInfoObj.detailFundCode = getLocVal("showFundCode");
+    }
+    if (isDefine(fundDetailInfoObj.detailFundCode)) {
+        //调用产品优势接口
+        var tempParam = {
+            "fundCode" : fundDetailInfoObj.detailFundCode,
+            "appType" : appType
+        }
+        simplePostAjax(PRODUCTSUPERIORITY, tempParam, showSuperiority);
+        
+        
+    } else {
+        //基金信息不存在，显示空白页面
+        $.removeimage();
+        $("#favoriteId").removeAttr("onclick");
+        $("#netWorthcolDiv").removeAttr("onclick");
+        $("#threeMonthLastDiv").removeAttr("onclick");
+        $("#oneyearDiv").removeAttr("onclick");
+        $("#moreNetWorth").addClass("uhide");
+        commonHint("", "您开启了无痕浏览或非法访问，请检查");
+    }
+    
+    
+});
+
+//产品优势
+function showSuperiority (data){
+    var result = JSON.parse(data);
+    
+    if (result.status != 0) {
+        commonHint("",result.msg);
+        return;
+    } else {
+        var array = result.Body.rec;
+        if (array.length > 0) {
+            globalCPYS = 1;
+            $("#cpys").removeClass("uhide");
+            var temp = array[0]["imgUrl"];
+            $("#productBenefits").attr("src",temp);
+        }
+    }
+    
+    //调用40008获取基金详情
+    getProductDetail(fundDetailInfoObj.detailFundCode, showPrdDetailInfo);
+    //判断是否关注
+    showfavoriteInfo();
+}
+
+//分享进来
+function checkShare (shareComing) {
+    if (shareComing == 1) {
+        $("#header").addClass("uhide");//移除头部
+        $("#footer").addClass("uhide");//隐藏下面tab按钮
+        $("#promptExperience").removeClass("uhide");//显示下面悬浮框
+    }
+}
+
+//调用40008之后的处理
+function showPrdDetailInfo(data) {
+	if(isDefine(data)&&isDefine(data.rec)&&data.rec.length>0){
+        /*
+        $("#raiseDate").html(formateYYYYMMDDWithDot(data.rec[0].raiseDate));//成立时间
+        $("#riskLevel").html(transPrdRiskLevelMeaning(data.rec[0].riskLevel));//风险等级
+        $("#fundName").html(data.rec[0].fundName + "(" + data.rec[0].fundCode + ")"); //基金名称
+        $("#fundType").html(getFundTypeNameByCode(data.rec[0].fundType));//基金类型
+		$("#nav").html(parseFloat(data.rec[0].perNetValue).toFixed(4));
+		$("#nav").addClass(getColor(data.rec[0].perNetValue));
+		$("#dayIncDec").html(getPercentage(data.rec[0].dayIncDec));//日增长率
+		$("#dayIncDec").addClass(getColor(data.rec[0].dayIncDec));//设置红涨绿跌
+		$("#nowYearIncDec").html(getPercentage(data.rec[0].nowYearIncDec));//今年以来
+		$("#nowYearIncDec").addClass(getColor(data.rec[0].nowYearIncDec));//设置红涨绿跌
+		$("#monthIncDe").html(getPercentage(data.rec[0].monthIncDec));//近一月
+		$("#monthIncDe").addClass(getColor(data.rec[0].monthIncDec));//设置红涨绿跌
+		$("#yearIncDec").html(getPercentage(data.rec[0].yearIncDec));//最近一年
+		$("#yearIncDec").addClass(getColor(data.rec[0].yearIncDec));//设置红涨绿跌
+		$("#seasonIncDec").html(getPercentage(data.rec[0].seasonIncDec));// 最近三月
+		$("#seasonIncDec").addClass(getColor(data.rec[0].seasonIncDec));//设置红涨绿跌
+		*/
+        //基金行情提取信息
+        showOtherPrdInfo(data.fundMarketInfo);
+        //显示近一月的走势图
+        showTrendImg(data.oneMonthMarektInfo);
+        fundDetailInfoObj.oneMonthMarektInfo=data.oneMonthMarektInfo;
+        fundDetailInfoObj.seasonMarektInfo=data.seasonMarektInfo;
+        fundDetailInfoObj.halfYearMarektInfo=data.halfMarektInfo;
+        fundDetailInfoObj.yearMarektInfo=data.yearMarektInfo;
+        fundDetailInfoObj.detailFundInfo=data.rec[0];
+        //显示购买状态
+        showFundState();
+	}
+	//$.removeimage();
+	if (!isDefine(data.rec)){
+	    $.removeimage();
+	    commonHint("","没有相关数据");
+	}else{
+	    //显示上部基金最新净值数据
+	    //基金名称
+        $("#fundName").html(data.rec[0].fundName); 
+        //基金代码
+        $("#fundCode").html(data.rec[0].fundCode);
+        
+        //最新净值时间
+        $("#latesNetDate").html("(" + toDate(data.fundMarketInfo[0].navDate) + ")");
+        var shareTitle = 0;//分享的标题不同类型显示
+	    if (data.rec[0].fundType == "04") {//货币型基金
+	        $("#shareTitleButton").html("闲钱购买<br />一起享受赚钱的感觉");
+	        shareTitle = 1;
+	        $("#zxjzwfsy").html("万份收益");
+	        //最新净值
+            $("#latesNetValue").html(parseFloat(data.rec[0].hf_IncomeRatio).toFixed(4));
+            $("#latesNetValue").addClass(getColor(data.rec[0].hf_IncomeRatio));
+            
+            $("#rzfqrnhsyl").html("七日年化收益率");
+            
+            //日涨幅
+            $("#dayIncDec").html(parseFloat(data.rec[0].incomeRatio*100).toFixed(4)+'%');//日增长率
+            $("#dayIncDec").addClass(getColor(data.rec[0].incomeRatio));//设置红涨绿跌
+	    } else {
+	        
+	        $("#xjpj").removeClass("uhide");
+            //最新净值
+            $("#latesNetValue").html(parseFloat(data.rec[0].perNetValue).toFixed(4));
+            $("#latesNetValue").addClass(getColor(data.rec[0].perNetValue));
+           
+            //日涨幅
+            $("#dayIncDec").html(getPercentage(data.rec[0].dayIncDec));//日增长率
+            $("#dayIncDec").addClass(getColor(data.rec[0].dayIncDec));//设置红涨绿跌
+	    }
+	    
+        if (shareComing != 1) {//分享进来就不需要
+            var data = {
+                "fundName" : data.rec[0].fundName,
+                "fundCode" : data.rec[0].fundCode,
+                "netValue" : parseFloat(data.rec[0].perNetValue).toFixed(4),
+                "dayIncDec" : getPercentage(data.rec[0].dayIncDec)
+            }
+            //显示微信分享的默认信息
+            weixinShareInfo (data,shareTitle);
+        }
+        
+        //调用爬虫接口
+        getFundDetailCreeper (data);
+	}
+};
+//显示微信分享的默认信息
+function weixinShareInfo (data,shareTitle) {
+    
+    //分享需要的参数
+    var tempFundCode = 'fundCode=' + data.fundCode;
+    qrcodeUrl = serverMasUrl+"Products/productDetail.html?shareComing=1&"+tempFundCode;
+    
+    var tempTitle = (shareTitle == 0 ? '富钱包一折购买 ' : '闲钱购买 ' );
+    golabParam={
+        url:qrcodeUrl,//分享链接的url
+        title:tempTitle + data.fundName +' '+data.fundCode,//标题
+        desc:'净值：'+data.netValue+'\n日涨幅：'+data.dayIncDec,//描述
+        img:serverMasUrl+'Products/image/zhiying.png',//图片路径，uc浏览器不能用,share_redPacket.png
+        from:'富国基金',//来源
+        priValue:"",//邀请码
+        custName:"",//客户姓名
+        link:qrcodeUrl,//分享链接的url,微信使用
+        imgUrl:serverMasUrl+'Products/image/zhiying.png'//图片路径，uc浏览器不能用,share_redPacket.png,微信使用
+    };
+    
+    //检查浏览器并选择分享模式
+    checkBrowser();
+ 
+}
+
+//检查浏览器并选择分享模式
+function checkBrowser(){
+    
+    if(ua.match(/MicroMessenger/i) == "micromessenger"){//微信打开    
+        //获取微信分享默认信息
+        getJsapiTicket(golabParam);
+        $("#shareDiv").attr("onclick","shareInWeixin()");
+    }else if(userAgent.indexOf("UCBrowser")>-1||userAgent.indexOf("MQQBrowser")>-1){
+        //使用UC浏览器或QQ浏览器（非微信打开）则，调用自身的分享功能
+        UCAndQQShare();
+    }else {
+        //其他浏览器打开
+        notUCAndQQBrowser();
+    }
+}
+
+//微博分享,count:是否显示当前页面被分享的数量（1显示，可选）；appkey:用于显示来源，可选；title：分享时所示的文字内容，可以为空
+//pic：分享配图地址；ralateUid:转发时会@相关的账号；language：语言设置（zh_cn|zh_tw)，可选
+function weiboShare(){
+    var url='http://service.weibo.com/share/share.php?url='+golabParam.url+'&title='+
+        golabParam.title+'&pic='+golabParam.img+'&appkey=@'+golabParam.from+"&count=1";
+    url = encodeURI(url);
+    window.location.href= url;
+}
+
+//QQ分享url:分享链接；desc：默认分享理由；summary:分享摘要；title:分享标题；site:分享来源；pics:分享图片路径；
+//flash:视频地址；style:;width:;height:
+function QQShare(){
+    var url='http://connect.qq.com/widget/shareqq/index.html?url='+golabParam.url+
+        '&title='+golabParam.title+'&summary='+golabParam.desc+
+        '&site=@'+golabParam.from+'&pics='+golabParam.img;
+    url = encodeURI(url);
+    window.location.href= url;
+}
+
+//qq空间分享url:分享链接；desc：默认分享理由；summary:分享摘要；title:分享标题；site:分享来源；pics:分享图片路径，必须能上网访问，否则加载不出来图片；
+//showcount:1显示分享总数;style:;width:;height:
+function QQZoneShare(){
+    var url='http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+golabParam.url+
+        '&title='+golabParam.title+'&desc='+golabParam.desc+'&summary='+golabParam.desc+
+        '&site=@'+golabParam.from+'&showcount=1&pics='+golabParam.img;
+    url = encodeURI(url);
+    window.location.href= url;
+}
+var qrcode;
+//弹出二维码
+function weixin () {
+    
+  $("#hadeRegister").removeClass("uhide");
+  $("#share").removeClass("uhide");
+  
+  $("#qrcode").empty();
+  $("#qrcode").qrcode({
+    render:"canvas",
+    width:200,
+    height:200,
+    text:qrcodeUrl,
+  })
+}
+
+//非QQ或UC浏览器
+function notUCAndQQBrowser(){
+    $("#shareDiv").attr("onclick","share()");
+}
+
+//UC和QQ浏览器分享
+function UCAndQQShare(){
+    var share_obj = new nativeShare('nativeShare',golabParam);
+}
+
+//显示分享窗口
+function share () {
+    $('.newCustomer_pop').show();
+}
+
+//关闭弹窗
+function newover () {
+    $('.newCustomer_pop').hide();
+}
+
+//微信分享弹出框
+function shareInWeixin(){
+    $("#shareAppInWeiXinDiv").removeClass("uhide");
+    $("#weiXinEjecWindow").removeClass("uhide");
+}
+
+function closeWeixinLoadFunc(){
+    $("#shareAppInWeiXinDiv").addClass("uhide");
+    $("#weiXinEjecWindow").addClass("uhide");
+}
+
+//分享删除按钮
+appcan.button("#cha", "btn-act", function() {
+    $("#hadeRegister").addClass("uhide");
+    $("#share").addClass("uhide");
+});
+
+//调用基金详情页接口（爬虫）
+function getFundDetailCreeper () {
+    var tempUrl = '192.168.40.121:8080';
+    if (appType == 4 ) {
+        tempUrl = 'https://realtest.fullgoal.com.cn';
+    } else if (appType == 5 ) {
+        tempUrl = 'https://m.fullgoal.com.cn';
+    }
+    
+    //查询条件数据为null
+    var paraData = {
+        "urlIp" : tempUrl + "/storeIn/store/fundInfoDetail/"+fundDetailInfoObj.detailFundCode+"/latest",//ip地址
+    };
+    
+    //调用ajax查数据
+    if (appType < 4) {//测试环境
+        simplePostAjax(FUNDDETAILSCREEPER, paraData, successCreeperCS);
+    } else {//准生产和生产环境
+        $.ajax({
+            url : paraData.urlIp,
+            type : "get",
+            data : {},
+            datatype : "json",
+            timeout : TIMEOUT, //config.js中设置5s超时
+            offline : undefined, //是否直接调用离线数据，包括true,false,undefined
+            headers : {
+                "Content-type" : "application/json; charset=utf-8",
+                "x-mas-app-info" : "1234567/public"
+            },
+            success : function(data, status, requestCode, response, xhr) {
+                successCreeper(data)
+            },
+            error : function(xhr, erroType, error, msg) {
+                commonHint("",msg);
+                $.removeimage();
+            }
+        });
+    }
+    
+}
+
+//产品详情接口调用成功回调函数
+function successCreeperCS(data) {
+    $.removeimage();
+    var resultData = JSON.parse(data);
+
+    if (resultData.status == "0") {
+        var resultMessage = JSON.parse(resultData.message);
+        if (resultMessage.size != 0) {
+            showDetailCreeper(resultMessage.resultList);
+        } else {
+            commonHint("",resultMessage.info);
+        }
+    }
+    
+    if (globalCPYS == 1) {
+        //显示产品优势
+        tabCPYS (); 
+    } else {
+        //显示业绩情况
+        tabYJQK (); 
+    }
+    
+};
+
+//产品详情接口调用成功回调函数
+function successCreeper(data) {
+    $.removeimage();
+    var resultData = JSON.parse(data);
+
+    if (resultData.status == "ok") {
+        var resultMessage = resultData;
+        if (resultMessage.size != 0) {
+            showDetailCreeper(resultMessage.resultList);
+        } else {
+            commonHint("",resultMessage.info);
+        }
+    }
+    
+    if (globalCPYS == 1) {
+        //显示产品优势
+        tabCPYS (); 
+    } else {
+        //显示业绩情况
+        tabYJQK (); 
+    }
+    
+};
+
+//显示信息
+function showDetailCreeper (param) {
+    var code = "_"+fundDetailInfoObj.detailFundCode;
+    var shuju = param[0][''+code+''];
+            
+    //晨星评级
+    var starRank =shuju.starRank?shuju.starRank:0;
+    //基金经理
+    var fundManagerArray =shuju.fundManager;
+    //基金基本信息
+    var fundMsgArray=shuju.fundMsg;
+    //十大重仓信息
+    var zhongcangArray=shuju.zhongcang;
+    //展示晨星评级
+    showStarRating(starRank);
+    //展示基金经理信息
+    showFundManager(fundManagerArray);
+     //展示基金基本信息
+    showFundMsg(fundMsgArray,shuju.fundPurchaseRate,shuju.fundRedempRate);
+    //展示十大信息
+    showZhongcangArray(zhongcangArray);   
+}
+
+//格式化爬虫取出的数据，将其转译为html格式
+function htmlFormat(htmlStr){
+    htmlStr=htmlStr.replace(/&lt;/g,"<");
+    htmlStr=htmlStr.replace(/&gt;/g,">");
+    return htmlStr;
+}
+
+//显示基金经理
+ function showFundManager(fundManagerArray){
+     var html='';
+     if(!fundManagerArray){return}
+     for(var i=0; i<fundManagerArray.length;i++){
+         html+='<li class="bc-text ub ut-m line1">'
+           +'<ul class="ub-f1 ub ub-ver">'
+        +'<li class="bc-text ub  heiti ulev-1 ">'+fundManagerArray[i].name+' </li>'
+            +'<li class="bc-text ub  ut-m line1 ">'
+             +'<div class="ub font-Sguider0 font-C666">'+htmlFormat(fundManagerArray[i].desc)+'</div>'
+       +' </li></ul></li>';
+       if (i != fundManagerArray.length - 1) {
+            html += "<br>";
+        }
+   }
+   $("#fundManagerList").html(html);
+ }
+
+//显示晨星评级
+function showStarRating(num){
+   var star= $("#starRating").children();
+     for(var i=0;i<star.length;i++){
+         if((i+1)<=num){
+            $(star[i]).removeClass("star_normal").addClass("star_active")
+         }
+     }
+}
+
+//显示基金基本信息
+function showFundMsg(fundMsgArray,fundPurchaseRate,fundRedempRate){
+    var obj={};
+    for(var i in fundMsgArray ){
+        var item = fundMsgArray[i];
+        obj[item.key]=item.value;
+    }
+  $("#fundNameDesc").html(obj["基金名称"]);
+  $("#fundType").html(obj["基金类型"]);
+  //获取基金代码之后转译
+  $("#fundCodeDesc").html(htmlFormat(obj["基金代码"]));
+  $("#fundMangerPerson").html(obj["基金管理人"]);
+  $("#fundTrustPerson").html(obj["基金托管人"]);
+  $("#fundContractEffectiveTime").html(obj["基金合同生效日"]);
+  $("#evaluationStandard").html(obj["业绩评价标准"]);  
+  $("#minPurchase").html(obj["最低申购金额"]);
+  $("#fundMangerFare").html(obj["基金管理费"]);
+  $("#fundTrustFare").html(obj["基金托管费"]);
+   //显示买入交易费率
+  var fundPurchaseRateHtml='';
+  var fundPurchaseRateArray=fundPurchaseRate.split(",");
+  for( var m=0; m<fundPurchaseRateArray.length;m++)  {
+      fundPurchaseRateHtml+='<li class="bc-text ub  ut-m   line1 ">'
+           +'<div class="ub ub-f1 ub-ac  font-Sguider0 font-C666">'+fundPurchaseRateArray[m]+'</div>'
+        +' </li> ';
+  }
+  if (!isDefine(fundPurchaseRateArray[0])) {
+     fundPurchaseRateHtml = '<li class="bc-text ub  ut-m   line1 "><div class="ub ub-f1 ub-ac  font-Sguider0 font-C666">----</div></li>'
+  };
+    $("#fundPurchaseRate").html(fundPurchaseRateHtml);
+ //赎回费率   
+ var fundRedempRateHtml='';
+ var fundRedempRateArray=fundRedempRate.split(",");
+ for( var mm=0; mm<fundRedempRateArray.length;mm++)  {
+      fundRedempRateHtml+='<li class="bc-text ub  ut-m   line1 ">'
+           +'<div class="ub ub-f1 ub-ac  font-Sguider0 font-C666">'+fundRedempRateArray[mm]+'</div>'
+        +' </li> ';
+ };
+ if (!isDefine(fundRedempRateArray[0])) {
+     fundRedempRateHtml = '<li class="bc-text ub  ut-m   line1 "><div class="ub ub-f1 ub-ac  font-Sguider0 font-C666">----</div></li>'
+ };
+    
+   $("#fundRedempRate").html(fundRedempRateHtml);
+   //防止 内存泄漏
+    mm=undefined;m=undefined;
+}
+
+//取基金行情中的信息
+function showOtherPrdInfo(fundMarketInfo) {
+	//从本地缓存获取加载的数据信息
+	if (isDefine(fundMarketInfo) && fundMarketInfo.length > 0) {
+		//显示最近五日净值显示
+		var str = appendFundNetValueHtml(0, 5, fundMarketInfo);
+	    $("#netValueDiv").append(str);
+	}
+}
+
+//是否有关注
+function showfavoriteInfo() {
+    var favoriteProduct = getLocObjectVal("favoriteProduct");
+    if (isDefine(favoriteProduct) && favoriteProduct.length > 0) {
+        for (var i = 0; i < favoriteProduct.length; i++) {
+            //显示已收藏的
+            if (favoriteProduct[i] == fundDetailInfoObj.detailFundCode) {
+                $("#favoriteId").removeClass("like").addClass("like_active");
+                break;
+            }
+        }
+    }
+}
+
+//收藏、取消收藏提示      测试
+function cancleAndAddFavoriteProduct() {
+    var favoriteProduct = getLocObjectVal("favoriteProduct");
+    if (!isDefine(favoriteProduct)) {
+        favoriteProduct = [];
+    }
+    if ($("#favoriteId").hasClass("like_active") == true) {
+        $("#favoriteId").removeClass("like_active").addClass("like");
+        for (var i = 0; i < favoriteProduct.length; i++) {
+            //删除收藏产品
+            if (favoriteProduct[i] == fundDetailInfoObj.detailFundCode) {
+                favoriteProduct.splice(i, 1);
+                break;
+            }
+        }
+        //缓存本地收藏产品信息
+        setLocObjectVal("favoriteProduct", favoriteProduct);
+    } else if ($("#favoriteId").hasClass("like") == true) {
+        $("#favoriteId").removeClass("like").addClass("like_active");
+        //添加收藏信息到缓存
+        favoriteProduct.push(fundDetailInfoObj.detailFundCode);
+        setLocObjectVal("favoriteProduct", favoriteProduct);
+    }
+}
+
+
+//走势图显示
+function showTrendImg(data) {
+    if (isDefine(data)) {
+       showareamap(data.netValueArray, data.totalNetValueArray, data.navDateArray);
+        if (isDefine(data.navDateArray)) {
+            $("#beginTime").text(data.navDateArray[0]);
+            $("#endTime").text(data.navDateArray[data.navDateArray.length - 1]);
+        }
+        $("#handle").removeClass("uhide"); 
+    }else{
+        commonHint("", "没有查询到相关数据");
+        return;
+    }
+};
+
+//最近一月  最近三月  最近半年  最近一年
+function changeCol(target, id) {
+    $(target).addClass("bc-e45").siblings().removeClass("bc-e45");
+    if (id == 1) {
+    	showTrendImg(fundDetailInfoObj.oneMonthMarektInfo) ;
+    }
+    if (id == 2) {
+    	showTrendImg(fundDetailInfoObj.seasonMarektInfo) ;
+    }
+    if (id == 3) {
+    	showTrendImg(fundDetailInfoObj.halfYearMarektInfo) ;
+    }
+    if (id == 4) {
+    	showTrendImg(fundDetailInfoObj.yearMarektInfo) ;
+    }
+};
+
+//判断基金状态,是否可定投
+function showFundState() {
+	//买入状态，是否可买入
+    if(!buyingState(fundDetailInfoObj.detailFundInfo.fundState)){
+    	$("#mairuText").removeClass("buyRed");
+        $("#mairuText").addClass("buyGray");
+    	$("#mairu").removeAttr("onclick");
+    }
+    //定投按钮状态，是否可定投
+    var autoInvestType=fundDetailInfoObj.detailFundInfo.autoInvestType;
+    if(autoInvestType=="1"||autoInvestType=="2"||autoInvestType=="3"){
+    	//$("#dingtou").removeClass("unClick").addClass("num_btn");
+        $("#dingtou").attr("onclick","buyDingTou()");
+    }else{
+    	$("#dingtouText").removeClass("dtRed");
+    	$("#dingtouText").addClass("dtGray");
+    	$("#dingtou").removeAttr("onclick");
+    }
+}
+
+//基金资料
+$("#jjzl").click(function() {
+    if (!$("#jjzl").hasClass("whi")) {
+		$("#jjzl").addClass("whi allFund_color_num");
+        $("#jzzs").removeClass("whi allFund_color_num");
+        $("#netWorth").addClass("uhide");
+        $("#fundDetail").removeClass("uhide");
+        if(!isDefine(fundDetailInfoObj.fundInfo)){
+        	getEMMInfo(fundDetailInfoObj.detailFundCode, showEMMInfoHtml);
+        }
+    }
+});
+//显示Emm十大重仓
+function showEMMInfoHtml(data) {
+    var fundContent = data.fundContent;
+    fundDetailInfoObj.fundInfo=fundContent;
+    //显示基金描述
+    $("#fundDesc").html(fundContent.desc);
+    //显示基金经理信息
+    showFundManagerHtml(fundContent.fundManager);
+    //显示10大重仓
+    showTenPositionsHtml(fundContent.zhongcang);
+};
+//显示基金经理html
+function showFundManagerHtml(fundManager) {
+    var managerStr = "";
+    if (isDefine(fundManager)) {
+        for (var i = 0; i < fundManager.length; i++) {
+            managerStr += '<div class="ub manager"><div class="ub-f1 faceparent"><img src="../image/tx.png" class="faceimg"></div>';
+            if (i < fundManager.length - 1) {
+                managerStr += '<div class="ub-f5 ub ub-ver manager_tx manager_underline runright">';
+            } else {
+                managerStr += '<div class="ub-f5 ub ub-ver manager_tx runright">';
+            }
+            managerStr += '<div class="ub-f1 name_tx">' + fundManager[i].name + '</div>' + '<div class="ub-f1 uinn1 ulev-1 text_line">' + fundManager[i].desc + '</div>' + '</div>' + '</div>';
+        }
+    } else {
+        managerStr = '<div class="ub mar-l ub-ac ub-pc umar-a mar-r item"><div class="tx-l data_name_tx">暂无相关信息</div></div>';
+    }
+    $("#fundManagerDiv").html(managerStr);
+}
+
+//显示十大重仓基金
+function showTenPositionsHtml(zhongcangData) {
+    var str = "";
+    if (isDefine(zhongcangData)) {
+        for (var i = 0; i < zhongcangData.length; i++) {
+            str += '<div class="ub ub-f1 ub-ac search_height">' + '<div class="ub ub-ac uwid3">' + zhongcangData[i].name + '</div>' + getProgressBarByValue(zhongcangData[i].value, i) + //添加进度条信息
+            '<div class="ub-pe fund_p ub ub-ac">' + zhongcangData[i].value + '%</div></div>';
+        }
+    } else {
+        str = '<div class="ub mar-l ub-ac ub-pc umar-a mar-r item"><div class="tx-l data_name_tx">暂无相关信息</div></div>';
+    }
+    $("#tenPositionsDiv").html(str);
+}
+
+var max;
+//根据值获得进度条样式，value=10为100%
+function getProgressBarByValue(value, id) {
+
+    if (id == 0) {
+        max = value * 100;
+    }
+    var valuepro = value * 100;
+    if (max == valuepro) {
+        return '<div class="umar-l ub uwid5"><progress class="fullBar" value="' + valuepro + '" max="' + max + '" id="pro' + id + '"></progress></div>';
+    } else {
+        return '<div class="umar-l ub uwid5"><progress class="progress1" value="' + valuepro + '" max="' + max + '" id="pro' + id + '"></progress></div>';
+    }
+}
+//净值走势
+$("#jzzs").click(function() {
+    if (!$("#jzzs").hasClass("whi")) {
+        $("#jzzs").addClass("whi allFund_color_num");
+        $("#jjzl").removeClass("whi allFund_color_num");
+        $("#netWorth").removeClass("uhide");
+        $("#fundDetail").addClass("uhide");
+    }
+});
+
+//新增定投
+function buyDingTou() {
+    setLocObjectVal("investParamByProduDetail",fundDetailInfoObj.detailFundInfo);
+    openNewWindow("amendPlan", "../terminalInvest/amendPlan.html?flag=1");
+}
+
+//申购产品
+function buyFundProduct() {
+    setLocVal("detailFundCode_buyNologin", fundDetailInfoObj.detailFundCode);
+    //购买富钱包直接跳转到充值界面
+    if (fundDetailInfoObj.detailFundCode == fqbFundCode) {
+        openNewWindow("depositAssets", "../FuQianBao/depositAssets.html");
+    } else {
+        //申购基金产品号
+        setLocVal("buyFundCode", fundDetailInfoObj.detailFundCode);
+        openNewWindow("purchaseInfo", "purchaseInfo.html");
+    }
+}
+
+//返回按钮
+appcan.button("#productDetailRe", "btn-act", function() {
+    appcan.window.close(-1);
+});
+//跳至净值明细页面
+$("#moreNetWorth").click(function() {
+	var navFundInfo={
+		"fundCode":fundDetailInfoObj.detailFundCode,//基金代码
+		"shareType":fundDetailInfoObj.detailFundInfo.shareType,//收费类型
+		"fundType":fundDetailInfoObj.detailFundInfo.fundType,//基金类型
+	};
+    setLocObjectVal("navFundInfo",navFundInfo );
+    setLocObjectVal("month_nav_List", fundDetailInfoObj.oneMonthMarektInfo.detailInfo);
+    openNewWindow("netWorthDetail", "netWorthDetail.html");
+});
+
+//走势图
+var chart;
+function showareamap(data1, data2, data3, id) {
+
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            lang : {
+                loading : "加载中..."
+            },
+            chart : {
+                type : 'spline',
+                renderTo : 'zoushitu',
+                events : {
+                    load : function() {
+                        //   endLoadingHint();          //图表渲染结束触发事件
+                        // $("#container").higcharts().hideLoading();
+                    }
+                }
+            },
+            loading : {
+                labelStyle : {
+                    color : 'white'
+                },
+                style : {
+                    backgroundColor : 'gray'
+                }
+            },
+            tooltip : {
+                valueDecimals : 4,
+                crosshairs : [{
+                    width : 1,
+                    color : 'green'
+                }, {
+                    width : 1,
+                    color : 'green'
+                }],
+                followPointer : true,
+                followTouchMove : true,
+                shared : true,
+                shadow : true, // 是否显示阴影
+                //animation: true,           // 是否启用动画效果
+                style : {// 文字内容相关样式
+                    //  color: "#ff0000",
+                    fontSize : "1em",
+                    fontWeight : "blod"
+                }
+
+            },
+            exporting : {
+                enabled : false
+            },
+            xAxis : {
+                //type:'datatime',
+                //categories : d3_time,
+                categories : data3,
+                tickWidth : 0,
+                labels : {
+                    enabled : false,
+                }
+            },
+
+            yAxis : {
+                title : {
+                    text : ''
+                },
+                labels : {
+                    allowDecimals : true,
+                    formatter : function() {
+                        return Number(this.value).toFixed(4);
+                    }
+                },
+                lineWidth : 2,
+                //tickPositions : [0.00, 0.50, 1.00, 1.50, 2.00, 2.50, 3.00, 3.50, 4.00, 4.50, 5.00]
+            },
+            legend : {
+                shadow : true,
+                // padding: 20,
+                itemMarginTop : 10,
+                itemMarginBottom : 10,
+                align : 'center',
+                verticalAlign : 'top',
+                itemStyle : {
+                    fontSize : "1.5em",
+                }
+            },
+            credits : {
+                enabled : false
+            },
+            title : {
+                text : ''
+            },
+            plotOptions : {
+                spline : {
+                    lineWidth : 2,
+                    states : {
+                        hover : {
+                            lineWidth : 2
+                        }
+                    },
+                    marker : {
+                        enabled : false
+                    },
+
+                }
+            },
+            series : [{
+                name : '单位净值',
+                data : data1,
+                color : '#BF0B23',
+                selected : true,
+                events : {
+                    legendItemClick : function(event) {
+                        if (this.selected == false) {
+                            this.selected=true;
+                            this.show;
+                            chart.series[1].selected = false;
+                            chart.series[1].hide();
+                            //this.redraw;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            }, {
+                name : '累计净值',
+                data : data2,
+                visible : false,
+                events : {
+                    legendItemClick : function(event) {
+                        if (this.selected == false) {
+                            this.selected=true;
+                            this.show;
+                            chart.series[0].selected = false;
+                            chart.series[0].hide();
+                            //this.redraw;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            }]
+        });
+    });
+};
+
+
+
+//产品优势
+function tabCPYS () {
+    $("#jjxx").removeClass("buttonBottom");
+    $("#yjqk").removeClass("buttonBottom");
+    $("#cpys").addClass("buttonBottom");
+    $("#essentialInformation").addClass("uhide");
+    $("#netWorth").addClass("uhide");
+    $("#productStrength").removeClass("uhide");
+}
+
+//基本信息
+function tabJbXX () {
+    $("#cpys").removeClass("buttonBottom");
+    $("#yjqk").removeClass("buttonBottom");
+    $("#jjxx").addClass("buttonBottom");
+    $("#productStrength").addClass("uhide");
+    $("#netWorth").addClass("uhide");
+    $("#essentialInformation").removeClass("uhide");
+}
+
+//业绩情况
+function tabYJQK () {
+    $("#jjxx").removeClass("buttonBottom");
+    $("#cpys").removeClass("buttonBottom");
+    $("#yjqk").addClass("buttonBottom");
+    $("#productStrength").addClass("uhide");
+    $("#essentialInformation").addClass("uhide");
+    $("#netWorth").removeClass("uhide");
+    
+    if (yjqkOne == 0) {
+        changeCol("",1);
+        yjqkOne = 1;
+    };
+}
+
+//显示十大重仓
+function showZhongcangArray(zhongcang){
+    //十大重仓数据的遍历和填充
+    if (isDefine(zhongcang)) {
+        var new_html = '';
+        var zhongcangClass;
+        for (var i = 0; i < zhongcang.length; i++) {
+              if(Number(zhongcang[i].value)==0){
+                  zhongcangClass='';
+              }else{
+                 zhongcangClass="line";
+              }
+              if((zhongcang[i].name).indexOf("合计")>-1){break;}
+              
+            new_html += '<div class="ub mar-l ub-ac ub-pc umar-a mar-r item">' + '<div class="tx-l data_name_tx ut-m   line1 zcShowCss">' + zhongcang[i].name + '</div>' + '<div class="ub-f1 ub-ac ub-pc tx-c umar-l"><div class="lines"></div><div class="'+zhongcangClass+' line_width" name="item_width"></div></div>' + '<div class="tx-r data_num_tx" name="item_value">' + zhongcang[i].value + '%</div>' + '</div>';
+        }
+        $('#zhongcang').html(new_html);
+    } else {
+        $('#zhongcang').html('<div class="ub mar-l ub-ac ub-pc umar-a mar-r item"><div class="tx-l data_name_tx">暂无相关信息</div></div>')
+    }
+
+    //"十大重仓"进度条展示效果
+    var i_width = document.getElementsByName('item_width');
+    var i_value = document.getElementsByName('item_value');
+    var length = i_value.length;
+    var value_arr = [];
+    for (var i = 0; i < length; i++) {
+        //将百分比数值去掉%后存入数组，得以进行applay函数的运算(但目前数据端的数值并不带%符合)
+        var nums = i_value[i].innerText.split('%');
+        value_arr.push(nums['0']);
+    }
+    var maxValue = Math.max.apply(Math, value_arr);
+    var item_calculate = function(arr) {
+        percent = [];
+        for (var i = 0; i < arr.length; i++) {
+            var temp = arr[i] / maxValue * 100 + "%";
+            percent.push(temp);
+        }
+    };
+    //执行函数计算百分比，将结果存入数组percent
+    item_calculate(value_arr);
+    for (var i = 0; i < length; i++) {
+        var myString = "width:" + percent[i] + ";";
+        i_width[i].setAttribute("style", myString);
+    }
+}

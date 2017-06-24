@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+	String.prototype.LengthW = function(){
+    	return this.replace(/[^\x00-\xff]/g,"**").length;
+	}
+		alert('18059930979'.LengthW())
+	</script>
+</html>

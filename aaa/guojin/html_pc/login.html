@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="fortune.css" />
+<script language="JavaScript" src="resources/js/jquery-3.1.0.min.js"></script>
+<title>投资者登录</title>
+</head>
+<body>
+
+<div id="app_qrcode" class="ui_header_app_down">
+  <img src="./resources/images/qrcode_wechat.png" />
+</div>
+
+<div id="header">
+  <div id="header_login">
+    <table border="0" class="ui_header_login" width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td class="ui_header_channel ui_header_channel_active"><a href="#">投资者</a></td>
+        <td class="ui_header_channel"><a href="#">理财师</a></td>
+        <td class="ui_header_channel"><a href="#">营销系统</a></td>
+        <td style="width:auto"><a class="ui_header_app" href="#" onmouseover="showAppDownQrcode(this);" onmouseout="hideAppDownQrcode();">APP客户端</a></td>
+        <td class="ui_header_status">
+          <a href="#">注册</a>
+          |
+          <a href="#">登录</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div id="header_nav">
+    <table class="ui_header_nav" border="0" width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td class="ui_header_logo"></td>
+        <td style="width:1px;"><div class="ui_header_split"></div></td>
+        <td class="ui_header_logo_text"></td>
+        <td class="ui_header_slogan"></td>
+        <td class="ui_header_menu_block">
+          <table class="ui_header_menu" cellpadding="0" cellspacing="0">
+            <tr>
+              <td><a href="#">首页</a></td>
+              <td class="ui_header_menu_active"><a href="#">产品列表</a></td>
+              <td><a href="#">我的账户</a></td>
+              <td><a href="#">研究资讯</a></td>
+              <td><a href="#">关于我们</a></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<script>
+  function showAppDownQrcode(obj){
+    //alert(obj.offsetLeft);
+    var qrcode = $("#app_qrcode");
+  	qrcode.css('left', pageX(obj) - 0 + 'px');
+  	qrcode.css('top', pageY(obj) + 24 + 'px');
+  	qrcode.show();
+  }
+
+  function hideAppDownQrcode(){
+    $("#app_qrcode").hide()
+  }
+
+  function pageX(elem){
+    return elem.offsetParent?(elem.offsetLeft+pageX(elem.offsetParent)):elem.offsetLeft;
+  }
+  function pageY(elem){
+    return elem.offsetParent?(elem.offsetTop+pageY(elem.offsetParent)):elem.offsetTop;
+  }
+
+  function logout(){
+    ajax({
+		    type: 'POST',
+		    url: '/invest/logout.do',
+        success: function(data){
+          location.href = "/";
+        },
+        error: function(data){
+          location.href = "/";
+        }
+    });
+  }
+</script>
+
+<div class="ui_login">
+  <div class="ui_login_div">
+    <table>
+      <tr>
+        <td>
+          <div class="ui_login_gjcf">专属您的私人银行服务</div>
+          <ol>
+            <li>专业理财机构</li>
+            <li>账户安全</li>
+            <li>操作便捷</li>
+          </ol>
+          <div class="ui_login_qrcode"></div>
+        </td>
+        <td>
+          <div class="ui_login_area">
+            <div class="ui_login_title">
+              <div>用户登录</div>
+            </div>
+            <form onsubmit="return false;">
+              <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td colspan="2">
+                    <input class="ui_input_acct ui_login_maxWidth" type="text" id="loginName" name="loginName" placeholder="手机号" maxlength="20" required="required" />
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <input class="ui_input_pswd ui_login_maxWidth" type="password" id="loginPasword" name="loginPassword" placeholder="密码" maxlength="20" required="required" />
+                  </td>
+                </tr>
+                <tr>
+                  <td width="240px;">
+                    <input class="ui_input_shield" type="text" id="imageCode" name="imageCode" placeholder="图形验证码" required="required" maxlenth="6" />
+                  </td>
+                  <td>
+                    <img class="ui_login_imageCode" src="https://pbank.95559.com.cn/personbank/system/syCaptchaShow.image?PSessionId=b83045b0ffff0036c0155c9dc86d4755&x-channel=0&temp=0.8169423706968655" />
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2"><input class="ui_button" type="button" value="登 录" /></td>
+                </tr>
+            </form>
+            <table class="ui_login_reg">
+              <tr>
+                <td><a href="#">忘记密码</a></td>
+                <td align="right"><a href="#">用户注册</a></td>
+              </tr>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+
+<div id="footer">
+  <table class="ui_footer" border="0">
+    <tr>
+    <td class="ui_footer_div ui_footer_div1">
+      <div class="ui_footer_title">首页</div>
+      <ol>
+        <li><a href="#">投资者</a></li>
+        <li><a href="#">理财师</a></li>
+        <li><a href="#">营销系统</a></li>
+      </ol>
+    </td>
+    <td class="ui_footer_div ui_footer_div2">
+      <div class="ui_footer_title">关于国金财富</div>
+      <ol>
+        <li><a href="#">关于我们</a></li>
+        <li><a href="#">产品列表</a></li>
+        <li><a href="#">帮助中心</a></li>
+      </ol>
+    </td>
+    <td class="ui_footer_div"><div class="ui_footer_split">&nbsp;</div></td>
+    <td class="ui_footer_div ui_footer_div3">
+      <div class="ui_footer_title">服务热线</div>
+      <div class="ui_footer_tel">400-022-1008</div>
+      <span>工作时间：09:30-18:00（国家节假日除外）</span><br/>
+      <span>传真号码：010-58888800</span>
+    </td>
+    <td class="ui_footer_div"><div class="ui_footer_split">&nbsp;</div></td>
+    <td class="ui_footer_div ui_footer_div4"></td>
+    <td class="ui_footer_div ui_footer_div5">
+      <img class="ui_footer_qrcode" src="./resources/images/qrcode_wechat.png" title="扫描下载APP" />
+      <span>扫描下载APP</span>
+    </td>
+    <td class="ui_footer_div ui_footer_div6">
+      <img class="ui_footer_qrcode" src="./resources/images/qrcode_wechat.png" title="微信公众号" />
+      <span>微信扫描, 开始理财</span>
+    </td>
+    </tr>
+  </table>
+</div>
+<div class="ui_copyright">
+  版权所有：上海国金通用财富资产管理有限公司 ©2016 | Privacy policy
+</div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!--<title></title>-->
+<script src="../head.js"></script><!--头部文件-->
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="ui-banner margin-top-120"></div>
+    </div>
+    <div class="ui-main margin-top-30">
+        <div class="wrap ui-content">
+            <div class="ui-sidebar left">
+            	<div class="title">
+            		<div>联系我们</div>
+            		<div>Contact</div>
+            	</div>
+				<!--<ul class="side-menu">
+					<li>智能化系统工程</li>
+					<li>机电工程安装</li>
+					<li>城市及道路照明</li>
+				</ul>-->
+           		<div class="side-tel">0592-2960829</div>
+            </div>
+            <div class="ui-rightmain right">
+				<div class="location">当前位置：联系我们</div>
+           		<div><!--内容区-->
+           			<div id="map">
+						<div style="width: 100%; height: 380px; margin: 20px auto" id="allmap"></div>
+					</div>
+           			<ul class="contact-info">
+           				<li>
+           					<div>公司电话</div>
+           					<div>Tel：0592-2960829</div>
+           				</li>
+           				<li>
+           					<div>传真号码</div>
+           					<div>Fax：0292-2961200</div>
+           				</li>
+           				<li>
+           					<div>公司邮箱</div>
+           					<div>E-mail：<a class="underline leaving-message" href="mailto:xmhxhxm@163.com">xmhxhxm@163.com</a></div>
+           				</li>
+           				<li>
+           					<div>公司网址</div>
+           					<div>Web：www.hxhtech.com.cn</div>
+           				</li>
+           				<li>
+           					<div>微信公众号</div>
+           					<div>WeChat：厦门市豪鑫行环保科技有限公司</div>
+           				</li>
+           				<li class="qr"></li>
+           			</ul>
+           		</div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    
+    <script src="../foot.js"></script><!--底部文件-->
+  </body>
+</html>
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=67jMQ5DmYTe1TLMBKFUTcZAR"></script>
+<script type="text/javascript">
+    $(function () {
+        ShowMap('118.112033,24.477816', '厦门市豪鑫行环保科技有限公司', '皇达大厦', '0592-2960829', /*'021-888888888',*/ '20');/*118.112005,24.477616*/
+    })
+    function getInfo(id) {
+        $.ajax({
+            type: "POST",
+            url: "WebUserControl/Contact/GetInfo.ashx",
+            cache: false,
+            async: false,
+            data: { ID: id },
+            success: function (data) {
+                data = eval(data);
+                var length = data.length;
+                if (length > 0) {
+                    ShowMap(data[0]["Image"], data[0]["NewsTitle"], data[0]["Address"], data[0]["Phone"], data[0]["NewsTags"], data[0]["NewsNum"]);
+                }
+            }
+        });
+    }
+    function ShowMap(zuobiao, name, addrsee, phone, /*chuanzhen,*/ zoom) {
+        var arrzuobiao = zuobiao.split(',');
+        var map = new BMap.Map("allmap");
+        map.centerAndZoom(new BMap.Point(arrzuobiao[0], arrzuobiao[1]), zoom);
+        map.addControl(new BMap.NavigationControl());
+        var marker = new BMap.Marker(new BMap.Point(arrzuobiao[0], arrzuobiao[1]));
+        map.addOverlay(marker);
+        var infoWindow = new BMap.InfoWindow('<p style="color: #bf0008;font-size:14px;">' + name + '</p><p>地址：' + addrsee + '</p><p>电话：' + phone + /*'</p><p>传真：' + chuanzhen + */'</p>');
+        marker.addEventListener("click", function () {
+            this.openInfoWindow(infoWindow);
+        });
+        marker.openInfoWindow(infoWindow);
+    }
+</script>

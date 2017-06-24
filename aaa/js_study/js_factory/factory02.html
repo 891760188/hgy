@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="main.css"/>
+	</head>
+	<body>
+		<div>
+			面向对象的工厂模式
+		</div>
+		<script type="text/javascript">
+			/**
+			 * 我们需要达到的一个需求是，做一个音乐播放器，这个播放器有四个按钮，分别是上一首、下一首、播放暂停、静音。
+			 */
+			var wangyiMusicAction = function(){
+				this.name = '网易音乐';
+				this.logo = 'music';
+			}
+			wangyiMusicAction.prototype = {
+				last:function(){
+					this.information = {msg:'上一首'};
+				},
+				next:function(){
+					this.information = {msg:'下一首'};
+				},
+				stop:function(){
+					this.information = {msg:'暂停'};
+				},
+				paly:function(){
+					this.information = {msg:'播放'};
+				},
+			}
+			var music = new wangyiMusicAction();
+			alert(music.name);
+			music.next();
+			alert(music.information.msg);
+		</script>
+	</body>
+</html>

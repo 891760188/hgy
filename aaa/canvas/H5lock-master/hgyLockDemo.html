@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<title></title>
+		<style type="text/css">
+			 body {
+	            text-align: center;
+	            background-color: #305066;
+	        }
+	        .title {
+	            color: #22C3AA;
+	        }
+		</style>
+		<script src="src/hgyLock.js" type="text/javascript" charset="utf-8"></script>
+		
+	</head>
+	<body>
+		<script type="text/javascript">
+			var record = [];
+			var callBackPasssword = '';
+			function callBack(passwordBackArray){
+				console.log('passwordBack='+passwordBackArray);
+				if(passwordBackArray.length < 4){
+					alert('设定的手势太简单了');
+//					return ;
+				}
+				record.push(passwordBackArray.join());
+				if (record.length >= 2) {
+					if (record[0] == record[1]) {
+						alert('手势设定完成');
+						callBackPasssword = record[0] ;
+					} else {
+						alert('两次手势设定不一致');
+					}
+					record = [];
+				} else {
+					alert('请确认手势设定');
+				}
+			}
+			new hgyLock({
+			    lockSum: 3,
+			    callBack:callBack
+			}).init();
+		</script>
+	</body>
+</html>

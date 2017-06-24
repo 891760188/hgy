@@ -1,0 +1,231 @@
+/**
+ * @description 获取微信jsapi_ticket数据
+ */
+var serverMasUrlPrd="";
+//getJsapiTicket();
+var defaultParam='';
+function getJsapiTicket(param) {
+    var userAgent=navigator.userAgent;
+    var ua = userAgent.toLocaleLowerCase();
+    if(ua.match(/MicroMessenger/i) != "micromessenger"){
+        return;
+    }
+    if(appType == 5){
+        serverMasUrlPrd='https://m.fullgoal.com.cn/fgfqbh5/';
+    }else{
+        serverMasUrlPrd=serverMasUrl;
+        //serverMasUrlPrd='http://1y546967e7.imwork.net/fgfqbh5/';
+    }
+    
+    //有参数就取参数
+    if (param) {
+        defaultParam = param;
+    } else {
+        var title="理财就用这款APP！";
+        if(isDefine(getLocVal("custName"))){
+            title=getLocVal("custName")+ "说，理财就用这款APP！";
+        }
+        //设置默认分享参数
+        defaultParam={
+            url:serverMasUrlPrd + "NewCustomer/normalDownloadApp.html",//分享链接的url
+            title:title,//标题
+            desc:'一起下载富钱包，享受赚钱的感觉！',//描述
+            img:serverMasUrlPrd+'NewCustomer/image/fu.png',//图片路径，uc浏览器不能用,share_redPacket.png
+            from:'富国基金',//来源
+            priValue:"",//邀请码
+            custName:"",//客户姓名
+            link:serverMasUrlPrd+'NewCustomer/newDownloadApp.html?priValue=',//分享链接的url,微信使用
+            imgUrl:serverMasUrlPrd+'NewCustomer/image/fu.png'//图片路径，uc浏览器不能用,share_redPacket.png,微信使用
+        };
+    }
+    
+    
+    $.ajax({
+        url : serverMasUrlPrd+"fullgoal_weixin_share_getTicket",
+        type : "get",
+        data : {},
+        datatype : "json",
+        timeout : TIMEOUT, //config.js中设置5s超时
+        offline : undefined, //是否直接调用离线数据，包括true,false,undefined
+        headers : {
+            "Content-type" : "application/json; charset=utf-8",
+            "x-mas-app-info" : "1234567/public"
+        },
+        success : function(data, status, requestCode, response, xhr) {
+            var jsapi_ticket=JSON.parse(data).ticket;
+            weixinShare(jsapi_ticket);
+        },
+        error : function(xhr, erroType, error, msg) {
+            //alert("false"+msg);
+        }
+    });
+}
+
+function getShareParam(){
+    // try{
+        // defaultParam = window.frames[0].golabParam;
+    // }catch(e){
+        // defaultParam = defaultParam;
+    // }
+    return defaultParam;
+}
+//微信分享初始化
+function weixinShare(jsapi_ticket){
+    //时间戳 签名用,精确到秒
+    var nowDateMill=(new Date()).getTime()+"";
+    var timestamp =  (nowDateMill+"").slice(0,nowDateMill.length-3);
+    //随机字符串  签名用
+    var random_str = _getRandomString(12);
+    //appid 公众平台获取
+    var appId = 'wx83dfdec2161ec901';
+    //var appId = 'wxa2aa9923aa50c44a';
+    //console.log("jsapi_ticket="+jsapi_ticket+",random_str="+random_str+",timestamp="+timestamp)
+    var signature=getSignature(jsapi_ticket,random_str,timestamp);
+    //console.log(signature);
+    wx.config({
+        debug: false,// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: appId,// 必填，公众号的唯一标识
+        timestamp: timestamp,// 必填，生成签名的时间戳
+        nonceStr: random_str,// 必填，生成签名的随机串
+        signature: getSignature(jsapi_ticket,random_str,timestamp),
+        jsApiList: [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'onMenuShareQZone',
+        ]
+    });
+    
+    wx.checkJsApi({
+        jsApiList: [
+            'checkJsApi',
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'onMenuShareQZone',
+        ],
+        success: function(res) {
+            // 以键值对的形式返回，可用的api值true，不可用为false
+            //alert(res+"===checkJsApi");
+        }
+    });
+
+    
+    wx.error(function(res){
+        //alert(res+"===error");
+    });
+    
+    wx.ready(function () {
+        wx.onMenuShareTimeline(getShareParam());
+        wx.onMenuShareQQ(getShareParam());
+        wx.onMenuShareWeibo(getShareParam());
+        wx.onMenuShareQZone(getShareParam());
+        wx.onMenuShareAppMessage(getShareParam());
+        
+        wx.onMenuShareAppMessage({
+            title: getShareParam().title, // 分享标题
+            desc: getShareParam().desc, // 分享描述
+            link: getShareParam().link, // 分享链接
+            imgUrl: getShareParam().imgUrl, // 分享图标
+            type: getShareParam().type, // 分享类型,music、video或link，不填默认为link
+            dataUrl: getShareParam().dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () { 
+                // 用户确认分享后执行的回调函数
+                //alert("分享成功")
+            },
+            cancel: function () { 
+                // 用户取消分享后执行的回调函数
+                //alert("取消分享")
+            }
+        });
+        
+        wx.onMenuShareTimeline({//朋友圈
+            title: getShareParam().title+getShareParam().desc, // 分享标题
+            desc: getShareParam().desc, // 分享描述
+            link: getShareParam().link, // 分享链接
+            imgUrl: getShareParam().imgUrl, // 分享图标
+            type: getShareParam().type, // 分享类型,music、video或link，不填默认为link
+            dataUrl: getShareParam().dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () { 
+                // 用户确认分享后执行的回调函数
+                //alert("分享成功")
+            },
+            cancel: function () { 
+                // 用户取消分享后执行的回调函数
+                //alert("取消分享")
+            }
+        });
+        
+        wx.onMenuShareQQ({
+            title: getShareParam().title, // 分享标题
+            desc: getShareParam().desc, // 分享描述
+            link: getShareParam().link, // 分享链接
+            imgUrl: getShareParam().imgUrl, // 分享图标
+            type: getShareParam().type, // 分享类型,music、video或link，不填默认为link
+            dataUrl: getShareParam().dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () { 
+                // 用户确认分享后执行的回调函数
+                //alert("分享成功")
+            },
+            cancel: function () { 
+                // 用户取消分享后执行的回调函数
+                //alert("取消分享")
+            }
+        });
+        
+        wx.onMenuShareWeibo({
+            title: getShareParam().title, // 分享标题
+            desc: getShareParam().desc, // 分享描述
+            link: getShareParam().link, // 分享链接
+            imgUrl: getShareParam().imgUrl, // 分享图标
+            type: getShareParam().type, // 分享类型,music、video或link，不填默认为link
+            dataUrl: getShareParam().dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () { 
+                // 用户确认分享后执行的回调函数
+                //alert("分享成功")
+            },
+            cancel: function () { 
+                // 用户取消分享后执行的回调函数
+                //alert("取消分享")
+            }
+        });
+        
+        wx.onMenuShareQZone({
+            title: getShareParam().title, // 分享标题
+            desc: getShareParam().desc, // 分享描述
+            link: getShareParam().link, // 分享链接
+            imgUrl: getShareParam().imgUrl, // 分享图标
+            //type: golabParam.type, // 分享类型,music、video或link，不填默认为link
+            //dataUrl: golabParam.dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () { 
+                // 用户确认分享后执行的回调函数
+                //alert("分享成功")
+            },
+            cancel: function () { 
+                // 用户取消分享后执行的回调函数
+                //alert("取消分享")
+            }
+        });
+    });
+}
+//sha1 生成签名,微信分享使用
+function getSignature(jsapi_ticket,random_str,timestamp){
+    var str = 'jsapi_ticket='+jsapi_ticket+'&noncestr='+random_str+'&timestamp='+timestamp+'&url='+location.href.split('#')[0];
+    //console.log("str="+str);
+    return $.sha1(str);
+}
+    
+// 获取长度为len的随机字符串,微信分享使用
+function _getRandomString(len) {
+    len = len || 32;
+    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'; // 默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1
+    var maxPos = $chars.length;
+    var pwd = '';
+    for (i = 0; i < len; i++) {
+        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+    }
+    return pwd;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="main.css"/>
+	</head>
+	<body>
+		<div>
+			最简单的工厂模式
+		</div>
+		<script type="text/javascript">
+			/**
+			 * 我们需要达到的一个需求是，做一个音乐播放器，这个播放器有四个按钮，分别是上一首、下一首、播放暂停、静音。
+			 *	针对上面的需求，我们先按照最简单的工厂模式写一个方法。
+			 */
+			function wangyiMusicAction(action){
+				var o = new Object() ;
+				o.name = '网易音乐';
+				o.logo = 'music';
+				switch (action){
+					case 'last':
+						o.information = {msg:'上一首'};
+						break;
+					case 'next':
+						o.information = {msg:'下一首'};
+						break;
+					case 'stop':
+						o.information = {msg:'暂停'};
+						break;
+					case 'paly':
+						o.information = {msg:'播放'};
+						break;
+					default:
+						o.information = {msg:'其它'};
+						break;
+				}
+				return o ;
+			}
+			var music = wangyiMusicAction('stop');
+			alert(music.information.msg);
+		</script>
+	</body>
+</html>

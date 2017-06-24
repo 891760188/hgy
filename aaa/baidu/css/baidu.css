@@ -1,0 +1,109 @@
+.container{
+	background-color: white;
+	margin: 0px 0px;
+	padding: 0px 0px;
+	font-family: "微软雅黑";
+	width: 100%;
+	height: 100%;
+}
+.header{
+	position: relative;
+}
+.header ul{
+	list-style-type:none;
+	position: absolute;
+	top: 0px;
+	right: 10px;
+}
+.header ul li{
+	float: left;
+	margin-left: 18px;
+	padding: 1px 3px;
+}
+.header ul li a{
+	color: #333;
+	font-weight: bold;
+	font-size: 13px;
+	line-height:24px
+}
+.header ul li a:hover{
+	color: #00c;
+	font-weight: bold;
+	font-size: 13px;
+	line-height:24px
+}
+.content{
+	width: 60%;
+	margin: 0px auto ;
+	padding:5% 0px ;
+	text-align: center;
+	
+}
+.footer{
+	width: 100%;
+	margin-top: 100px;
+	text-align: center;
+}
+/*.footer div{
+	width: 60%;
+	margin: 0px auto;
+}*/
+.font-weight-normal{
+	font-weight: normal !important;
+}
+.moreProButton{
+	background-color: #38f;
+	color: #fff !important;;
+} 
+.moreProLi{
+	background-color: #38f;
+}
+.logo{
+	width: 270px;
+	height: 127px;
+} 
+.input-cls{
+	width: 70%;
+	height: 24px;
+	padding: 0px;
+	height: 35px;
+	border: 1px solid #b6b6b6;
+	padding-left:10px;
+}
+.input-button{
+	width: 10%;
+	height: 36px;
+	cursor:pointer;
+	font-size:15px
+	padding: 0px;
+	color: white;
+	background-color: #317ef3;
+	border: 1px solid #b6b6b6;
+	border-bottom:1px solid #2d78f4;
+}
+.from-cls{
+	font-size: 0px;
+}
+.mobileBaidu{
+	color: #666;
+	font-weight:700;
+	line-height:23px;
+	font-size: 12px;
+}
+.pushBaidu{
+	padding-top: 15px;
+}
+.pushBaidu a{
+	color: #999;
+	line-height:22px;
+	font-size: 12px;
+	margin: 20px 10px;
+}
+.renzhengBaidu{
+	color: #999;
+	line-height:22px;
+	font-size: 12px;
+}
+.renzhengBaidu span{
+	margin: 0px 13px;
+}

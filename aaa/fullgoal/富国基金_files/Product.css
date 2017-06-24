@@ -1,0 +1,286 @@
+/*
+ * 产品目录专用css
+ */
+.divContentLeft {
+    width: 7em;
+    padding-left: .3em;
+}
+.fstar{
+    color:#FFFFFF;
+    font-size:1.35em;
+}
+.nav-btn2 {
+    min-height: 2em;
+    min-width: 1.5em;  
+    display: -webkit-box !important;
+    display: box !important;
+    position: relative;
+    -webkit-box-align: center;
+    box-align: center;
+    -webkit-box-pack: center;
+    box-pack: center;
+}
+
+.lf {
+    float: left;
+}
+.rf {
+    float: right;
+}
+.cl {
+    clear: both;
+}
+
+.nvtooltip {
+    font-size: .6em !important;
+}
+#zijin {
+    width: 65%;
+    border-radius: 0.1875em;
+}
+#zijin input {
+   text-align:right;
+    border-radius: 0.1875em;
+    }
+  
+#btn-buy {
+    background-color: #c9c9c9;
+    width: 4.5em;
+    height: 2.3125em;
+    border-radius: 0.1875em;
+}
+#btn-buy div {
+    color: #fffbf7;
+}
+.cxrq {
+    width: 100%;
+}
+.dx {
+    width: 100%;
+    height: 3em;
+    border-bottom: 1px solid #c9c9c9;
+}
+.radiobox input[type=radio]:before {
+    font-size: 1em;
+}
+
+.tstp {
+    /*background: url("images/tsqx.png") no-repeat;
+     background-size: contain;
+     background-position: center;*/
+    width: 40%;
+    height: 8em;
+}
+.tstp img {
+    position: relative;
+}
+.limian {
+    width: 5.6875em;
+    height: 6.1875em;
+    background: url("../images/Newimages/FundDetailRisklevel0.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.limian_riskLevel_0 {
+    width: 5.6875em;
+    height: 6.1875em;
+    background: url("../images/Newimages/FundDetailRisklevel_0.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.limian_riskLevel_1 {
+    width: 5.6875em;
+    height: 6.1875em;
+    background: url("../images/Newimages/FundDetailRisklevel_1.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.limian_riskLevel_2 {
+    width: 5.6875em;
+    height: 6.1875em;
+    background: url("../images/Newimages/FundDetailRisklevel_2.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.limian_riskLevel_3 {
+    width: 5.6875em;
+    height: 6.1875em;
+    background: url("../images/Newimages/FundDetailRisklevel_3.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.limian_riskLevel_4 {
+    width: 5.6875em;
+    height: 6.1875em;
+    background: url("../images/Newimages/FundDetailRisklevel_4.png") no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.flot-container {
+    box-sizing: border-box;
+    /*width: 100%;*/
+    height: 12em;
+    padding: 0;
+    margin: 1em 0.3em 5px;
+    /*border: 1px solid #ddd;*/
+    background: #fff;
+    background: linear-gradient(#f6f6f6 0, #fff 50px);
+    background: -o-linear-gradient(#f6f6f6 0, #fff 50px);
+    background: -ms-linear-gradient(#f6f6f6 0, #fff 50px);
+    background: -moz-linear-gradient(#f6f6f6 0, #fff 50px);
+    background: -webkit-linear-gradient(#f6f6f6 0, #fff 50px);
+    /*box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+     -webkit-box-shadow: 0 3px 10px rgba(0,0,0,0.1);*/
+}
+.flot-placeholder {
+    width: 100%;
+    height: 100%;
+    font-size: 0.878em;
+    line-height: 1.2em;
+}
+
+/*后续添加样式*/
+.apart_bg {
+    background-color: #e9e9e9;
+    width: 100%;
+    height: 0.8em;
+    margin-top: 1.47em;
+    border-top:1px solid #c9c9c9;
+}
+.tab_title {/*净值走势/基金资料tab样式*/
+    font-size: 0.9375em;
+    color: #ffffff;
+    line-height: 2.2em;
+    background-color: #c9c9c9;
+}
+.tab_title_active {
+    font-size: 0.9375em;
+    color: #e45f5f;
+    line-height: 2em;
+    background-color: #FFFFFF;
+    border-top: 0.2em solid #e45f5f;
+    }
+.iconbg {
+    /*background: url('../images/line.jpg') no-repeat left top; */
+}
+.iconbg img {
+    height: 1.2em;
+}
+.mar-tb {
+    margin: 0.8em 0.656em 0.8em 0;
+}
+.tab_unhide {
+    display: block;
+}
+.tab_hide {
+    display: none;
+}
+.underline {
+    border-bottom: 1px solid #d6d6d6;
+}
+.manager_underline {
+    padding-bottom: 0.7em;
+    border-bottom: 1px solid #d6d6d6;
+}
+#feature {
+    width: 94%;
+    margin-left: 0.625em;
+}
+.feature {
+    margin-bottom: 1em;
+}
+#manager {
+    width: 94%;
+    margin-left: 0.625em;
+}
+.manager {
+    margin-bottom: 1em;
+}
+.touxiang {
+    height: 3.2em;
+}
+.touxiang img {
+    height: 3.156em;
+}
+.manager_tx {
+    margin-left: 1.2em;
+}
+.name_tx {
+    color: #36516e;
+    font-size: 1em;
+    line-height: 1.2em;
+    font-weight: bold;
+}
+.des_tx {
+    color: #757575;
+    font-size: 0.8em;
+    line-height: 1.4em;
+}
+.line_width{
+    height: 0.7em;
+}
+.line {
+    background-color: #e45f5f;
+    border: .03125em solid #e45f5f;
+    /*border-radius: .375em;*/
+}
+.lines {
+    height: 0.7em;
+    background-color: #c9c9c9;
+    border: .03125em solid #c9c9c9;
+    /*border-radius: .375em;*/
+    position: absolute;
+    top: 0.03125em;
+    width: 100%;
+}
+.ub-f5 {
+    position: relative;
+    -webkit-box-flex: 5;
+    box-flex: 5;
+}
+.data_name_tx {
+    font-size: 0.78em;
+    font-family: "微软雅黑";
+    color: #757575;
+    line-height: 1.1em;
+    height: 1em;
+    width: 8em;
+}
+.data_num_tx {
+    font-size: 0.8em;
+    font-family: "微软雅黑";
+    color: #757575;
+    line-height: 1em;
+    height: 1em;
+    margin-right: 0.4em;
+    width: 5em;
+}
+.mar-l {
+    margin-left: 0.7em;
+}
+.mar-r {
+    margin-right: 1em;
+}
+.item {
+    margin-bottom: 0.6em;
+}
+.tab_l{
+    height: 2em;
+  padding-top: 0.25em;
+padding-bottom: 0.5em;
+}
+.sc-text-active{
+   color: #e45f5f !important
+}
+.t_666{color:#666;}
+.fw_500{font-weight:500}
+.b_t_327{border-top:2px solid #6ba3e9;}
+.btn_rd{background-color: #FF6061;}
+.uinn_024{padding: .2em .4em;}
+.bc_e9{ background-color:#DFDFDF;}
+.uc-a02{-webkit-border-radius: .2em; border-radius:.2em;}
+.t_327{color: #7CBEFB;}
+.bc_green{ background-color:#45C268; }
+.ulev40{ font-size:1.125em;}
+.b_b_dfd{border-bottom: 1px solid #dfdfdf;}
+.t-wh{color: #FFFFFF}

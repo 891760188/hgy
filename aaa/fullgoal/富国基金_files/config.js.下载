@@ -1,0 +1,481 @@
+/*
+ * Title : 配置信息
+ * Content :
+ * Author : xing.wei
+ * Release Time : 2015-12-22
+ * Modification :
+ * Version : v1.0
+ */
+
+/*
+ * 配置服务器环境
+ * 1:开发 ； 2:SIT；3:UAT； 4:准生产;5：生产
+ */
+var appType = 5;
+//开发地址
+var serverIPTD = "http://192.168.40.119";
+//SIT测试地址
+var serverIPSIT = "http://192.168.40.119";
+//UAT地址
+var serverIPUAT ="http://192.168.40.119";
+//准生产地址
+var serverIPSP ="https://realtest.fullgoal.com.cn";
+//生产地址
+var serverIPDEPLOY ="https://m.fullgoal.com.cn";
+//服务请求端口及地址
+var serverMasUrl;
+if (appType == 1) {
+    serverMasUrl = serverIPTD + ':8010/fgfqbh5/';
+} else if (appType == 2) {
+   serverMasUrl = serverIPSIT + ':1443/fgfqbh5/';
+} else if (appType == 3) {
+    serverMasUrl = serverIPUAT + ':1433/fgfqbh5/';
+    //serverMasUrl = 'http://172.16.87.205:8010/fgfqbh5/';
+} else if (appType == 4) {
+    serverMasUrl = serverIPSP + '/fgfqbh5/';
+}else if(appType == 5){
+    var curUrl = window.location.href;
+    if(curUrl.indexOf(":1443")!=-1){
+        serverMasUrl = serverIPDEPLOY + ':1443/fgfqbh5/';
+    }else{
+        serverMasUrl = serverIPDEPLOY + '/fgfqbh5/';
+    }
+}
+//emm请求地址
+var serverEmmUrl = "";
+if (appType == 1) {
+    serverEmmUrl ='http://192.168.40.119:8080';
+} else if (appType == 2) {
+    serverEmmUrl ='http://192.168.40.119:8080';
+} else if (appType == 3) {
+    serverEmmUrl = 'http://192.168.40.119:8080';
+} else if (appType == 4) {
+    serverEmmUrl ='';
+}else if (appType == 5) {
+    serverEmmUrl ='';
+}
+
+//密码控件请求地址
+var keySaveUrl = "";
+if (appType == 1) {
+    keySaveUrl ='http://192.168.40.119:8010';
+} else if (appType == 2) {
+    keySaveUrl ='';
+} else if (appType == 3) {
+    keySaveUrl = '';
+} else if (appType == 4) {
+    keySaveUrl ='';
+} else if (appType == 5) {
+    keySaveUrl ='';
+}
+
+//微信公众号和活动访问地址
+var configPlateFormID = "";
+var configHuodongIp = "";
+if (appType == 1) {
+    configPlateFormID ='gh_32c65c0224f1';
+    configHuodongIp = 'http://116.236.247.81/weixinHTML/html/';
+} else if (appType == 2) {
+    configPlateFormID ='gh_ffd039b183c4';
+    configHuodongIp = 'http://116.236.247.79/weixinHTML/html/';
+} else if (appType == 3) {
+    configPlateFormID = 'gh_c4e420e6898b';
+    configHuodongIp = 'http://116.236.247.76/weixinHTML/html/';
+} else if (appType == 4 || appType == 5) {
+    configPlateFormID ='gh_54c4f8b2c660';
+    configHuodongIp = 'https://wechat.fullgoal.com.cn/weixinHTML/html/';
+}
+
+var configKeyAction = '161130fullgaol20';
+
+//富钱包基金代码
+var fqbFundCode = "000638";
+var fqbShareType = "A";
+var fqbFundType="04";
+//个人/机构标志
+//0:机构；1：个人
+var isIndividual = "1";
+//网上委托
+var Trust = "2";
+//密码12341234的密文
+var PASSWORD = "";
+// 请求超时时间10秒
+var TIMEOUT = 40000;
+// 轮播图轮播事件设定
+var FLIPTIME = 6000;
+//个人中心用户反馈联系电话
+var USERFEEDBACK = '400-888-0688';
+//登录超时时间 10秒
+var LOGINTIMEOUT = 40000;
+//xing.wei添加,是否开启base64位加密功能 true开启，fasle不开启
+var ISBASE64 = true;
+//每页显示的记录数
+var pageNum = 20;
+//老带新生成邀请码时的活动编号
+var ConfigOldNewActNo = "ACT00002";
+//老带新生成邀请码时的特权编号
+var ConfigOldNewPriNo = "aaaa";
+//退出登录和重新登录不需要清空的缓存变量
+var notNeedClenrLocal="";
+notNeedClenrLocal+="sucAccountList,";//登录成功账号列表
+notNeedClenrLocal+="favoriteProduct,";//我的关注
+//notNeedClenrLocal+="allFundInfoList,";//全部基金,目前登录时进行加载，首页进行加载
+notNeedClenrLocal+="lastacconame,";//最后一次登录成功的账号
+notNeedClenrLocal+="iscome,";//是否第一次访客
+notNeedClenrLocal+="numberKeyIndex,";//是否第一次访客
+notNeedClenrLocal+="mFundNaN,";//是否第一次访客
+notNeedClenrLocal+="userInfoExistWeixin,";//微信存在绑定关系，redis是否缓存用户数据
+notNeedClenrLocal+="isBindFlag,";//微信是否绑定
+notNeedClenrLocal+="weixinAccount,";//微信入口账号
+notNeedClenrLocal+="backPageSid,";//微信超时记录当前页
+notNeedClenrLocal+="showFundCode,";//未登陆不清楚基金代码
+
+notNeedClenrLocal+="buyFundCode,";//登录超时---基金购买
+notNeedClenrLocal+="queryType,";//登录超时---交易记录
+notNeedClenrLocal+="bank,";//登录超时---添加银行卡
+notNeedClenrLocal+="redemption_fundInfo,";//登录超时---赎回基金
+notNeedClenrLocal+="investParamByProduDetail,";//登录超时---跳转到新增定投页面
+notNeedClenrLocal+="reqChlBrnNo,";//渠道分支号，保存渠道分支号（微信使用）
+
+notNeedClenrLocal+="plateFormID,";//微信公众号ID
+notNeedClenrLocal+="fakeID,";//用户微信ID
+
+notNeedClenrLocal+="alertArrayContainer,";//触达止盈的弹窗标记的数组
+
+notNeedClenrLocal+="locPriInfo,";//红包过期提醒
+notNeedClenrLocal+="m_priIdList,";//不再提醒的红包缓存信息
+notNeedClenrLocal+="locationFakeIDArray,";//保存已领取过纸质对账单的用户
+notNeedClenrLocal+="LocValEyesArrays,";//经典定投的收益率隐藏的所有协议号数组
+notNeedClenrLocal+="LocvalZcIsHide,";//保存资产是否隐藏的标记
+notNeedClenrLocal+="HDPTComming,";//保存是否是互动平台进入
+// 获取系统平台
+var winPlat = window.navigator.platform;
+
+// 判断是否为手机（仅相对于模拟器）
+var isPhone = !(winPlat == 'Win32' || winPlat == 'Win64' || winPlat == 'MacIntel' || winPlat == 'Linux i686' || winPlat == 'Linux x86_64');
+
+// 判断是否为安卓
+var isAndroid = (window.navigator.userAgent.indexOf('Android') >= 0) ? true : false;
+
+// 判断是否为IOS
+var isIOS = (winPlat == 'iPad' || winPlat == 'iPod' || winPlat == 'iPhone');
+
+/*-----------------------EMM接口地址----------------------**/
+//轮播图
+var BANNERURL = serverEmmUrl + '/fgpush/store/getBannerList/h5fqb';
+
+//十大重仓
+var TENPOSITIONSURL=serverEmmUrl+'/mcmIn/mobileContentManage/getPublishContentByTitle.do';
+
+/*-----------------------MAS接口地址----------------------**/
+//新增银行卡
+var NEWADDBANKCARD = serverMasUrl + "fullgoal_account_addBankCard";
+
+//获取token
+//VerificationCode→fullgoal_public_gettoken
+var GETTOKENURL = serverMasUrl + "fullgoal_public_getToken";
+
+//生成短信验证码:FCUP010001
+//Comprehensive_verificationcodes→fullgoal_public_getSMSCode
+var GETSMSCODEURL=serverMasUrl+"fullgoal_public_getSMSCode";
+
+//生成语音验证码:FCUP010001
+var GETVOICECODEURL=serverMasUrl+"fullgoal_public_getVoiceCode";
+
+//验证短信验证码:FCUP010002 
+//Comprehensive_SMSverificationcode→fullgoal_public_calidationSMSCode     
+var CALIDATIONSMSCODE=serverMasUrl+"fullgoal_public_calidationSMSCode";
+
+//开户 FCUP020001
+//wallet_register_openAccoun→fullgoal_register_openAccount
+var OPENACCOUNTURL=serverMasUrl + "fullgoal_register_openAccount";
+
+//开户检查:FCUP020003    
+//openaccount_check→fullgoal_register_accountCheck               
+var ACCOUNTCHECKURL=serverMasUrl + "fullgoal_register_accountCheck";
+
+//开户身份认证（发短信）FCUP050011
+//Individual_center_SMSverification →fullgoal_register_SMSVerifiction     
+var SMSVERIFICATIONUTL=serverMasUrl+"fullgoal_register_SMSVerifiction";
+
+//开户银行确认（验证短信）FCUP050012 
+//Individual_center_SMSverify→fullgoal_register_SMSCalidation       
+var SMSCALIDATION=serverMasUrl+"fullgoal_register_SMSCalidation";
+
+//开户、绑卡认证结果查询:FCUP050013   
+//Individual_center_VerifyDiplomas→fullgoal_register_verifyDiplomas    
+var VERIFYDIPLOMAS=serverMasUrl+"fullgoal_register_verifyDiplomas";
+
+//代销转直销FCUP020016
+//transformDirectSell→fullgoal_register_transformDirectSell
+var TRANSFORMDIRECTSELL = serverMasUrl + "fullgoal_register_transformDirectSell";
+
+//手续费计算FCUP030007
+//wallet_productList_fundPoundage→fullgoal_product_poundage
+var POUNDAGEURL = serverMasUrl + "fullgoal_product_poundage";
+
+//交易限制:FCUP010003
+//Comprehensive_traderestrictions→fullgoal_myfund_tradeRestrictions       
+var TRADERESTRICTIONSURL=serverMasUrl+"fullgoal_myfund_tradeRestrictions";
+
+//基金申购FCUP030001
+//wallet_productList_fundPurchase→fullgoal_products_purchase
+var PURCHASEURL = serverMasUrl + "fullgoal_products_purchase";
+
+//申购、认购可用列表
+//wallet_myproperty_fundChangeAvalList→fullgoal_products_productsList
+//var PRODUCTLISTURL = serverMasUrl + "fullgoal_products_productsList";
+
+//精品推荐,产品列表FCUP040009     
+//wallet_homePage_fundMarketList→fullgoal_products_marketInfo
+var MARKETINFOURL=serverMasUrl+"fullgoal_products_marketInfo";
+
+//基金明细信息FCUP040008
+//wallet_homePage_fundRate→fullgoal_products_productsDetail
+var PRODUCTSDETAIL=serverMasUrl+"fullgoal_products_productsDetail";
+
+//基金可转换列表查询:FCUP040012  
+//Convertible_Fund→fullgoal_products_conversionList               
+var CONVERSIONLISTURL = serverMasUrl + "fullgoal_products_conversionList";
+
+//基金转换 FCUP030003
+//wallet_myproperty_fundChange→fullgoal_products_conversion
+var CONVERSIONURL = serverMasUrl + "fullgoal_products_conversion";
+
+//收益查询 FCUP040002
+//wallet_homePage_fundRateList→fullgoal_myfund_earnings
+var EARNINGSURL=serverMasUrl+"fullgoal_myfund_earnings";
+
+//快速取现FCUP030006
+//wallet_myproperty_fundEnchashment→fullgoal_myfund_quickCash
+var QUICKCASHURL = serverMasUrl + "fullgoal_myfund_quickCash";
+
+//资产查询FCUP040003
+//wallet_myproperty_myAmount→fullgoal_myfund_myFundList
+var MYFUNDLISTURL = serverMasUrl + "fullgoal_myfund_myFundList";
+
+//赎回FCUP030002
+//wallet_myproperty_fundRedeem→fullgoal_myfund_redemption
+var REDEMPTIONURL = serverMasUrl + "fullgoal_myfund_redemption";
+
+//可赎回基金列表FCUP030008
+var REDEMPTIONLISTURL = serverMasUrl + "fullgoal_myfund_redemptionList";
+
+//可撤单列表查询FCUP030009   
+//Comprehensive_chechanquerys→fullgoal_myfund_revokeList
+var REVOKELISTURL = serverMasUrl + "fullgoal_myfund_revokeList";
+
+//撤单FCUP030004
+//wallet_myproperty_orderCancel→fullgoal_myfund_revoke
+var REVOKEURL = serverMasUrl + "fullgoal_myfund_revoke";
+
+//分红方式列表基金列表查询FCUP040007
+//Comprehensive_Fundlistquery→fullgoal_myfund_modifyDividendList
+var MODIFYDIVIDENDLISTURL = serverMasUrl + "fullgoal_myfund_modifyDividendList";
+
+//分红方式修改FCUP030005
+//Comprehensive_Dividendmodification→fullgoal_myfund_modifyDividend
+var MODIFYDIVIDENDURL = serverMasUrl + "fullgoal_myfund_modifyDividend";
+
+//用户登录 FCUP020010  
+//wallet_login_Login→fullgoal_user_userLogin          
+var USERLOGINURL = serverMasUrl + "fullgoal_user_userLogin";
+
+//用户资料查询FCUP020005
+//Individual_center_fundCustomerquery→fullgoal_user_userInfo
+var USERINFOURL = serverMasUrl + "fullgoal_user_userInfo";
+
+//银行卡列表查询FCUP050003
+//Individual_center_validation→fullgoal_account_bankCardInfo
+var BANKCARDINFOURL=serverMasUrl+"fullgoal_account_bankCardInfo";
+
+//富钱包充值银行卡列表查询，包括普通充值和自动充值银行卡列表
+var FQBCHARGEBANKLIST=serverMasUrl+"fullgoal_fqb_charge_bankList";
+
+//用户资料修改FCUP020007
+//Individual_center_fundCustomerChange→wallet_account_userInfoModify
+var USERINFOMODIFYURL = serverMasUrl + "fullgoal_account_userInfoModify";
+
+//密码修改FCUP020011
+//Individual_center_modifysword→wallet_account_modifyPassword
+var MODIFYPASSWORDURL = serverMasUrl + "fullgoal_account_modifyPassword";
+
+//客户手机号修改FCUP020009
+//change_pwd→wallet_account_modifyPhone
+var MODIFYPHONEURL = serverMasUrl + "fullgoal_account_modifyPhone";
+
+//找回密码FCUP020012
+//Comprehensive_privatePasswordReset→wallet_user_rorgotPassword
+var RORGOTPASSWORDURL=serverMasUrl+"fullgoal_user_rorgotPassword";
+
+//富钱包份额查询FCUP040013
+//wallet_share→fullgoal_fuqianbao_fqbAssets
+var FQBASSETSURL = serverMasUrl + "fullgoal_fuqianbao_fqbAssets";
+
+//交易记录:FCUP040014
+//Comprehensive_Queryinterface→fullgoal_myfund_tradingRecord
+var TRADINGRECORDURL=serverMasUrl+"fullgoal_myfund_tradingRecord";
+
+//交易记录:FCUP040006
+var TRADINGRECORDDIVIURL=serverMasUrl+"fullgoal_myfund_dividend";
+
+//业务状态查询:FCUP040015
+//Transaction_status_query→fullgoal_myfund_businessStatus            
+var BUSINESSSTATUS=serverMasUrl+"fullgoal_myfund_businessStatus";
+
+//基金交易状态查询:FCUP040011 
+//transaction_status→fullgoal_myfund_tradingStatus                
+var STATUS=serverMasUrl+"transaction_status";
+var TRADINGSTATUSURL=serverMasUrl+"fullgoal_myfund_tradingStatus";
+
+//支付申请:FCUP050015
+//payment_applications→fullgoal_myfund_paymentApplication             
+var PAYMENTAPPLICATION=serverMasUrl+"fullgoal_myfund_paymentApplication";
+
+//基金类别获取接口
+//fund_type_list→fullgoal_public_getTypeList
+var FUNDTYPEURL = serverMasUrl + 'fullgoal_public_getTypeList';
+
+//调用emm跨域处理
+var CROSSDOMAINPROCESSINGURL=serverMasUrl+'fullgoal_public_crossDomainProcessing';
+
+//调用emm十大重仓
+var GETTENPOSITIONSURL=serverMasUrl+'fullgoal_public_getTenPositions';
+
+//柜台转直销
+var COUNTERTRANSFORMDIRECTSELL=serverMasUrl+'fullgoal_register_counterDirectSell';
+//登录图片验证码接口
+var VERIFYCODEURL=serverMasUrl+'fullgoal_verify_code';
+
+//可转出基金列表查询 FCUP040018
+var FUNDROLLOUTLISTURL=serverMasUrl+"fullgoal_myfund_fundRollOutList";
+
+//风险问卷及题目查询:FCUP040016
+var RISKQUESTIONURL=serverMasUrl+"fullgoal_risk_questionList";
+//风险问卷评级:FCUP020013
+var RISKQUESTIONRESULTURL=serverMasUrl+"fullgoal_risk_question_result";
+//帮助中心的URL
+var HELP_CENTER_URL = "http://m.fullgoal.com.cn/mobile/fullwallet/help/index.html";
+//手机绑定检查:FCUP010009
+var CHECKMOBILEBINDING=serverMasUrl+'fullgoal_register_checkMobileBinding';
+
+//注册手机发送短信验证码，接口包括开户检查接口FCUP020003和发送短信接口FCUP010001
+var REGISTERSEDNSMS=serverMasUrl+'fullgoal_register_checkAndSendSMS';
+
+//注册手机发送短信验证码，接口包括验证码验证接口FCUP010002和发送短信接口FCUP010001
+var BINDNEWMOBILESMS=serverMasUrl+'fullgoal_account_bindNewMobileSMS';
+//查询日益亏FCUP040020
+var INCREASINGLY=serverMasUrl+'fullgoal_myfund_increasingly';
+
+//修改新手机号发送短信验证码，调用接口FCUP010009和接口FCUP010001
+var SMSFORBINDINGNEWMOB=serverMasUrl+'fullgoal_account_SMSForBindingNewMob';
+//查询银行卡列表与富钱包份额FCUP050003、FCUP040013
+var BANKLISTFQBASSETS=serverMasUrl+'fullgoal_account_FqbBankCardAssets';
+//淘宝用户设置密码成功后登录
+var TAOBAOSETPASSWORD=serverMasUrl+'fullgoal_register_setTaobaoPassWordAndLogin';
+//密码解密
+var PWDPARSE=serverMasUrl+'fullgoal_key_parse';
+//密码加密
+var PWDSAVE=serverMasUrl+'fullgoal_key_save';
+//定投协议新增FCUP090001
+var AUTOINVESTADD=serverMasUrl+'fullgoal_autoinvest_add';
+//定投协议修改FCUP090002
+var AUTOINVESTMODIFY=serverMasUrl+'fullgoal_autoinvest_modify';
+//定投协议状态修改FCUP090003
+var AUTOINVESTSTATUSMODIFY=serverMasUrl+'fullgoal_autoinvest_statusmodify';
+//我的协议查询FCUP090004
+var AUTOINVESTMYQUERY=serverMasUrl+'fullgoal_autoinvest_myquery';
+//定投协议操作查询FCUP090005
+var AUTOINVESTOPERATIONQUERY=serverMasUrl+'fullgoal_autoinvest_operationquery';
+//定投交易查询FCUP090006
+var AUTOINVESTTRANSACTIONQUERY=serverMasUrl+'fullgoal_autoinvest_transactionquery';
+//可定投基金相关信息查询FCUP090007
+var AUTOINVESTINFOQUERY=serverMasUrl+'fullgoal_autoinvest_infoquery';
+//定投列表查询  查询FCUP090008 
+var AUTOINVESTURLNEW = serverMasUrl + "fullgoal_autoinvest_treaty";
+//定投历史查询FCUP090009
+var AUTOINVESTISUSPENDTRADE = serverMasUrl + "fullgoal_autoinvest_suspendTrade";
+
+//微信绑定关系查询,FCUP100001
+var WEIXINBINDINGQURYURL=serverMasUrl+'fullgoal_weixin_queryBinding';
+
+//活动点击分享接口
+var HUODONGSHARE=serverMasUrl+'fullgoal_huodong_share';
+
+//历史定投页面分享
+var SHAREDATASUSPENDHISTORY=serverMasUrl+'fullgoal_shareData_suspendHistory';
+
+//区间盈亏
+var SECTIONPROFITLOSS = serverMasUrl+'fullgoal_account_sectionProfitLoss';
+
+//基金详情页爬虫接口
+var FUNDDETAILSCREEPER = serverMasUrl+'fullgoal_fundDetails_creeper';
+
+//基金详情页产品优势接口
+var PRODUCTSUPERIORITY = serverMasUrl+'fullgoal_product_superiority';
+
+//获取mas时间
+var MASTIME = serverMasUrl+'fullgoal_masTime';
+
+//获取额外收益接口
+var EXTRAINCOME = serverMasUrl+'fullgoal_extra_income';
+//获取额外收益接口
+var GUOZHENGTONG = serverMasUrl+'fullgoal_guozhengtong';
+
+//微信绑定标识
+var isWeixinBinding=false;
+//微信访问，绑定标识
+var weixinVisitFlag=false;
+
+//微信访问，绑定到url上的
+var weixinUrlInfo="";
+
+//错误锁定时间
+var totalTime = 1800;
+//锁定时间的setInterval id，需要进行比较
+var timeID;
+var checkTimeID;
+//键盘使用
+var keyCheck="";
+
+//定投列表查询
+var AUTOINVESTURL = serverMasUrl + "fullgoal_autoinvest_list";
+//新资产查询接口
+var QUERYMYASSETSINFOURL = serverMasUrl + "fullgoal_myAssets_Info";
+//修改手机号短信验证码验证并修改手机号
+var CHECKANDBINDINGNEWMOBURL=serverMasUrl + "fullgoal_account_CheckAndBindingNewMob";
+//新基金详情查询，包括基金信息、基金行情、基金定投信息
+var PRODUCTDETAILURL=serverMasUrl +"fullgoal_product_queryDetail";
+//活动老带新
+var ACTIVITYOLDNEW = serverMasUrl + "fullgoal_activity_oldnew";
+//红包列表
+var REDPACKETLIST = serverMasUrl + "fullgoal_redPacket_list";
+//特权使用
+var PRIVILEGEUSE = serverMasUrl + "fullgoal_privilege_use";
+
+//获取微信JsapiTicket
+var GETTICKETURL= serverMasUrl + "fullgoal_weixin_share_getTicket";
+
+//标识登录成功，用于检测是否开通了无痕浏览,不为空进行检查是否无痕浏览
+var NOTRACKFLAG="";
+//活动信息标识，记录过来的活动信息
+var coopChannelOpenParamt="";
+//密码键盘点击完成时调用的函数，默认空
+var pwdKeyFinishBtnCB="";
+//同钝注册新用户
+var REGISTERNEWURL = serverMasUrl + "fullgoal_register_openAccount_new";
+//止盈定投测算FCUP090010
+var STOPPROFITCALCULATE = serverMasUrl + "fullgoal_myfund_stopProfitCalculate";
+
+//首页红包列表查询
+var REDPACKLISTFORINDEX = serverMasUrl + "fullgoal_redpack_search";
+
+//交通银行数据请求
+var JIAOHANGVERIFY = serverMasUrl + "fullgoal_jiaohang_verify";
+
+//基金信息查询FCUP040008(分级基金)
+var FUNDINFO = serverMasUrl + "fullgoal_fundInfo";
+
+//交易确认信息查询FCUP080004(代销交易记录查询)
+var AGENTTRADERECORD = serverMasUrl + "fullgoal_agent_tradeRecord";
+

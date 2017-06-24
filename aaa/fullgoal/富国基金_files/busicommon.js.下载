@@ -1,0 +1,1389 @@
+/**---------------------------------------拼接银行卡列表----------------------------------------**/
+//拼接银行卡列表信息,非弹出框拼接
+//Type:1富钱包充值，2富钱包快速取现，3富钱包普通取现，4富钱包购买显示可用余额，5银行卡列表显示限额，6银行卡列表不显示限额，7银行不显示卡号,8赎回列表，9交易详情，10添加银行列表（显示限额）
+function bankCardList(bankList, type, onclickFunction) {
+    var str = "";
+    if (isDefine(bankList)) {
+        for (var i = 0; i < bankList.length; i++) {
+            //拼接单行列表显示的字符串
+            str += getOtherBankInfoDiv(bankList[i], type, onclickFunction, i);
+        }
+    }
+    return str;
+}
+
+//弹窗口获取银行卡拼接div，bankObj：银行卡对象，onclickFunction：点击事件，index：选择的银行卡在数组中的位置
+//Type:1富钱包充值，2富钱包快速取现，3富钱包普通取现，4富钱包购买显示可用余额，5银行卡列表显示限额，6银行卡列表不显示限额，7银行不显示卡号,8赎回列表，9交易详情，10添加银行列表（显示限额）
+function getOtherBankInfoDiv(bankObj, type, onclickFunction, index) {
+    var bankParam = {
+        "index" : index, //在数组中的位置
+        "onclickStr" : "", //点击事件
+        "imageUrl" : bankImgSrc(getBankCode(bankObj)), //银行卡图标url
+        "bankType" : "", //显示样式，若只显示银行卡信息，不显示限额或可以余额，则为Bank-Name，否则为bank-Name
+        "bankName" : bankNamemc(getBankCode(bankObj)), //银行名称
+        "capitalModeStr" : '(' + bankTonglian(bankObj.capitalMode,bankObj.payMode) + ')', //资金模式
+        "bankCard" : "", //银行卡号
+        //"limtOrAmtHead":"",//带有限额头部样式
+        //"limtOrAmtEnd":"",//带有限额尾部样式
+        //"limtOrAmtStyle1":"bank_height",//带有限额样式1
+        //"limtOrAmtStyle2":"bank_border_bottom  bank_height",//带有限额样式2
+        "limtOrAmt" : "",
+        "bankCustomName" : bankObj.bankCustomName
+    };
+    //限额或余额
+    //type:7或10标识不显示银行卡号，其他显示显示银行卡号
+    if (type != "7" && type != "10") {
+        bankParam.bankCard = bankObj.cardNo.substring(bankObj.cardNo.length - 4);
+    }
+    //是否添加点击函数
+    if (isDefine(onclickFunction)) {
+        bankParam.onclickStr = 'onclick="' + onclickFunction + '"';
+    }
+    //10标识添加银行卡列表，要显示限额部分
+    if (type == "10") {
+        // bankParam.limtOrAmtHead='<div class="ub-var ub-ac bank_height bank_border_bottom pad-l" onclick="'+
+        // onclickFunction+'"  value="'+index+'">';
+        // bankParam.limtOrAmtEnd='</div>';
+        if (isDefine(bankObj.payLimit)) {
+            bankParam.limtOrAmt = '<div class="ub-f1 ulev-1 umar-l fontC9 manageLimit" style="padding-left:2em;">' + bankObj.payLimit + '</div>';
+            // bankParam.limtOrAmtStyle1="";
+            // bankParam.limtOrAmtStyle2="";
+        }
+    }
+    //判断是否为银联卡，是就显示收费提示规则，否则不显示；
+    if (isUnionCard(bankObj)) {
+        $("#yltzzf").removeClass("uhide");
+    }else{
+        $("#yltzzf").addClass("uhide");
+    }
+    
+    //返回拼接
+    return appendOtherBankInfoDiv(bankParam);
+
+}
+
+//显示页面行银行卡信息拼接
+function appendOtherBankInfoDiv(bankParam) {
+    var bandDiv = '<div class="ub ub-f1 ub-ac bank_border_bottom  bank_height" type="0" ' + bankParam.onclickStr + ' value="' + bankParam.index + '">' + '<div class="ub ub-ac ub-pc js_kg">' + '<div id="image" class="ub-img img_ny" style="background-image: url(' + bankParam.imageUrl + ');height: 1.3em;width: 1.3em;"></div>' + '</div>' + '<div class="ub ub-f1 ub-ac manageName">' + '<div id="bankName" class="umar-r">' + bankParam.bankName + '</div>' + '<div id="capitalMode" class="undefined">' + bankParam.capitalModeStr + '</div>' + '<div class="undefined" id="cardNo">' + bankCardNoStr(bankParam.bankCard) + '</div>' + '</div>' + bankParam.limtOrAmt + '</div>';
+    if (isDefine(bankParam.bankCustomName)) {
+         bandDiv = '<div class="ub ub-f1 ub-ac bank_border_bottom  bank_height" type="0" ' + bankParam.onclickStr + ' value="' + bankParam.index + '">' + '<div class="ub ub-ac ub-pc js_kg">' + '<div id="image" class="ub-img img_ny" style="background-image: url(' + bankParam.imageUrl + ');height: 1.3em;width: 1.3em;"></div>' + '</div>' + '<div class="ub ub-f1 ub-ac manageName">' + '<div id="bankName" class="umar-r">' + bankParam.bankCustomName + '</div>' + '<div class="undefined" id="cardNo">' + bankCardNoStr(bankParam.bankCard) + '</div>' + '</div>' + bankParam.limtOrAmt + '</div>';
+    }
+    return bandDiv;
+}
+
+/**---------------------------------------富钱包使用----------------------------------------**/
+//富钱包份额列表
+var fullGoalList = null;
+//富钱包份额查询操作方法
+var fullGoalOperFuntion = null;
+//富钱包份额查询
+function queryFullListInfo(opertDataFunction) {
+    fullGoalOperFuntion = opertDataFunction;
+    var custNo = getLocVal("custNo");
+    //调用ajax查数据
+    //custNo:客户编号
+    var paraData = {
+        "custNo" : custNo,
+        "reqSource" : "",//01-富钱包申购下单页/02-富钱包申购，点击选择银行卡后/03-富钱包快取时默认展示/04-定投协议签订页面展示富钱包余额
+        "pageNo" : "",
+        "pageNum" : ""
+    };
+    simplePostAjax(FQBASSETSURL, paraData, successQueryFullGoalListFunction);
+}
+
+//富钱包份额查询成功回调函数
+function successQueryFullGoalListFunction(data) {
+    if (checkResultIsSuccess(data)) {
+        var resultData = JSON.parse(data);
+        //成功返回
+        fullGoalList = resultData.Body.rec;
+        fullGoalOperFuntion(fullGoalList);
+    }
+}
+
+/**---------------------------------------获取银行卡信息----------------------------------------**/
+//用户持有银行卡查询结果操作方法
+var bankListOperFuntion = null;
+//获取银行卡列表信息
+function queryBankListInfo(opertDataFunction,cardQryTypePar) {
+    bankListOperFuntion = opertDataFunction;
+    //调用ajax查数据
+    //cardQryType:0-新用户(查询所有银行类型),1-增开用户（查询用户未绑定过的银行类型），2-普通基金支付业务(查询用户绑定的银行卡)，3-富钱包存入支付业务（查询用户富钱包绑定的银行卡）"
+    var cardQryType = "3";
+    if(isDefine(cardQryTypePar)){
+        //若传参则可选择其他类型，如参数"7"为新增自动充值时所用
+        cardQryType=cardQryTypePar;
+    }
+    var certNo = getLocVal("certNo");
+    var certType = getLocVal("certType");
+    var paraData = {
+        "cardQryType" : cardQryType,
+        "certNo" : certNo,
+        "certType" : certType
+    };
+    simplePostAjax(BANKCARDINFOURL, paraData, successQueryBankListFunction);
+}
+
+//银行卡列表查询成功回调函数
+function successQueryBankListFunction(data) {
+    if (checkResultIsSuccess(data)) {
+        //添加到本地
+        var resultData = JSON.parse(data);
+        //成功返回
+        var bankList = resultData.Body.rec;
+        bankListOperFuntion(bankList);
+    }
+}
+
+//获取银行卡列表中最近一次使用的银行卡信息
+function getLastBankInfo(bankListInfo) {
+    if (isDefine(bankListInfo) && bankListInfo.length > 0) {
+        for (var i = 0; i < bankListInfo.length; i++) {
+            if (bankListInfo[i].isLast == 1) {
+                //最后一次交易使用的银行卡：0-不是；1-是
+                return bankListInfo[i];
+            }
+        }
+        //不存在最后交易银行卡，默认第一个为最后一个交易银行卡
+        return bankListInfo[0];
+    }
+}
+
+/**---------------------------------------获取银行卡列表与富钱包份额----------------------------------------**/
+var bankListFqbAssetsOperFuntion = null;
+//获取银行卡列表信息
+function queryBankListFqbAssetsInfo(opertDataFunction) {
+    bankListFqbAssetsOperFuntion = opertDataFunction;
+    //调用ajax查数据
+    //cardQryType:0-新用户(查询所有银行类型),1-增开用户（查询用户未绑定过的银行类型），2-普通基金支付业务(查询用户绑定的银行卡)，3-富钱包存入支付业务（查询用户富钱包绑定的银行卡）"
+    var cardQryType = "2";
+    var certNo = getLocVal("certNo");
+    var certType = getLocVal("certType");
+    var custNo = getLocVal("custNo");
+    var paraData = {
+        "cardQryType" : cardQryType,
+        "certNo" : certNo,
+        "certType" : certType,
+        "custNo" : custNo,
+        "pageNo" : "",
+        "pageNum" : ""
+    };
+    simplePostAjax(BANKLISTFQBASSETS, paraData, successQueryBankListFqbAssetsFunction);
+}
+
+function successQueryBankListFqbAssetsFunction(data) {
+    if (checkResultIsSuccess(data)) {
+        //添加到本地
+        var resultData = JSON.parse(data);
+        //成功返回
+        var bankList = resultData.Body;
+        bankListFqbAssetsOperFuntion(bankList);
+    }
+}
+
+/**---------------------------------------根据fundCode获取产品详情信息----------------------------------------**/
+//基金详情查询结果操作方法
+var queryFundInfoOperFuntion = null;
+//获取基金详情
+function getProductDetail(fundCode, opertDataFunction) {
+    queryFundInfoOperFuntion = opertDataFunction;
+    //基金详情url
+    var targetUrl = PRODUCTDETAILURL;
+    //查询条件数据为null
+    var paraData = {
+        "fundCode" : fundCode,//基金代码
+        "shareType" : "A",//收费方式,A-前收费，B-后收费
+        "pageNo" : "1",
+        "pageNum" : "9999",
+        "beginDate" : "",//行情开始时间
+        "endDate" : "",//行情结束时间
+        "agtType" : "",//协议类型,01：普通 02：止盈定投,不传查所有定投
+        "capitalSource" : "02",//资金来源，01：银行卡定投02：富钱包定投
+        "filterFlag" : "",//过滤标志,0 不过滤,1 过滤,默认不过滤"  区分是否过滤专户
+        "queryType":"4"//查询类型，不传默认查所有的，1只查基金信息，2查基金信息和定投信息，3查基金信息和行情信息，4基金信息、行情信息、定投信息都查
+    };
+    //调用ajax查数据
+    simplePostAjax(targetUrl, paraData, successPrdDetailFunction);
+}
+
+//产品详情接口调用成功回调函数
+function successPrdDetailFunction(data) {
+    if (checkResultIsSuccess(data)) {
+        var resultData = JSON.parse(data);
+        queryFundInfoOperFuntion(resultData.Body);
+    }
+};
+
+/**---------------------------------------FCUP040008接口根据fundCode获取产品详情信息（是否是分级基金）----------------------------------------**/
+//基金详情查询结果操作方法
+var queryFundInfoNewOperFuntion = null;
+//获取基金详情
+function getFundInfo(fundCode, opertDataFunction) {
+    queryFundInfoNewOperFuntion = opertDataFunction;
+    //查询条件数据为null
+    var paraData = {
+        "fundCode" : fundCode,//基金代码
+        "shareType" : "",//收费方式,A-前收费，B-后收费,不传默认查询全部
+        "pageNo" : "1",
+        "pageNum" : "9999",
+        "filterFlag" : "",//过滤标志,0 不过滤,1 过滤,默认不过滤"  区分是否过滤专户
+     };
+    //调用ajax查数据
+    simplePostAjax(FUNDINFO, paraData, successPrdDetailFunctionNew);
+}
+
+//产品详情接口调用成功回调函数
+function successPrdDetailFunctionNew(data) {
+    if (checkResultIsSuccess(data)) {
+        var resultData = JSON.parse(data);
+        queryFundInfoNewOperFuntion(resultData.Body);
+    }
+};
+
+/**-------------------------------获取全部基金产品信息（40009）------------------------------**/
+//全部产品详情查询结果操作方法
+var queryAllFundPrdListOperFuntion = null;
+function queryAllProductListInfo(opertDataFunction) {
+    queryAllFundPrdListOperFuntion = opertDataFunction;
+    //判断全部产品是否已经本地缓存了，缓存之后不再次查询，直接从本地缓存取值
+    var allFundInfoList = getLocObjectVal("allFundInfoList");
+    // var allFundInfoList = checkLocalIsLimit("allFundInfoListTime", "allFundInfoList");
+    if (isDefine(allFundInfoList) && allFundInfoList.length > 0) {
+        //缓存存在不再次调用接口查询
+        if (isDefine(opertDataFunction)) {
+            opertDataFunction(allFundInfoList);
+        }
+        return;
+    }
+    //缓存不存在，查询全部产品，其中pageNum设置999999，查全部
+    var paraData = {
+        "fundCode" : "",
+        "shareType" : "",
+        "beginDate" : "",
+        "endDate" : "",
+        "pageNo" : "",
+        "pageNum" : "99",
+        "filterFlag" : "",
+        "usageFlag" : "1"
+    };
+    var targetUrl = MARKETINFOURL;
+    postAjaxAll(targetUrl, paraData, false, successqueryAllFundPrdListFunction);
+
+}
+function postAjaxAll(targetUrl, paraData, isOffline, successCBFunction, errorCallBack, timeoutCBFunction) {
+    var strSID = "public";
+    if(isWeixinBinding){
+        strSID =apiPublicResultForWeixin(targetUrl);
+    }else{
+        strSID = apiPublicResult(targetUrl);
+    }
+    appcan.request.ajax({
+        type : "POST",
+        url : targetUrl,
+        async:false,
+        data : {
+            "data" : base64ParaDate(paraData)
+        },
+        datatype : "json",
+        cache:false,
+        ifModified:true,
+        timeout : TIMEOUT, // config.js中设置10s超时
+        appVerify : true, // 在请求头中加入appVerify字段 true、false
+        offline : isOffline, // 是否直接调用离线数据，包括true,false,undefined
+        headers : {
+            "x-mas-app-info" : "1234567/" + strSID,
+            "reqChlBrnNo" :reqChlBrnNo
+        },
+        success : function(data, status, requestCode, response, xhr) {
+            if (isDefine(data.status) && data.status != 0) {
+                defaultHandleJsonStatus(data);
+            } else {
+                if (successCBFunction) {
+                    successCBFunction(data, status, requestCode, response, xhr);
+                }
+            }
+        },
+        error : function(xhr, erroType, error, msg) {// 异常和超时回调
+            /*
+             * 当开启gzip压缩时，iOS会调用两次请求，第一次是正常请求，第二次是一个未知请求
+             * 这个未知请求会进入error回调，返回的msg是“100”。
+             * 所以，屏蔽掉这个“100”错误，就可以让逻辑正常，而不会错误的进入error回调
+             */
+            if (msg == "100") {
+                return;
+            }
+            appcan.frame.resetBounce(0);
+            // 收起 顶部下拉刷新
+            appcan.frame.resetBounce(1);
+            // 收起 底部上拉刷新
+            //endLoadingHint();
+            if (errorCallBack) {
+                errorCallBack(xhr, erroType, error, msg);
+            }
+            if (msg == "A connection failure occurred") {// 网络请求不通的处理
+                commonHint("toast", "网络不可用,请检查网络!");
+            } else if (msg == "The request timed out") {// 超时的处理
+                if (timeoutCBFunction) {// 超时
+                    timeoutCBFunction();
+                }
+                commonHint("toast", "亲，服务器太累了，请稍后再试");
+                //亲,网络不给力
+            }
+        },
+        complete : function() {
+            var lastRequestTime = (new Date()).getTime();
+            setLocVal("lastRequestTime", lastRequestTime);
+        }
+    });
+}
+//全部产品查询成功之后处理方法
+function successqueryAllFundPrdListFunction(data) {
+    if (isDefine(data)) {
+        var data1 = JSON.parse(data);
+        //全部产品数组
+        var allPrdInfo = data1.Body.rec;
+        //本地缓存全部产品信息
+        setLocObjectVal("allFundInfoList", allPrdInfo);
+        // //本地缓存全部产品信息时间
+        // setLocObjectVal("allFundInfoListTime", getYYYY_MM_DD(new Date()));
+        if (isDefine(queryAllFundPrdListOperFuntion)) {
+            queryAllFundPrdListOperFuntion(allPrdInfo);
+        }
+    }
+};
+
+/**----------------根据fundCode从缓存中的全部产品中查基金详情（40009）接口--------------**/
+//根据fundCode从全部基金产品中获取基金详情
+function getFundInfoByFundCode(fundCode) {
+    if (isDefine(fundCode)) {
+        //从本地缓存的全部产品信息中取产品信息
+        var fundInfo = getFundInfoFromAllPrdListByFundCode(fundCode);
+        if (isDefine(fundInfo)) {
+            //产品信息存在，返回
+            return fundInfo;
+        }
+    }
+    //不存在返回undefined
+}
+
+//判断fundCode是否存在，存在返回
+function getFundInfoFromAllPrdListByFundCode(fundCode) {
+    //本地缓存的全部产品信息
+    queryAllProductListInfo();//先调用全部产品信息并缓存到本地
+    var allFundInfoList = getLocObjectVal("allFundInfoList");
+    if (isDefine(allFundInfoList) && allFundInfoList.length > 0) {
+        //本地缓存全部产品信息存在，从中取数据
+        for (var i = 0; i < allFundInfoList.length; i++) {
+            if (allFundInfoList[i].fundCode == fundCode) {
+                return allFundInfoList[i];
+            }
+        }
+    }
+}
+
+/**-----------------------获取基金产品行情信息40009接口(全部产品和基金行情都使用40009)----------------------**/
+//基金产品行情查询结果操作方法
+var queryFundPrdMarketInfoOperFuntion = null;
+function queryFundPrdMarketInfo(opertDataFunction, paraData) {
+    queryFundPrdMarketInfoOperFuntion = opertDataFunction;
+    //40009全部产品url，
+    var targetUrl = MARKETINFOURL;
+    //调用ajax查数据
+    simplePostAjax(targetUrl, paraData, successFundPrdMarketInfoFunction);
+
+}
+
+//接口调用成功回调函数
+function successFundPrdMarketInfoFunction(data) {
+    if (checkResultIsSuccess(data)) {
+        //成功返回
+        var resultData = JSON.parse(data);
+        queryFundPrdMarketInfoOperFuntion(resultData.Body);
+    }
+};
+
+/**---------------------------------------每日净值显示----------------------------------------**/
+
+//显示最近5天的每日净值
+function appendFundNetValueHtml(index, end, data) {
+    var str = "";
+    if (isDefine(data) && data.length > 0) {
+        if (data.length < end) {
+            end = data.length;
+        }
+        for (index; index < end; index++) {
+            str += '<div class="ub ub-f1 small ub-ac"><div class="ub-f1 uwid3 tx-c">' + getDateFormatting(data[index].navDate) + '</div><div class="ub-f1 uwid2 tx-c">' + getPerNetValue(data[index].perNetValue) + '</div><div class="ub-f1 tx-c uwid2">' + getPerNetValue(data[index].totalNetValue) + '</div><div class="ub-f1 tx-c uwid2 allFund_color_dayIncDec ' + getColor(data[index].dayIncDec) + ' ">' + getPercentage(data[index].dayIncDec) + '</div></div>';
+        }
+    }
+    return str;
+}
+//显示最近5天的万份收益
+function appendFundHaveHtml(index, end, data) {
+    var str = "";
+    if (isDefine(data) && data.length > 0) {
+        if (data.length < end) {
+            end = data.length;
+        }
+        for (index; index < end; index++) {
+            str += '<div class="ub ub-f1 small ub-ac"><div class="ub-f1 uwid3 tx-c">' + getDateFormatting(data[index].navDate) + '</div><div class="ub-f1 uwid3 tx-c">' + getPerNetValue(data[index].hf_IncomeRatio) + '</div><div class="ub-f1 tx-c uwid3 allFund_color_dayIncDec ' + getColor(data[index].incomeRatio) + ' ">' + getPercentageFocus(data[index].incomeRatio) + '</div></div>';
+        }
+    }
+    return str;
+}
+
+/**---------------------------------------从EMM获取基金资料----------------------------------------**/
+//EMM获取基金资料结果操作方法
+var queryEMMOperFuntion = null;
+function getEMMInfo(fundCode, opertDataFunction) {
+    queryEMMOperFuntion = opertDataFunction;
+    //EMM url
+    var data = TENPOSITIONSURL + '?softToken=1788fb9114a32aa2ea210301a32c80e1&fundTitle=' + fundCode + '&noLogin=noLogin' + '&appType=' + appType;
+    //调用ajax查数据
+    postAjaxEmmCrossDomain(GETTENPOSITIONSURL, data, false, successEMMFunction);
+
+}
+
+//接口调用成功回调函数
+function successEMMFunction(data) {
+    if (isDefine(data)) {
+        var resultData = JSON.parse(data);
+        if (resultData.status == "ok") {
+            if (!isDefine(resultData.data)) {
+                return;
+            }
+            var fundInfo = resultData.data;
+            queryEMMOperFuntion(fundInfo);
+        } else {
+            alert("十大重仓查询失败:code=" + resultData.status + ",msg=" + resultData.info);
+        }
+    } else {
+        alert("十大重仓查询失败");
+    }
+};
+
+/**---------------------------------------获取基金分红方式列表详情信息----------------------------------------**/
+//基金分红方式列表查询结果操作方法
+var queryDividendListOperFuntion = null;
+function getDividendFundListInfo(opertDataFunction) {
+    queryDividendListOperFuntion = opertDataFunction;
+    //基金分红方式列表url
+    var targetUrl = MODIFYDIVIDENDLISTURL;
+    var custNo = getLocVal("custNo");
+    //查询条件数据为null
+    var paraData = {
+        "tradeAcco" : "", //查询用户某个交易账号下可赎回列表时上送，为空默认查所有
+        "dealPwd" : "",
+        "custNo" : custNo, //查询方式为01时必传
+        "queryType" : "01", //00：查询所有可修改分工方式基金列表,01：查询用户持有可修改分红方式列表,为空默认查所有
+        "pageNo" : "1",
+        "pageNum" : "100",
+        "filterFlag" : "1"
+    };
+    //是否过滤货币基金,为空默认过滤,0：过滤,1：不过滤
+    //调用ajax查数据
+    simplePostAjax(targetUrl, paraData, successDividenFundListFunction);
+
+}
+
+//接口调用成功回调函数
+function successDividenFundListFunction(data) {
+    if (checkResultIsSuccess(data)) {
+        //成功返回
+        var resultData = JSON.parse(data);
+        queryDividendListOperFuntion(resultData.Body);
+    }
+};
+
+/**---------------------------------------基金分红方式修改----------------------------------------**/
+//基金分红方式修改的操作方法
+var modifyDividendOperFuntion = null;
+function modifyDividendFund(fundDetailObj, opertDataFunction) {
+    modifyDividendOperFuntion = opertDataFunction;
+    //基金分红方式修改url
+    var targetUrl = MODIFYDIVIDENDURL;
+    //查询条件数据为null
+    var paraData = {
+        "tradeAcco" : undefineToEmptyStr(fundDetailObj.tradeAcco), //查询用户某个交易账号下可赎回列表时上送，为空默认查所有
+        "dealPwd" : undefineToEmptyStr(fundDetailObj.dealPwd),
+        "cardNo" : undefineToEmptyStr(fundDetailObj.cardNo), //银行卡号
+        "bankCode" : undefineToEmptyStr(fundDetailObj.bankCode), //银行编号
+        "capitalMode" : undefineToEmptyStr(fundDetailObj.capitalMode), //资金方式
+        "fundCode" : undefineToEmptyStr(fundDetailObj.fundCode), //基金代码
+        "shareType" : undefineToEmptyStr(fundDetailObj.shareType), //A-前收费，B-后收费
+        "dividendMethod" : undefineToEmptyStr(fundDetailObj.dividendMethod)
+    };
+    //分红方式
+    //调用ajax查数据
+    simplePostAjax(targetUrl, paraData, successModifyDividenFundFunction);
+
+}
+
+//接口调用成功回调函数
+function successModifyDividenFundFunction(data) {
+    if (checkResultIsSuccess(data)) {
+        //成功返回
+        var resultData = JSON.parse(data);
+        modifyDividendOperFuntion(resultData.Body);
+    }
+};
+
+/**---------------------------------------查询交易信息----------------------------------------**/
+//交易信息查询的操作方法
+var queryTradeInfoOperFuntion = null;
+function queryTradeInfo(paraData, opertDataFunction) {
+    queryTradeInfoOperFuntion = opertDataFunction;
+    //基金分红方式修改url
+    var targetUrl = TRADINGRECORDURL;
+    //调用ajax查数据
+    simplePostAjax(targetUrl, paraData, successQueryTradeInfoFundFunction);
+
+}
+
+//接口调用成功回调函数
+function successQueryTradeInfoFundFunction(data) {
+    if (checkResultIsSuccess(data)) {
+        //成功返回
+        var resultData = JSON.parse(data);
+        queryTradeInfoOperFuntion(resultData.Body.rec);
+    }
+};
+
+/**---------------------------------------根据申请编号查询交易信息----------------------------------------**/
+//交易信息查询的操作方法
+var queryTradeInfoByApplyNoOperFuntion = null;
+function queryTradeInfoByApplyNo(applyNo, opertDataFunction) {
+    queryTradeInfoByApplyNoOperFuntion = opertDataFunction;
+    var custNo = getLocVal("custNo");
+    var paraData = {
+        //交易账号
+        "tradeAcco" : "",
+        "custNo" : custNo,
+        //基金代码
+        "fundCode" : "",
+        //申请开始日期
+        "applBegin" : "",
+        //申请结束日期
+        "applEnd" : "",
+        //业务代码
+        "businFlag" : "",
+        //交易来源
+        "comeFrom" : "",
+        //申请编号
+        "applyNo" : applyNo,
+        //查询类型 1 富钱包交易默认 所有交易
+        "queryType" : "",
+        "sequence" : "",
+        "pageNo" : "",
+        "pageNum" : "",
+        "remark" : ""
+    };
+    queryTradeInfo(paraData, showTimeState);
+}
+
+var numb = 8;
+function showTimeState(data) {
+    if (isDefine(data) && data.length > 0) {
+        var tradeInfo = data[0];
+        if (tradeInfo.payinState == "2" || tradeInfo.payinState == "1") {
+            queryTradeInfoByApplyNoOperFuntion(data);
+        } else {
+            var xh = setInterval(numCount, 1000);
+            //循环计数
+            function numCount() {
+                if (numb !== 0) {
+                    numb--;
+                    console.log(numb);
+                    if (numb % 2 == 0) {
+                        clearInterval(xh);
+                        queryTradeInfoByApplyNo(tradeInfo.applyNo, queryTradeInfoByApplyNoOperFuntion);
+                    }
+                } else {
+                    clearInterval(xh);
+                    queryTradeInfoByApplyNoOperFuntion(data);
+                }
+            }
+
+        }
+    }
+}
+
+/**---------------------------------------发送短信验证码----------------------------------------**/
+//发送短信验证码的操作方法
+var sendSmsInfoOperFuntion = null;
+function sendSmsInfo(certType, certNo, mobileNo, remark, opertDataFunction) {
+    if (isDefine(opertDataFunction)) {
+        sendSmsInfoOperFuntion = opertDataFunction;
+    }
+    //发送短信
+    var targetUrl = GETSMSCODEURL;
+    var paraData = {
+        "certType" : certType,
+        "certNo" : certNo,
+        "mobileNo" : mobileNo,
+        "remark" : undefineToEmptyStr(remark)
+    };
+
+    //调用ajax查数据
+    simplePostAjax(targetUrl, paraData, successSendSmsInfoFunction);
+
+}
+
+//接口调用成功回调函数
+function successSendSmsInfoFunction(data) {
+    if (checkResultIsSuccess(data)) {
+        //成功返回
+        if (isDefine(sendSmsInfoOperFuntion)) {
+            var resultData = JSON.parse(data);
+            sendSmsInfoOperFuntion(resultData.Body);
+        }
+    }
+};
+
+/**---------------------------------------验证短信验证码----------------------------------------**/
+//验证短信验证码的操作方法
+var checkSmsInfoOperFuntion = null;
+function checkSmsInfo(busJrnNo, certType, certNo, mobileNo, verifyCode, remark, opertDataFunction) {
+    if (isDefine(opertDataFunction)) {
+        checkSmsInfoOperFuntion = opertDataFunction;
+    }
+    //验证短信url
+    var targetUrl = CALIDATIONSMSCODE;
+    var paraData = {
+        "busJrnNo" : busJrnNo,
+        "certType" : certType,
+        "certNo" : certNo,
+        "mobileNo" : mobileNo,
+        "verifyCode" : verifyCode,
+        "remark" : undefineToEmptyStr(remark)
+    };
+
+    //调用ajax查数据
+    simplePostAjax(targetUrl, paraData, successCheckSmsInfoFunction);
+
+}
+
+//接口调用成功回调函数
+function successCheckSmsInfoFunction(data) {
+    if (checkResultIsSuccess(data)) {
+        //成功返回
+        if (isDefine(checkSmsInfoOperFuntion)) {
+            checkSmsInfoOperFuntion(data);
+        }
+    }
+};
+
+/**---------------------------------------开户检查----------------------------------------**/
+//开户检查的操作方法
+var openCustomerCheckOperFuntion = null;
+function openCustomerCheck(certType, certNo, custNo, custName, mobileNo, opertDataFunction) {
+    if (isDefine(opertDataFunction)) {
+        openCustomerCheckOperFuntion = opertDataFunction;
+    }
+    //开户检查url
+    var targetUrl = ACCOUNTCHECKURL;
+    var paraData = {
+        "certType" : certType,
+        "certNo" : certNo,
+        "custNo" : undefineToEmptyStr(custNo),
+        "custName" : custName,
+        "mobileNo" : undefineToEmptyStr(mobileNo)
+    };
+
+    //调用ajax查数据
+    simplePostAjax(targetUrl, paraData, successOpenCustomerCheckFunction);
+
+}
+
+//接口调用成功回调函数
+function successOpenCustomerCheckFunction(data) {
+    if (checkResultIsSuccess(data)) {
+        //成功返回
+        if (isDefine(openCustomerCheckOperFuntion)) {
+            var resultData = JSON.parse(data);
+            openCustomerCheckOperFuntion(resultData.Body);
+        }
+    }
+};
+
+/**---------------------------------------开户----------------------------------------**/
+//开户的操作方法
+var openCustomerOperFuntion = null;
+function openCustomer(paraData, opertDataFunction) {
+    if (isDefine(opertDataFunction)) {
+        openCustomerOperFuntion = opertDataFunction;
+    }
+    //开户url
+    var targetUrl = OPENACCOUNTURL;
+    //调用ajax查数据
+    simplePostAjax(targetUrl, paraData, successOpenCustomerFunction);
+
+}
+
+//接口调用成功回调函数
+function successOpenCustomerFunction(data) {
+    if (checkResultIsSuccess(data)) {
+        //成功返回
+        if (isDefine(openCustomerOperFuntion)) {
+            var resultData = JSON.parse(data);
+            openCustomerOperFuntion(resultData.Body);
+        }
+    }
+};
+
+/**---------------------------------------代销转直销开户----------------------------------------**/
+//代销转直销开户的操作方法
+var transAgentToDirectSellOperFuntion = null;
+function transAgentToDirectSell(dealPwd,newPwd2, certType, certNo, mobileNo, userType, opertDataFunction) {
+    if (isDefine(opertDataFunction)) {
+        transAgentToDirectSellOperFuntion = opertDataFunction;
+    }
+    var paraData = {
+        "dealPwd" : dealPwd, //交易密码
+        "confirmPwd" : newPwd2, //确认密码
+        "numberKeyIndex":keyCheck,
+        "certType" : certType, //证件类型
+        "certNo" : certNo, //证件号码
+        "userType" : userType, //证件号码
+        "currVidNo" : getLocVal("currVidNo_register"),//前一步骤校验使用
+        "busJrnNo" : getLocVal("register_busJrnNo"),//前一步骤校验使用
+        "mobileNo" : mobileNo
+    };
+    //手机号
+    //代销转直销url
+    var targetUrl = TRANSFORMDIRECTSELL;
+    //调用ajax查数据
+    simplePostAjax(targetUrl, paraData, successTransAgentToDirectSellFunction);
+
+}
+
+//接口调用成功回调函数
+function successTransAgentToDirectSellFunction(data) {
+    if (checkResultIsSuccessWithOutAlert(data)) {
+        //成功返回
+        if (isDefine(transAgentToDirectSellOperFuntion)) {
+            var resultData = JSON.parse(data);
+            transAgentToDirectSellOperFuntion(resultData.Body);
+        }
+    } else {
+        if (!isDefine(data.status)) {
+            var resultData = JSON.parse(data);
+                commonHint("toast", resultData.Head.msgInfo);
+        }else{
+            openNewWindow("registerFalse", "registerFalse.html");
+        }
+    }
+    $.removeimage();
+};
+
+/**---------------------------------------柜台转直销----------------------------------------**/
+//柜台转直销的操作方法
+var transCounterToDirectSellOperFuntion = null;
+function transCounterToDirectSell(dealPwd, certType, certNo, userType, mobileNo, mobileFlag, custNo, opertDataFunction) {
+    if (isDefine(opertDataFunction)) {
+        transCounterToDirectSellOperFuntion = opertDataFunction;
+    }
+    var paraData = {
+        "certType" : certType, //证件类型
+        "certNo" : certNo, //证件号码
+        "mobileNo" : mobileNo, //手机号
+        "userType" : userType, //用户类型
+        "tradeType" : "", //交易类型
+        "dealPwd" : dealPwd, //密码
+        "numberKeyIndex":keyCheck,
+        "mobileFlag" : undefineToEmptyStr(mobileFlag), //手机标识
+        "custNo" : undefineToEmptyStr(custNo)//客户号
+    };
+    //客户资料修改url
+    var targetUrl = COUNTERTRANSFORMDIRECTSELL;
+    //调用ajax查数据
+    simplePostAjax(targetUrl, paraData, successTransCounterToDirectSellFunction);
+
+}
+
+//接口调用成功回调函数
+function successTransCounterToDirectSellFunction(data) {
+    if (checkResultIsSuccessWithOutAlert(data)) {
+        //成功返回
+        if (isDefine(transCounterToDirectSellOperFuntion)) {
+            var resultData = JSON.parse(data);
+            transCounterToDirectSellOperFuntion(resultData.Body);
+        }
+    } else {
+        var resultData = JSON.parse(data);
+        if (resultData.Head.msgCode == "2864") {
+            uexWindow.cbConfirm = function(opId, dataType, data) {
+                if (data == 0) {
+                    openNewWindow("login", "../login.html");
+                }
+            };
+            uexWindow.confirm('温馨提示', "您已注册成功，请直接登录", '确认取消');
+        } else if (resultData.Head.msgCode == "URM00011") {
+            commonHint("toast", "密码错误");
+        } else {
+            openNewWindow("registerFalse", "registerFalse.html");
+        }
+    }
+};
+
+/**---------------------------------------重置密码----------------------------------------**/
+//重置密码的操作方法
+var resetCustomerPwdOperFuntion = null;
+function reSetCustomerPwd(password, certType, certNo, userType, fundAcco, remark, opertDataFunction) {
+    if (isDefine(opertDataFunction)) {
+        resetCustomerPwdOperFuntion = opertDataFunction;
+    }
+    var paraData = {
+        "certType" : certType, //证件类型
+        "certNo" : certNo, //证件号码
+        "fundAcco" : fundAcco, //基金账号
+        "userType" : userType, //用户类型
+        "password" : password, //密码
+        "remark" : remark//保留字段
+    };
+    //重置密码url
+    var targetUrl = RORGOTPASSWORDURL;
+    //调用ajax查数据
+    simplePostAjax(targetUrl, paraData, successReSetCustomerPwdFunction);
+
+}
+
+//接口调用成功回调函数
+function successReSetCustomerPwdFunction(data) {
+    if (checkResultIsSuccessWithOutAlert(data)) {
+        //成功返回
+        if (isDefine(resetCustomerPwdOperFuntion)) {
+            var resultData = JSON.parse(data);
+            resetCustomerPwdOperFuntion(resultData.Body);
+        }
+    } else {
+        openNewWindow("registerFalse", "registerFalse.html");
+    }
+};
+
+/**---------------------------------------银行认证查询----------------------------------------**/
+//重置密码的操作方法
+var bankValidateCheckOperFuntion = null;
+function bankValidateCheck(applicationNo, bankCode, cardNo, investorName, certType, certificateNo, mobilePhone, capitalMode, extension, opertDataFunction) {
+    if (isDefine(opertDataFunction)) {
+        bankValidateCheckOperFuntion = opertDataFunction;
+    }
+    var pram = {
+        "version" : "", //版本号默认为1.0
+        "applicationNo" : applicationNo, //渠道系统返回的流水号
+        "bankCode" : bankCode, //银行编号,G资金方式必传
+        "cardNo" : cardNo, //银行账号,G资金方式必传
+        "investorName" : investorName, //投资人姓名,G资金方式必传
+        "certType" : certType, //投资人证件类型,G资金方式必传
+        "certificateNo" : certificateNo, //投资人证件号码,G资金方式必传
+        "mobilePhone" : mobilePhone, //投资人手机号码
+        "capitalMode" : capitalMode, //资金方式
+        "extension" : extension
+    };
+    //消息扩展
+    var targetUrl = VERIFYDIPLOMAS;
+    simplePostAjax(targetUrl, pram, successBankValidateCheckFunction);
+}
+
+//接口调用成功回调函数
+function successBankValidateCheckFunction(data) {
+    if (checkResultIsSuccess(data)) {
+        //成功返回
+        if (isDefine(bankValidateCheckOperFuntion)) {
+            var resultData = JSON.parse(data);
+            bankValidateCheckOperFuntion(resultData.Body);
+        }
+    }
+};
+
+/**********************公用遮罩层方法*************************/
+//使用方式，遮罩层主体信息填写完成，只需传参数infoListDivStr（自己拼接好的遮罩层body主体即可），headDes为遮罩层头部显示的标签，默认"选择银行卡"
+//返回string字符串，自己拼接到需要的div层中即可
+/**
+ * 获取遮罩层拼接div
+ * 默认遮罩层的样式div为blackdiv
+ * 循环信息div为infoListDiv
+ * 循环信息div为infoListDiv的头部div为infoListDiv_header
+ * @paramt infoListDivStr:中间显示的队列信息拼接的divStr
+ * @paramt headDes:遮罩层头部显示的标签，不传默认为‘选择银行卡’
+ *
+ **/
+function getMaskLayerDivStr(infoListDivStr, headDes) {
+    if (!isDefine(headDes)) {
+        headDes = "选择银行卡";
+    }
+    //定义遮罩层div信息
+    var maskLayerDivStr = "";
+    //添加遮罩DIV
+    maskLayerDivStr += "<div id='blackdiv' style='position:absolute;width:100%;height:100%;background:#000;opacity: 0.6;top:0em;z-index:998' class='uhide'></div>";
+    //添加遮罩信息队列div
+    maskLayerDivStr += "<div class='nav_paystyle ulev-1 ub-ac' id='infoListDiv'>" +
+    //添加遮罩信息队列div的头部样式
+    "<div id='infoListDiv_header' class='uh ub bankList_header'>" +
+    //添加遮罩信息队列div的头部返回按钮
+    "<div class='nav-btn' id='bankList_back' onclick='closeMaskLayerDivFuntion();'>" + "<div class='umar-l ulev-1 list-cancel'></div>" + "</div>" +
+    //添加遮罩信息队列div的头部中间字符显示
+    "<div class='ut ub-f1 ulev1 ut-s tx-c' tabindex='0'>" + headDes + "</div>" + "<div class='nav-btn' id='nav-right'></div>" + "</div>" +
+    //显示列表信息
+    "<div class='Bank_List'>" + infoListDivStr + "</div>" + "</div>";
+    return maskLayerDivStr;
+}
+
+//关闭遮罩层
+function closeMaskLayerDivFuntion() {
+    $("#blackdiv").addClass('uhide');
+    $("#infoListDiv").slideUp();
+    $("#content").removeClass("scrollfund");
+    $("#ifraUp").removeClass("uhide");
+}
+
+//弹窗口遮罩层拼接银行卡列表信息
+function maskLayerBankCardList(bankList, onclickFunction, type) {
+    var str = "";
+    if (isDefine(bankList)) {
+        for (var i = 0; i < bankList.length; i++) {
+            //拼接单行列表显示的字符串
+            // str += appendMaskLayerDivBankInfo(bankList[i], onclickFunction, i);
+            str += getBankInfoDiv(bankList[i], onclickFunction, i, type);
+        }
+    }
+    return str;
+}
+
+//弹窗口获取银行卡拼接div，bankObj：银行卡对象，onclickFunction：点击事件，index：选择的银行卡在数组中的位置
+//Type:1富钱包充值，2富钱包快速取现，3富钱包普通取现，4富钱包购买显示可用余额，5银行卡列表显示限额，6银行卡列表不显示限额，7银行不显示卡号 
+function getBankInfoDiv(bankObj, onclickFunction, index, type) {
+    var bankParam = {
+        "index" : index, //在数组中的位置
+        "onclickStr" : "", //点击事件
+        "imageUrl" : bankImgSrc(getBankCode(bankObj)), //银行卡图标url
+        "bankType" : "", //显示样式，若只显示银行卡信息，不显示限额或可以余额，则为Bank-Name，否则为bank-Name
+        "bankName" : bankNamemc(getBankCode(bankObj)), //银行名称
+        "capitalModeStr" : '(' + bankTonglian(bankObj.capitalMode,bankObj.payMode) + ')', //资金模式
+        "bankCard" : "", //银行卡号
+        "limtOrAmt" : ""
+    };
+    //限额或余额
+    //type:1标识不显示银行卡号，其他显示显示银行卡号
+    if (type != "7") {
+        bankParam.bankCard = bankObj.cardNo.substring(bankObj.cardNo.length - 4);
+    }
+    //Type:1富钱包充值，2富钱包快速取现，3富钱包普通取现，4富钱包购买显示可用余额，5银行卡列表显示限额，6银行卡列表不显示限额，7银行不显示卡号 
+    if (type == "1" || type == "5") {
+        if (isDefine(bankObj.payLimit)) {
+            bankParam.limtOrAmt = '<div class="ub-f1 ulev-1 fastCash">' + bankObj.payLimit + '</div>';
+            bankParam.bankType = "bank-Name";
+        } else {
+            bankParam.bankType = "Bank-Name";
+        }
+    } else if (type == "2" || type == "3") {
+        bankParam.limtOrAmt = '<div class="ub-f1 ulev-1 fastCash">' + "可取现金额" + bankObj.tShare + '</div>';
+        bankParam.limtOrAmt += '<div class="ub-f1 ulev-1 normalCash">' + "可取现金额" + bankObj.tAddShare + '</div>';
+        bankParam.bankType = "bank-Name";
+    } else if (type == "4") {
+        bankParam.limtOrAmt = '<div class="ub-f1 ulev-1 fastCash">' + "可用金额" + bankObj.tAddShare + '</div>';
+        bankParam.bankType = "bank-Name";
+    } else {
+        bankParam.bankType = "Bank-Name";
+    }
+    //是否添加点击函数
+    if (isDefine(onclickFunction)) {
+        bankParam.onclickStr = 'onclick="' + onclickFunction + '"';
+    }
+    if(bankParam.capitalModeStr=="(天天盈)"||bankParam.capitalModeStr=="(支付宝)"){
+        bankParam.capitalModeStr="";
+        bankParam.bankCard="";
+    }
+    //返回拼接
+    return appendBankInfoDivForAll(bankParam);
+
+}
+
+//弹窗口统一拼接银行卡信息,支持显示余额的和只显示银行卡的
+function appendBankInfoDivForAll(bankParam) {
+    var bankStr = '<div class="sub_bank" value="' + bankParam.index + '" ' + bankParam.onclickStr + ' >' + //点击函数和银行参数
+    '<div class="ub ub-ac ub-pc jskg">' + '<img src="' + bankParam.imageUrl + '">' + //银行图标
+    '</div>' + '<div class="ub ub-ac ub-f1 ' + bankParam.bankType + '">' + //显示样式，若只显示银行卡信息，不显示限额或可以余额，则为Bank-Name，否则为bank-Name
+    '<div class="umar-r">' + bankParam.bankName + //银行名称
+    '</div>' + '<div class="ub ub-ac ub-pc umar-r undefined">' + bankParam.capitalModeStr + //资金方式
+    '</div>' + '<div class="undefined">' + bankParam.bankCard + //银行卡号
+    '</div>' + '</div>' +
+    //'<div class="ub-f1 ulev-1 fastCash">'+//统一写在参数limtOrAmt里面
+    bankParam.limtOrAmt + //是否显示银行卡限额和富钱包余额
+    //'</div>'+//统一写在参数limtOrAmt里面
+    '</div>';
+    return bankStr;
+}
+
+//获取资金方式的对应的bankCode
+function getBankCode(bankObj) {
+    var bankCode = "";
+    if (bankObj.capitalMode == "6") {
+        //天天盈
+        bankCode = "tty";
+    } else if (bankObj.capitalMode == "E") {
+        //支付宝
+        bankCode = "zfb";
+    } else if (bankObj.capitalMode == "d") {
+        //富钱包
+        bankCode = "-15";
+    } else if (bankObj.capitalMode == "Q") {
+        //财付通
+        bankCode = "zfb";
+    } else {
+        bankCode = bankObj.bankCode;
+    }
+    return bankCode;
+}
+
+/**---------------------------------------注册发送短信验证码，并调用开户检查接口检查开户信息----------------------------------------**/
+//注册发送短信验证码的操作方法
+var checkCustomerAndRegisterSendSMSOperFunt = null;
+function checkCustomerAndRegisterSendSMS(certType, certNo, custNo, custName, mobileNo, userType, opertDataFunction) {
+    if (isDefine(opertDataFunction)) {
+        checkCustomerAndRegisterSendSMSOperFunt = opertDataFunction;
+    }
+    //开户检查url
+    var targetUrl = REGISTERSEDNSMS;
+    var paraData = {
+        "certType" : certType,
+        "certNo" : certNo,
+        "custNo" : undefineToEmptyStr(custNo),
+        "custName" : custName,
+        "mobileNo" : undefineToEmptyStr(mobileNo),
+        "userType" : undefineToEmptyStr(userType)
+    };
+    //调用ajax查数据
+    simplePostAjax(targetUrl, paraData, sucCheckCustomerAndRegisterSendSMSFunc);
+}
+
+//接口调用成功回调函数
+function sucCheckCustomerAndRegisterSendSMSFunc(data) {
+    $("#getRegister").attr("onclick","timedCount()");
+    if (checkResultIsSuccess(data)) {
+        //成功返回
+        if (isDefine(checkCustomerAndRegisterSendSMSOperFunt)) {
+            var resultData = JSON.parse(data);
+            checkCustomerAndRegisterSendSMSOperFunt(resultData.Body);
+        }
+    }
+};
+
+/**---------------------------------------富钱包购买基金----------------------------------------**/
+var fqbBuyOperFuntion = null;
+//富钱包购买基金
+function fqbBuyFund(data, applyShare, productDetail, opertDataFunction) {
+    fqbBuyOperFuntion = opertDataFunction;
+    //调用ajax查数据
+    var paraData = {
+        "isIndividual" : getLocVal("custType"), //个人/机构标志
+        "tradeAcco" : undefineToEmptyStr(data.tradeAcco), //交易账号
+        "dealPwd" : "", //交易密码
+        "cardNo" : data.cardNo, //银行卡号
+        "bankCode" : data.bankCode, //银行编号
+        "capitalMode" : data.capitalMode, //资金方式
+        "fundCode" : fqbFundCode, //基金代码
+        "shareType" : fqbShareType, //收费方式
+        "applyShare" : applyShare, //申请份额
+        "otherFundCode" : productDetail.fundCode, //对方基金代码
+        "otherShareType" : productDetail.shareType, //对方收费方式
+        "remainShare" : data.tAddShare, //可用份额
+        "othDisCount" : "",//对方费率折扣
+        "gradedRisk":productDetail.gradedRisk,//分级基金标记（0：是，1：不是）
+    };
+    simplePostAjax(REDEMPTIONURL, paraData, successFqbBuyFundFunction);
+}
+
+//回调函数
+function successFqbBuyFundFunction(data) {
+    if (checkResultIsSuccess(data)) {
+        //添加到本地
+        var resultData = JSON.parse(data);
+        fqbBuyOperFuntion(resultData.Body);
+    }
+}
+
+/**---------------------------------------银行卡购买基金----------------------------------------**/
+var bankInfoBuyOperFuntion = null;
+//银行卡购买基金
+function bankInfoBuyFund(data, applyShare, productDetail, opertDataFunction) {
+    bankInfoBuyOperFuntion = opertDataFunction;
+    //基金购买url
+    var targetUrl = PURCHASEURL;
+    var paraData = {
+        "isIndividual" : getLocVal("custType"), //个人/机构标志
+        "tradeAcco" : undefineToEmptyStr(data.tradeAcco), //交易账号
+        "dealPwd" : "", //交易密码
+        "cardNo" : data.cardNo, //银行卡号，
+        "bankCode" : data.bankCode, //银行编号
+        "capitalMode" : data.capitalMode, //资金方式
+        "fundCode" : productDetail.fundCode, //基金代码
+        "shareType" : productDetail.shareType, //收费方式
+        "applyAmount" : applyShare, //申请金额
+        "custNo" : getLocVal("custNo"), //客户编号
+        "investorName" : getLocVal("custName"), //投资人姓名
+        "certType" : getLocVal("certType"), //投资人类型
+        "certificateNo" : getLocVal("certNo"), //投资人证件号码
+        "fundType" : productDetail.fundType,//基金类型
+        "gradedRisk":productDetail.gradedRisk,//分级基金标记（0：是，1：不是）
+    };
+    //调用ajax查数据
+    simplePostAjax(targetUrl, paraData, successBankInfoBuyFundFunction);
+}
+
+//回调函数
+function successBankInfoBuyFundFunction(data) {
+    if (checkResultIsSuccess(data)) {
+        //添加到本地
+        var resultData = JSON.parse(data);
+        bankInfoBuyOperFuntion(resultData.Body);
+    }
+}
+/**---------------------------------------产品列表----------------------------------------**/
+
+function FundProductList(productList) {
+    var productListStr = "";
+    productListStr += "<div class=\"ub ub-f1 allFund ub-ver\" onclick=\"showPrdDetail('" + productList.fundCode + "'," + productList.fundType + "," + operFundState(productList.fundState) + ");\">";
+    productListStr += "<div  class=\"ub ub-f1 uinn umar-r umar-l allFund_name\">";
+    productListStr += "<div class=\"ub ub-img img_star_red\" onclick=\"onclikStar(this);\" id=\"" + productList.fundCode + "\"></div>";
+    productListStr += "<div class=\"ub-f1 name\">" + productList.fundName;
+    productListStr += "<div class=\"allFund_color_date ulev-1\">" + productList.fundCode + "(" + getMM_DD(productList.navDate) + ")" + "</div></div>";
+    productListStr += "<div class=\"ub-f1 ub ub-ac ub-pe\">";
+    productListStr += buttonIsDisable1(productList.fundState, productList.fundCode, productList.fundName) + "</div></div> </div>";
+    productListStr += "<div class=\"ub ub-f1 allFund_num ub-ac umar-r umar-l pad_left\">";
+    //如果是认购基金，显示正在发行
+    if (productList.fundState == "1") {
+        productListStr += "<span class='colerblue'>正在发行...</span>" + "</div></div>";
+    } else {
+        productListStr += "<div class=\"ub ub-f1 ub-ver ub-pc ulev-1 ub-con\">";
+        //货币型显示万份收益
+        if (productList.fundType == "04") {
+            productListStr += "<h2 class='ulev1'>" + getPerNetValue(productList.hf_IncomeRatio) + "</h2>";
+            productListStr += "<div class=\"allFund_color_date\">万份收益</div></div>";
+        } else {
+            productListStr += "<h2 class='ulev1'>" + getPerNetValue(productList.perNetValue) + "</h2>";
+            productListStr += "<div class=\"allFund_color_date\">最新净值</div></div>";
+        }
+        productListStr += "<div class=\"ub ub-f1 ub-ac ub-pc allFund_color_num ulev-1 ub-con\">";
+        //货币型显示七日年化
+        if (productList.fundType == "04") {
+            productListStr += "<div class=\"sevenDay " + getColor(productList.incomeRatio) + "\">";
+            productListStr += "<h2 class='ulev1'>" + getPercentageFocus(productList.incomeRatio) + "</h2>";
+            productListStr += "<p class=\"allFund_color_date Trend \">七日年化</p></div></div>";
+        } else {
+            productListStr += "<div class=\"DayYk " + getColor(productList.dayIncDec) + "\">";
+            productListStr += "<h2 class='ulev1'>" + getPercentage(productList.dayIncDec) + "</h2>";
+            productListStr += "<p class=\"allFund_color_date Trend \">日涨幅</p></div>";
+            productListStr += "<div class=\"MoonYk uhide " + getColor(productList.seasonIncDec) + "\">";
+            productListStr += "<h2 class='ulev1'>" + getPercentage(productList.seasonIncDec) + "</h2>";
+            productListStr += "<p class=\"allFund_color_date Trend \">近三个月</p></div>";
+            productListStr += "<div class=\"YearYk uhide " + getColor(productList.yearIncDec) + "\">";
+            productListStr += "<h2 class='ulev1'>" + getPercentage(productList.yearIncDec) + "</h2>";
+            productListStr += "<p class=\"allFund_color_date Trend \">年涨幅</p></div>";
+            productListStr += "<div class=\"nowYearYk uhide " + getColor(productList.nowYearIncDec) + "\">";
+            productListStr += "<h2 class='ulev1'>" + getPercentage(productList.nowYearIncDec) + "</h2>";
+            productListStr += "<p class=\"allFund_color_date Trend \">今年以来</p></div></div>";
+        }
+        productListStr += "<div class=\"ub ub-f1 ub-ver ub-pc ub-ac ulev-1 ub-con\">";
+        if (productList.fundName == "富国富钱包货币") {
+            productListStr += "<div class=\"allFund_color_date\"></div></div></div></div>";
+        } else {
+            productListStr += "<div class=\"allFund_color_date\">富钱包尊享1折</div></div></div></div>";
+        }
+    }
+
+    return productListStr;
+}
+//处理基金状态，存在就原样返回，否则返回状态4，不可交易
+function operFundState(state) {
+    if (isDefine(state)) {
+        return state;
+    } else {
+        return "4";
+    }
+};
+
+//设置申购按钮等灰化属性
+function buttonIsDisable1(fundState, fundCode, fundName) {
+    if (buyingState(fundState)) {
+        return "<div class=\" tx-c ub-img img_Buy ub-ac ub \" onclick=\"buyFundProduct('" + fundCode + "','" + fundName + "');\">";
+    } else {
+        return "<div class=\" tx-c ub-img img_NoBuy ub-ac ub \">";
+    }
+}
+
+/**********************密码控件*************************/
+function getPwdKeys() {
+    $("#ifraUp").addClass("uhide");
+    if(document.getElementById("mima")){
+        //再次打开时清空密码控件
+        Clear("vPasswordWidget");
+        //隐藏所有黑点
+        $("#dotOne,#dotTwo,#dotThree,#dotFour,#dotFive,#dotSix,#dotSeven,#dotEight").hide();
+        $("#Pwdblackdiv").removeClass('uhide');
+        $("#PwdDiv").slideDown(300,function(){
+            $("#vPasswordWidget").click();
+        });
+        $.removeimage();
+    }else{
+        //未生成密码控件的重新生成密码控件
+        createPwdkeys();
+    }
+}
+//生成密码控件
+function createPwdkeys(){
+    //定义遮罩层div信息
+    var maskLayerDivStr = "";
+    var wid = $(document).width();
+    var hei = wid;
+    var pwdHtml='<div class="ub-f1 ub userPassword" id="mima">'+
+            '<div class="input-outbox">'+
+            '<div id="vPasswordWidget" class="heiti fontC9" style="z-index:9999;text-indent:-9999em" v-password-widget="/fgfqbh5/fullgoal_key_save"modulus-hex="c14a9a2892bb54fa501685baa4ecce320b4fb4afcbb4b99b8bccf20e9373b553307e02d5b46ba4206d3663a6b29f5b665fc5cd39f0d0140ab271b20315690153b0f1d63ed68aa1b21d5ca54e776a10a757dca36ee33e41c180de4107b0d43ee4f55dfd706c85bb70dcb71e2156a8b44eabc60cb9abce657b00ca1d7466b20761" maxlength="8"  name="Password">'+
+                '请输入密码'+
+            '</div>'+
+            '<ul class="ub passwordEight">'+
+               '<li class="ub-f1"><div id="dotOne"><img src="../image/dot.png" /></div></li>'+
+               '<li class="ub-f1"><div id="dotTwo"><img src="../image/dot.png" /></div></li>'+
+               '<li class="ub-f1"><div id="dotThree"><img src="../image/dot.png" /></div></li>'+
+               '<li class="ub-f1"><div id="dotFour"><img src="../image/dot.png" /></div></li>'+
+               '<li class="ub-f1"><div id="dotFive"><img src="../image/dot.png" /></div></li>'+
+               '<li class="ub-f1"><div id="dotSix"><img src="../image/dot.png" /></div></li>'+
+               '<li class="ub-f1"><div id="dotSeven"><img src="../image/dot.png" /></div></li>'+
+               '<li class="ub-f1"><div id="dotEight"><img src="../image/dot.png" /></div></li>'+
+            '</ul>'+
+           '</div></div>';
+    //添加遮罩DIV
+    maskLayerDivStr += "<div id='Pwdblackdiv' style='position:absolute;width:100%;height:100%;background:#000;opacity: 0.6;top:0em;z-index: 2000;' class='uhide'></div>";
+    //添加遮罩信息队列div
+    maskLayerDivStr += "<div class='nav_paystyle ulev-1 ub-ac' id='PwdDiv' style='height:"+hei+"px;z-index: 3000'>" +
+    //添加遮罩信息队列div的头部样式
+    "<div id='PwdDiv_header' class='uh ub bankList_header'>" +
+    //添加遮罩信息队列div的头部返回按钮
+    "<div class='nav-btn' id='Pwd_back' onclick='closePwdKeysDivFuntion();'>" + "<div class='umar-l ulev-1 list-cancel'></div>" + "</div>" +
+    //添加遮罩信息队列div的头部中间字符显示
+    "<div class='ut ub-f1 ulev1 ut-s tx-c' tabindex='0'>输入密码</div>" + "<div class='nav-btn' id='nav-right'></div>" + "</div>" +
+    //显示列表信息
+    "<div class='passwordBlock'>" +pwdHtml+ "</div></div>";
+    //添加遮罩层到body中
+    $("#content").append(maskLayerDivStr);
+    //收起遮罩层
+    $("#PwdDiv").slideUp();
+    //加载密码控件函数
+    loadScript("../js/savekey/password-widget.min.js?"+Math.random(), function() {
+        $("#vPasswordWidget").PasswordWidget({
+            'UseCache':false,//使用缓存,默认为true(使用缓存)
+            'isShowSoftKeyboard':false,//是否在加载完成后直接打开键盘,只对第一个执行的密码控件有效。
+            'ClearEvent':{'Selecter':'.clear1','EventName':'click'},/*清除输入密码的方法需要绑定元素（通过样式选择器选择），如绑定<button type="button" class="clear1">清除密码</button>，事件默认为click，可自定义事件名称'Selecter':'.clear1','EventName':'click'}*/
+            'showKBDEvent':{'Selecter':'.show1','EventName':'click'},
+            'hideKBDEvent':{'Selecter':'.hide1','EventName':'click'},
+            'FinishButtonCallBack':function(){
+                    //console.log("键盘关闭");
+                   // alert("键盘关闭，可触发其他交易！");
+                },//密码完成事件方法回调
+            });
+        
+    });
+    $("#dotOne,#dotTwo,#dotThree,#dotFour,#dotFive,#dotSix,#dotSeven,#dotEight").hide();
+}
+
+//关闭密码控件遮罩层
+function closePwdKeysDivFuntion() {
+    $("#Pwdblackdiv").addClass('uhide');
+    $("#_PassWordWidget").slideUp(300,function(){//插件的密码键盘
+        $("#_PassWordShadow").hide();//插件的遮罩
+    });
+    $("#PwdDiv").slideUp(300);
+    $("#ifraUp").removeClass("uhide");
+}
+
+/**********************验证微信密码*************************/
+//登录密码验证
+var checkPwdOpertFunct="";
+//verifyCode:验证码, certType：证件类型, certNo：证件号, fundAcco：基金账户, password：密码, remark：备注, opertDataFunction：成功返回操作方法
+function checkPwdIsRight(verifyCode, certType, certNo, fundAcco, password, remark, opertDataFunction) {
+    var targetUrl = USERLOGINURL;
+    checkPwdOpertFunct=opertDataFunction;
+    param = {
+        "code" : verifyCode,
+        "userType" : "",
+        "certType" : certType,
+        "certNo" : certNo,
+        "fundAcco" : fundAcco,
+        "password" : password,
+        "numberKeyIndex" : keyCheck,
+        "remark" : remark,
+        "fakeId" : undefineToEmptyStr(getLocVal("fakeID")),//微信用户ID
+        "plateformID" :undefineToEmptyStr(getLocVal("plateFormID")),//微信公众号ID
+        "userInfoExistWeixin" :""//微信公众号ID
+    };
+    simplePostAjax(targetUrl, param, checkResultFunct);
+}
+//验证密码成功回调方法
+function checkResultFunct(result) {
+    if (checkResultIsSuccess(result)) {
+        //密码验证成功
+        successCheckPwdResult(result);
+        //检查密码成功回调处理函数
+        checkPwdOpertFunct(result);
+    }
+}
+
+//密码验证成功后本地保存验证信息
+function successCheckPwdResult(result) {
+    var customerInfoObject = JSON.parse(result);
+    //获取返回报文的Body
+    var resultBody = customerInfoObject.Body;
+    //用户类型
+    setLocVal("userType", resultBody.userType);
+    //用户资料
+    setLocVal("userInfo", result);
+    // 保存sid失效后 登录成功的标示
+    setLocVal("afterSidInvalidLoginFlag", "S");
+    //客户编号
+    setLocVal("custNo", resultBody.custNo);
+    //基金账号
+    setLocVal("fundAcco", resultBody.fundAcco);
+    //登录成功后的sid
+    setLocVal("sid", customerInfoObject.sid);
+    //token，防重复提交
+    setLocVal("MAS_token", customerInfoObject.token);
+    //mobileNo，电话号码
+    setLocVal("mobileNo", resultBody.mobileNo);
+    //客户名称
+    setLocVal("custName", resultBody.custName);
+    //证件号码
+    setLocVal("certNo", resultBody.certNo.toUpperCase());
+    //证件类型
+    setLocVal("certType", resultBody.certType);
+    //客户类别0个人/1机构
+    setLocVal("custType", resultBody.custType);
+    //交易账号
+    setLocVal("tradeAcco", resultBody.tradeAcco);
+    //客户风险评估
+    setLocVal("riskEndure", resultBody.riskEndure);
+    //保存登录状态
+    setLocVal("loginFlag", "S");
+}
+
+
+//国政通认证  FCUP050018
+var successCallbackCheckGuozhengtong="";
+function checkGuozhengtong (paramData,successCallback) {
+    successCallbackCheckGuozhengtong = successCallback;
+    var paraData = {
+        "certType" : '0', //证件类型
+        "certNo" : paramData.certNo, //证件号码 
+        "mobilePhone" : paramData.mobileNo, //手机号码
+        "custName" : paramData.custName, //客户姓名
+    };
+    simplePostAjax(GUOZHENGTONG, paraData, successcGuozhengtong);
+}
+
+function successcGuozhengtong (data) {
+    if (checkResultIsSuccess(data)) {
+        var receiveData = JSON.parse(data);
+        var idf_sts = receiveData.Body.idf_sts;
+        if (idf_sts == "S") {//认证成功
+            successCallbackCheckGuozhengtong();
+        };
+    }
+}

@@ -1,0 +1,949 @@
+/**
+ *     原NewUI.css改名为fqbUI.css
+ */
+.checkbox1 input[type=checkbox], .radiobox1_new input[type=radio] {
+    -webkit-appearance: none;
+    background-color: transparent;
+    outline: 0 !important;
+    border: 0;
+    font-size: 1em !important;
+}
+
+.checkbox1 input[type=checkbox]:before, .radiobox1_new input[type=radio]:before {
+    display: inline-block;
+    text-align: center;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 1.2em;
+    font-weight: thin;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: rgb(228,95,95);
+}
+.header1_sub1_ios {
+    height: 2.3em;
+}
+.checkbox1 input[type=checkbox]:checked:before, .radiobox1_new input[type=radio]:checked:before {
+    color: rgb(228,95,95);
+}
+
+.radiobox1_new input[type=radio]:before {
+    content: "\f1db";
+}
+
+.radiobox1_new input[type=radio]:checked:before {
+    content: "\f192";
+}
+
+.c-e45 {/*全局用色主色*/
+    color: #e45f5f;
+}
+.c-fcc {/*全局用色辅色*/
+    color: #fcca6a;
+}
+.c-399 {/*全局用色辅色*/
+    color: #399dd6;
+}
+.c-47d {/*全局用色辅色*/
+    color: #47decf;
+}
+.c-008 {/*全局用色辅色*/
+    color: #008800;
+}
+.font-C333 {/*标题色*/
+    color: #333;
+}
+.font-C666 {/*提示字色*/
+    color: #666;
+}
+.font-Cc9c {/*灰色字*/
+    color: #c9c9c9;
+}
+
+.font-C9 {/*红包下面字体颜色*/
+    color: #999999;
+}
+
+.DqHt {/*中文字体*/
+    font-family: "冬青黑体简体";
+}
+.Helve {/*英文 /数字字体*/
+    font-family: "Helvetica Neue..45 light";
+}
+
+.font-Hb36px {/*红包下面字体的36px*/
+    font-size: 1.125em;
+}
+
+.font-Sguider {/*导航栏字体大小34px*/
+    font-size: 1.0625em;
+}
+.font-Stitle0 {/*标题字体大小30px*/
+    font-size: 0.9375em;
+}
+.font-Stitle1 {/*标题字体大小28px*/
+    font-size: 0.875em;
+}
+.font-Sbody {/*正文字体大小26px*/
+    font-size: 0.8125em;
+}
+.font-Sguider0 {/*提示字体大小24px*/
+    font-size: 0.75em;
+}
+.font-Sguider1 {/*提示字体大小20px*/
+    font-size: 0.625em;
+}
+
+.f_1125 {
+    font-size: 1.125em;
+}
+
+.f_0875 {
+    font-size: 0.875em;
+}
+
+.f_0075 {
+    font-size: 0.75em;
+}
+
+.f_09375 {
+    font-size: 0.9375em;
+}
+
+.f_10625 {
+    font-size: 1.0625em;
+}
+.f_2 {/*首页七日年化和万份收益值的大小*/
+font-size: 1.8em;/*富钱包文字调小*/
+}
+.umar-b171875 {
+    margin-bottom: 1.71875em;
+}
+.umar-a7 {
+    margin: 0.7em;
+}
+
+.umar-t171875 {
+    margin-top: 1.71875em;
+}
+
+.btn_orgnew {/*所有页面按钮调用这个样式*/
+    height: 2.75em;
+    background-color: #e45f5f;
+    border-radius: 0.3125em;
+    color: #FFFFFF;
+}
+.btn_orgccc {/*所有页面按钮调用这个样式*//*置灰*/
+    height: 2.75em;
+    background-color: #c9c9c9;
+    border-radius: 0.3125em;
+    color: #FFFFFF;
+}
+.umar-lr085 {
+    margin: 0 .85em;
+}
+
+.umar-lr09375 {/*30px*/
+
+    margin: 0 .9375em;
+}
+.umar-l09375 {/*30px*/
+    margin-left: .9375em;
+}
+.umar-r09375 {/*30px*/
+    margin-right: .9375em;
+}
+
+.upad-a921875 {
+    padding: .921875em;
+}
+
+.bc_f1_new {
+    background-color: #E9E9E9;
+}
+
+.bc-e45 {
+    background-color: #e45f5f;
+}
+
+.RightDirection {/*向右箭头*/
+    width: .5625em;
+    height: .8125em;
+}
+
+.btn_org1_new {/*置灰按钮样式 有红色边框*/
+    height: 2.25em;
+    background-color: #E9E9E9;
+    border-radius: 0.3125em;
+    color: #e45f5f;
+    border: 1px solid #e45f5f;
+}
+.btn_buy {/*购买按钮样式 有红色边框*/
+    height: 2.25em;
+    background-color: #ffffff;
+    border-radius: 0.3125em;
+    color: #e45f5f;
+    border: 1px solid #e45f5f;
+}
+
+.btn_margin {/*所有页面大按钮调用这个样式*/
+    margin: 2.09em 1.22em;
+}
+
+.btn_marginPerson {/*所有页面大按钮调用这个样式*/
+    margin: 1.8em 1.22em;
+}
+
+.btn_margin528 {/*所有页面小按钮调用这个样式*/
+    margin: 2.09em 5.28em 0 5.28em;
+}
+.rightsize {/*个人中心页面向右箭头*/
+    width: .625em;
+    height: .9375em;
+}
+.img-col {/*我的收藏圆形按钮*/
+    width: 5.85em;
+    height: 5.8em;
+    border: 0;
+    background: url(../images/Newimages/MyCollect.png);
+    background-size: 5.8em 5.8em;
+    background-repeat: no-repeat;
+    opacity: 0.88;
+    font-size: 0.7em;
+    z-index: 9999;
+    outline: none;
+}
+.sc-blue {/*收藏星星按钮未收藏颜色  (原本未收藏fa-star-o空心蓝)*/
+    color: #999999;
+}
+.sc-yellow {/*收藏星星按钮已收藏颜色 (原本已收藏fa-star实心蓝)*/
+    color: #fda007;
+}
+.uinn-at1 {
+    padding-top: 1em;
+}
+
+.border_b_new {
+    border-bottom: .03125em solid #c9c9c9;
+    margin-left: .9375em;
+    margin-right: .9375em;
+}
+
+.fqb_sq_new {
+    /*background-image: url(../images/fqb_sq-new.png);*/
+    /*width:50%;*/
+    width: 4.5em;
+    height: 7.4375em;
+    background-position: center;
+    background-repeat: repeat !important;
+}
+
+.f_080125 {
+    font-size: 0.80125em;
+}
+
+.border-e45 {
+    border: 1px solid #e45f5f;
+}
+.border-fff {
+    border: 1px solid #fff;
+}
+
+.border-radius0 {/*圆角弧度10px*//*所有页面大小按钮圆角*/
+    border-radius: .3125em;
+}
+.border-radius1 {/*圆角弧度32px*//*存入按钮圆角*/
+    border-radius: 1em;
+}
+.border-radius2 {/*圆角弧度12px*//*十大重仓圆角*/
+    border-radius: .375em;
+}
+.border-radius3 {/*圆角弧度25px*//*七日年化/万份收益页面圆角*/
+    border-radius: .78125em;
+}
+
+.height90 {/* 行高90px */
+    height: 2.8125em;
+}
+
+.icon_r_new {
+    color: #c9c9c9;
+}
+
+.uinn-t02 {
+    padding-top: 0.2em;
+}
+
+.PCright {/*向右灰色箭头*/
+    background-image: url(../images/Newimages/PerCentright.png);
+}
+
+.zclbtop_new {
+    background-image: url(../images/Newimages/MFbg.png);
+    height: 8.78125em;
+    background-size: cover;
+}
+
+.SuccessImg {
+
+    background-image: url(../images/Newimages/QXJGSuccess.png);
+    width: 100%;
+    height: 4.5625em;
+    /*margin-top: 1.75em;*/
+    margin-bottom: 1em;
+}
+
+.FailedImg {
+    background-image: url(../images/Newimages/QXJGFailed.png);
+    width: 100%;
+    height: 4.5625em;
+    /*margin-top: 1.75em;*/
+    margin-bottom: 1em;
+}
+
+.PollingFailedImg { 
+    background-image: url(../images/Newimages/pollingFailedImg.png);
+    width: 100%;
+    height: 4.5625em;
+    /*margin-top: 1.75em;*/
+    margin-bottom: 1em;
+}
+
+.SuccessImgCZJG {
+
+    background-image: url(../images/Newimages/QXJGSuccess.png);
+    width: 100%;
+    height: 8.5625em;
+    /*margin-top: 1.75em;*/
+    margin-bottom: 1em;
+}
+
+.imageRedEnvelope {
+
+    background-image: url(../images/Newimages/redEnvelope.png);
+    width: 100%;
+    height: 3.53125em;
+    margin-top: 6.71875em;
+    margin-bottom: 1em;
+}
+
+.imageHBBJ {
+    background-image: url(../images/Newimages/hbbj.jpg);
+    width: 100%;
+    height: 100%;
+}
+
+.imageHBBJBtn {
+    background-image: url(../images/Newimages/hbbjBtn.png);
+    width: 8.7865em;
+    height: 2.59375em;
+}
+
+.imageHBBJAfter {
+    background-image: url(../images/Newimages/hbbjAfter.jpg);
+    width: 100%;
+    height: 100%;
+}
+
+.font-red {
+    color: red;
+}
+
+
+
+.listview_icon1_new {
+    background-image: url(../images/Newimages/PerCentright.png);
+    background-size: .5em .78em;
+    width: .5em;
+    height: .78em;
+}
+
+/* moreProductList页面用到的样式  */
+.c-wh {
+    background-color: #FFF;
+}
+.mp-b-title-1 {
+    height: 20%;
+    margin: .5em 0em .625em 0em;
+    background-color: white;
+}
+.padtb1 {
+    padding: 1em 0;
+}
+.lis-icon-s1 {
+    width: 1.5em;
+    height: 1.5em;
+}
+.lis-text-s1 {
+    margin: 0em 0.155em 0em 0px;
+    /*min-height: 2em;*/
+}
+.f_125 {
+    font-size: 1.3em;
+}
+/* * */
+.ulbg {
+    background-color: white;
+    margin-bottom: 1em;
+}
+.redradius{
+    background-color: red;
+    width: 0.5em;
+    height: 0.5em;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    position: absolute;
+    top: 0.5em;
+    left: 6.5em;
+}
+
+.redradius_index {
+    background-color: red;
+    width: 0.5em;
+    height: 0.5em;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    position: absolute;
+    top: .2em;
+    right: 0.5em;
+}
+/*
+ *个人 中心页面
+ * */
+.padding625 {
+    padding: 0.625em;
+}
+.readedmsg{
+    background-image:url(../images/Newimages/readedmsg.png);
+    background-size: 80%
+}
+.newmsg{
+  background-image:url(../images/Newimages/newmsg.png);
+  background-size: 80%;
+  margin-top:-.25em; 
+}
+/*
+ * 我的资产
+ * */
+.u-imgwh {
+    min-height: 1em;
+    min-width: 1em;
+    margin-right: 15px;
+}
+.bc-o {
+    background-color: #FDA310;
+}
+.bc-p {
+    background-color: #F26865;
+}
+.bc-q {
+    background-color: #50DFD1;
+}
+.w33 {
+    width: 33.33%;
+}
+.border-t {
+    border-top: 1px solid #c9c9c9;
+}
+.border-b {
+    border-bottom: 1px solid #c9c9c9;
+}
+
+.uinn5s {
+    padding: 1em 0.5em;
+    margin: 0;
+}
+.img-nothing2buy {
+    background-image: url('../images/wushuju_0343_03.png');
+    min-width: 3.5em;
+    min-height: 3.5em;
+}
+
+.accountbg {
+    background-color: #e45f5f;
+}
+.MyPhoto {
+    background-image: url(../images/Newimages/MFphoto.png);
+    width: 1.875em;
+    height: 1.875em;
+    margin: 0.4em 0.4em 0.4em 0.9em;
+}
+.MFright {
+    background-image: url(../images/Newimages/MFright.png);
+    width: .65em;
+    height: .85em;
+    margin: 0.4em 0.9em 0.4em 0.28em;
+}
+/*个人中心icon*/
+
+.more1 {
+    background-image: url(../icons/more1.png);
+}
+.more2 {
+    background-image: url(../icons/more2.png);
+}
+.more3 {
+    background-image: url(../icons/more3.png);
+}
+.more4 {
+    background-image: url(../icons/more4.png);
+}
+.more5 {
+    background-image: url(../icons/more5.png);
+}
+.more6 {
+    background-image: url(../icons/more6.png);
+}
+.more7 {
+    background-image: url(../icons/more7.png);
+}
+.more8 {
+    background-image: url(../icons/more8.png);
+}
+.switch1 {
+    background-image: url(../icons/switch1.png);
+}
+.switch {
+    background-image: url(../icons/switch.png);
+}
+/* 我的账户icon */
+.usermsg {
+    background-image: url(../icons/usermsg.png);
+}
+.SID {
+    background-image: url(../icons/SID.png);
+}
+.phone {
+    background-image: url(../icons/phone.png);
+}
+.pas {
+    background-image: url(../icons/pas.png);
+}
+.yhk {
+    background-image: url(../icons/yhk.png);
+}
+/*messageCenter页面用到的样式*/
+.uc-l-dot5 {
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+}
+.uc-r-dot5 {
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+.msgState {/*已读信封/未读信封样式*/
+    width: 1.275em;
+    height: 1.275em;
+    margin: 0.375em;
+    position: relative;
+    top: 0.475em;
+}
+
+/*   切换tab按钮图片
+ *
+ */
+.MMGLopen {
+    background-image: url(../images/Newimages/MMGLopen.png);
+    background-repeat: no-repeat
+}
+.MMGLclose {
+    background-image: url(../images/Newimages/MMGLclose.png);
+    background-repeat: no-repeat
+}
+.MMGLchange {
+    background-image: url(../images/Newimages/MMGLchange.png);
+}
+.MMGLhand {
+    background-image: url(../images/Newimages/MMGLhand.png);
+}
+.MMGLhandset {
+    background-image: url(../images/Newimages/MMGLhandset.png);
+}
+/*
+ * 富钱包资产明细
+ * */
+
+.wdzccontent {
+    background-image: url(../images/Newimages/MFbg.png);
+    height: 8.9em;
+    background-size: cover;
+}
+.bor-rb {
+    border-right: 1px solid #c9c9c9;
+    border-bottom: 1px solid #c9c9c9;
+}
+.bor-b {
+    border-bottom: 1px solid #c9c9c9;
+}
+.bor-r {
+    border-right: 1px solid #c9c9c9;
+}
+.icon-sw1 {
+    background-image: url("../images/Newimages/icon-riqi.png");
+}
+.icon-sw2 {
+    background-image: url("../images/Newimages/icon-shouyi.png");
+}
+.icon-sw3 {
+    background-image: url("../images/Newimages/icon-leiji.png");
+}
+.u-imgwh {
+    min-height: 1.2em;
+    min-width: 1.4em;
+    margin-right: 0.4375em;
+}
+.u-imgwh2 {
+    min-height: 1.2em;
+    min-width: 1.4em;
+    margin-right: 0.4375em;
+}
+
+/**
+ * 富钱包列表
+ * */
+.listview_icon2 {
+    background-image: url(../images/Newimages/PerCentright.png);
+    background-repeat: no-repeat;
+    background-size: .625em .9375em;
+    width: .625em;
+    height: .9375em;
+}
+/**/
+
+/**
+ *     资产详情
+ */
+
+.zxjzzb {
+    font-size: 0.695em;
+    color: #FFFFFF;
+    /*white-space:nowrap;*/
+}
+.zxjzsz {
+    font-size: 2.0375em;
+    color: #FFFFFF;
+}
+.jjmc {
+    font-size: 0.9375em;
+    color: #FFFFFF;
+    padding: 0.625em 0 0 0.781em;
+}
+.jt {
+    color: #FFFFFF;
+    padding-right: 0.35em;
+}
+.zczsbg {
+    width: 100%;
+    height: 7.59375em;
+    background-image: url(../images/Newimages/ZCMXbg.png);
+    background-size: 100% 7.59375em;
+    background-repeat: no-repeat;
+}
+
+.zczsbgNew {
+    width: 100%;
+    height: 7.59375em;
+    background-image: url(../images/Newimages/ZCMXbgNew.png);
+    background-size: 100% 7.59375em;
+    background-repeat: no-repeat;
+}
+
+.fund_info {
+    margin-left: 2em;
+}
+/**/
+
+/*七日年化和万份收益页面用到的样式*/
+.img-sevenDaysbg {
+    background-image: url(../images/Newimages/7rnh.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 8.3125em;
+}
+.sevenDaysList {/*页面数据列表*/
+    width: 95%;
+    margin-left: 2%;
+}
+.xs {/*近一个月处显示数字*/
+    line-height: 2.3em;
+    margin-top: .5em;
+}
+/**/
+
+/**
+ *     我的资产 图片
+ */
+.right_icon_new {
+    background: url(../images/Newimages/INDEXright.png) no-repeat;
+    width: 1.6875em;
+    height: 1.6875em;
+    background-size: contain;
+    margin-right: .625em;
+}
+/**/
+
+/*存入、存入结果页面用到的样式*/
+.crtop1 {
+    height: 2.75em;
+    background-color: white;
+    margin-top: 0.875em;
+    border-bottom: 1px solid #c9c9c9;
+    border-top: 1px solid #c9c9c9;
+}
+.crjg2 {
+    background-image: url(../images/crjg_02.png);
+    height: 2.8125em;
+    width: 2.8125em;
+    background-size: 2.8125em 2.8125em;
+}
+.crjg3 {
+    background-image: url(../images/crjg_03.png);
+    height: 2.8125em;
+    width: 2.8125em;
+    background-size: 2.8125em 2.8125em;
+}
+/*按钮变灰 变蓝*/
+.btnBlue {
+    background-color: #e45f5f !important;
+}
+.btnGrey {
+    background-color: #c9c9c9 !important;
+}
+
+/*富钱包收益 富钱包交易*/
+.fqbsycontent {
+    height: 3.5em;
+    margin: 0.5em 3% 0 3%;
+    border-bottom: 1px solid gray;
+}
+.fqbsycontent.nomar {
+    padding: 0.5em 3% 0 3%;
+    margin: 0;
+}
+.fqbsyl {
+    width: 40%;
+}
+.hig {
+    height: 12.5em;
+}
+
+.fqbsyr {
+    width: 60%;
+    text-align: right;
+    padding-top: 1em;
+}
+.fqbsyr.upad-t1 {
+    padding-top: .5em;
+}
+.fqbsylrow {
+    margin-top: 0.3em;
+}
+.fqbhr {
+    clear: both;
+}
+.fugai {
+    width: 100%;
+    position: absolute;
+    z-index: 20;
+    background-color: white;
+    top: 0em;
+}
+.t-icon1 {
+    background-image: url('../images/t-icon1.png');
+}
+.alert_black {
+    width: 9.5em;
+    height: 6em;
+    background: url(../images/alert.png) no-repeat;
+    background-size: 100%;
+    position: absolute;
+    z-index: 20;
+    right: .5em;
+    top: 1.7em;
+}
+
+.font-14 {
+    font-size: 1.4em;
+}
+
+.input-otl {
+    outline: none;
+}
+/**首页**/
+.ys {
+    width: 3em;
+    height: 2em;
+}
+.p_crl {
+    padding: .3em;
+    border-radius: .3em;
+    margin: 0 .2em;
+}
+.p_act {
+    background-color: #e45f5f;
+}
+.p_auto {
+    background-color: #c1c1c1;
+}
+.line_height3 {
+    line-height: 3em;
+}
+input[type="radio"]:checked + div.point {
+    background-color: #fff;
+}
+.pointers {
+    width: 100%;
+    position: absolute;
+    bottom: .5em;
+    z-index: 99;
+}
+.bottom_point {
+    position: absolute;
+    bottom: 1em;
+    z-index: 100;
+}
+.INDEXgg {
+    background-image: url("../images/Newimages/INDEXgg.png");
+}
+.umh12 {
+    max-height: 12em;
+}
+.bgimg {
+    background-repeat: no-repeat;
+    height: 1em;
+    width: 1em;
+    background-size: 100%;
+}
+.INDEXclose {
+    background-image: url("../images/Newimages/INDEXclose.png");
+}
+.qd {
+    background: url("../images/qd.png") no-repeat;
+    height: 0.875em;
+    width: 0.875em;
+    background-size: contain;
+    margin-right: 0.2em;
+}
+.rq {
+    background-image: url("../images/Newimages/INDEXwf.png");
+    height: 1.3em;
+    width: 1.5em;
+}
+.rq_font {
+    padding-top: 0.2em;
+    height: 80%;
+    font-size: .42em;
+    color: #e45f5f;
+}
+.search_content {
+    border: 1px solid #b3b3b3;
+    border-radius: 0.3125em;
+    height: 2.2em;
+}
+.img-button-raw1 {
+    background-image: url(../images/Newimages/MoreProductDownNew.png);
+    width: 1.2em;
+    height: 1.5em;
+}
+#txt_condition {
+    outline: none;
+}
+.header1_sub1_ios {
+    height: 2.3em
+}
+.zy-pic {
+    background: url("../images/zy.png") no-repeat;
+    background-size: 2.3em 2em;
+    /*background-size:contain;*/
+    background-position: center;
+}
+.buttonBg {
+    background-color: #e45f5f;
+    color: #FFFFFF;
+}
+.gd-pic {
+    background: url("../images/more.png") no-repeat;
+    /*background-size: 2.5em 1em;*/
+    background-size: contain;
+    background-position: center;
+}
+.wdzc-pic {
+    background: url("../images/wdzc.png") no-repeat;
+    background-size: 2.3em 2em;
+    background-position: center;
+    margin-left: 0.4em;
+}
+.cp-pic {
+    background: url('../images/cplb.png') no-repeat;
+    background-size: 2.3em 2em;
+    background-position: center;
+    margin-left: 0.4em;
+}
+
+.alert_moreProduct1 {
+    height: 9.5em;
+    background: url("../images/Newimages/back_gdcp_1.png");
+    background-size: 100%;
+    z-index: 20;
+    margin:.5em 0;
+}
+.alert_moreProduct2 {
+    height: 3.1em;
+    background: url("../images/Newimages/back_gdcp_1.png") no-repeat;
+    background-size: 100%;
+    z-index: 20;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+.uinn033_new {
+    padding: 0.65em 0.5em
+}
+.messageHead{
+    padding:0 .6em;margin-top: .5em;    
+}
+.redline{
+    border-left:.15em solid#e6605f; height: 1em;
+}
+.tx_indent{
+    text-indent:1.5em;
+}
+
+.fqbLoading{
+   background-image: url(../images/fqbLoading.png);
+   width:4em;
+   height:4em;
+   -webkit-transform: rotate(0deg) translateZ(0); 
+   transform: rotate(0deg) translateZ(0);
+}
+.fqbLoading-circle{
+ margin-top: -6.18em;
+   width:2.5em;
+   height:2.5em;
+   -webkit-animation: rotate 2s 0s linear infinite;
+  animation: rotate 2s 0s linear infinite; 
+  }
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg) translateZ(0); 
+            transform: rotate(0deg) translateZ(0); }
+  100% {
+    -webkit-transform: rotate(360deg) translateZ(0); 
+    transform: rotate(360deg) translateZ(0); } }
+    
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg) translateZ(0); 
+            transform: rotate(0deg) translateZ(0); }
+  100% {
+    -webkit-transform: rotate(360deg) translateZ(0); 
+    transform: rotate(360deg) translateZ(0);  } }
+
+
+
+
+
+
+
+
+
+

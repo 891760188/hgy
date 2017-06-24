@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="fortune.css" />
+<script language="JavaScript" src="resources/js/jquery-3.1.0.min.js"></script>
+<title>投资者登录</title>
+</head>
+<body>
+
+
+<div id="header">
+  <div id="header_login">
+    <table border="0" class="ui_header_login" width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td class="ui_header_channel ui_header_channel_active"><a href="#">投资者</a></td>
+        <td class="ui_header_channel"><a href="#">理财师</a></td>
+        <td class="ui_header_channel"><a href="#">财富机构</a></td>
+        <td class="ui_header_wechat"><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
+        <td class="ui_header_mphone"><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
+        <td style="width:auto">&nbsp;</td>
+        <td class="ui_header_service">客服热线：400-1066-808  / 工作时间：9:00-18:00</td>
+        <td class="ui_header_status">
+          <a href="#">注册</a>
+          |
+          <a href="#">登录</a>
+          |
+          <a href="#">帮助中心</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div id="header_nav">
+    <table class="ui_header_nav" border="0" width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td class="ui_header_logo"></td>
+        <td class="ui_header_logo_text"></td>
+        <td style="width:1px;"><div class="ui_header_split"></div></td>
+        <td class="ui_header_slogan"></td>
+        <td style="width:auto">
+          <table class="ui_header_menu" cellpadding="0" cellspacing="0">
+            <tr>
+              <td><a href="#">首页</a></td>
+              <td class="ui_header_menu_active"><a href="#">产品列表</a></td>
+              <td><a href="#">我的账户</a></td>
+              <td><a href="#">研究资讯</a></td>
+              <td><a href="#">理财学堂</a></td>
+              <td><a href="#">关于我们</a></td>
+            </tr>
+          </table>
+        </td>
+        <td><div class="ui_header_crm"><a href="#">营销系统</a></div></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<div id="content">
+  <!--<div class="ui_content">
+    <div class="ui_portal_register_title">用户注册</div>
+  </div>-->
+
+  <table class="ui_content" border="0" width="100%">
+    <tr>
+      <td style="width:150px;" class="ui_portal_register_title">用户注册</td>
+      <td class="ui_text_align_center">
+        <table class="ui_portal_step_navigate ui_align_center" cellpadding="0" cellspacing="0">
+          <tr>
+            <td class="ui_portal_step_first ui_portal_step_active"><div class="ui_portal_step_num">1</div></td>
+            <td class="ui_portal_step"><div class="ui_portal_step_num">2</div></td>
+            <td class="ui_portal_step"><div class="ui_portal_step_num">3</div></td>
+            <td class="ui_portal_step_last"><div class="ui_portal_step_num">4</div></td>
+          </tr>
+          <tr>
+            <td>基本信息</td>
+            <td>完善客户信息</td>
+            <td>上传认证资料</td>
+            <td>填写风险问卷</td>
+          </tr>
+        </table>
+      </td>
+      <td style="width:150px;"></td>
+    </tr>
+  </table>
+
+  <div class="ui_content_portal">
+    <div class="ui_register_title">基本资料</div>
+    <form onsubmit="return false;">
+      <table class="ui_register ui_align_center" width="350px">
+        <tr>
+          <td colspan="2">
+            <input class="ui_input_phone" style="width:350px;" type="text" id="loginName" name="loginName" placeholder="新手机号" maxlength="20" required="required" />
+          </td>
+        </tr>
+        <tr>
+          <td style="width:60%;">
+            <input class="ui_input_shield" type="text" id="loginPasword" name="loginPassword" placeholder="验证码" maxlength="6" required="required" />
+          </td>
+          <td>
+            <input style="width:150px;" class="ui_button" type="button" value="发送短信" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <input class="ui_input_lock" style="width:350px;" type="password" id="loginPasword" name="loginPasword" placeholder="登录密码" maxlength="20" required="required" />
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <input type="checkbox" />&nbsp;我已经阅读<span class="ui_font_blue"><a href="javascript:showProtocol()">《国金财富平台服务协议》</a></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="checkbox" />&nbsp;我是合格投资者
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <div class="ui_font_gold">合格投资者需满足以下至少一个以上条件：</div>
+            <ol class="ui_reg_valid_invester">
+              <li>金融资产不低于300万元（金融资产包括）银行存款、股票、债券、基金份额、资产管理计划、银行理财产品、信托计划、保险产品、期货权益等）；</li>
+              <li>最近三年个人年均收入不低于50万元；</li>
+              <li>投资于所管理私募基金的私募基金管理人的从业人员；</li>
+            </ol>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2"><input class="ui_button" type="button" value="下一步" /></td>
+        </tr>
+      </table>
+    </form>
+
+  </div>
+</div>
+
+<script language="javascript">
+  function showProtocol(){
+    popShow("#reg_protocol");
+  }
+
+  function closeProtocol(){
+    closePop("#reg_protocol");
+  }
+
+  function popShow(div){
+    var cover = $("#cover");
+    if(cover == null || cover == undefined || cover.length <= 0){
+      cover = document.createElement("div");
+      cover.id = "cover";
+      document.body.appendChild(cover);
+      cover = $(cover);
+    }
+    cover.width($(document).width());
+    cover.height($(document).height());
+    cover.css('left',0);
+    cover.css('top',0);
+    cover.show();
+
+    $(div).fadeIn(500);
+  }
+
+  function closePop(div){
+    $(div).fadeOut(10,function(){
+      $("#cover").hide();
+    });
+  }
+</script>
+
+<div id="reg_protocol" style="display:none;">
+  <div class="ui_reg_protocol_title">国金财富服务协议</div>
+  <div class="ui_reg_protocol_tabs">
+    <table border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td class="ui_reg_protocol_active">国金财富服务协议</td>
+        <td><a href="#">国金财富服务协议</a></td>
+      </tr>
+    </table>
+  </div>
+  <div class="ui_reg_protocol_content">
+    <p>1.甲方为乙方提供一年的保修服务(时间从产品销售给顾客之日起计算)，不提供退货服务，乙方对消费者附加的承诺由乙方自行兑现。</p>
+    <p>2.乙方在收到货物后的七日内，应及时对产品进行验收，发现非运输过程中造成的损坏(不包括包装破损，产品淋湿等)或存在质量问题的，属开箱不良.开箱不良的产品乙方应先进行维修(维修费用由甲方承担)，维修不了的，经甲方确认，可以申请退货，运费由甲方承担。</p>
+  </div>
+ <div class="ui_align_center ui_text_align_center"><input style="width:120px;" type="button" class="ui_button ui_align_center" value="关闭" onclick="closeProtocol();"/></div>
+</div>
+
+
+
+
+
+<div id="footer">
+  <table class="ui_footer">
+    <tr>
+    <td class="ui_footer_div ui_footer_div1">
+      <div class="ui_footer_title"><a href="#">首页</a></div>
+      <ol>
+        <li><a href="#">我是理财师</a></li>
+        <li><a href="#">我是财富机构</a></li>
+        <li><a href="#">我是投资者</a></li>
+      </ol>
+    </td>
+    <td class="ui_footer_div ui_footer_div2">
+      <div class="ui_footer_title">关于国金财富</div>
+      <ol>
+        <li><a href="#">关于我们</a></li>
+        <li><a href="#">联系我们</a></li>
+        <li><a href="#">帮助中心</a></li>
+      </ol>
+    </td>
+    <td class="ui_footer_div"><div class="ui_footer_split">&nbsp;</div></td>
+    <td class="ui_footer_div ui_footer_div3">
+      <div class="ui_footer_title">服务热线</div>
+      <div class="ui_footer_tel">400-022-1008</div>
+      <span>工作时间：09:30-18:00</span><br/>
+      <span>机构合作：021-60763700</span>
+    </td>
+    <td class="ui_footer_div"><div class="ui_footer_split">&nbsp;</div></td>
+    <td class="ui_footer_div ui_footer_div4"></td>
+    <td class="ui_footer_div ui_footer_div5">
+      <a href="#">
+        <img class="ui_footer_qrcode" src="images/qrcode_wechat.png" title="微信公众号" />
+        <span>微信扫描, 开始理财</span>
+      </a>
+    </td>
+    <td class="ui_footer_div ui_footer_div6">
+      <a href="#">
+        <img class="ui_footer_qrcode" src="images/qrcode_wechat.png" title="微信公众号" />
+        <span>扫描下载APP</span>
+      </a>
+    </td>
+    </tr>
+  </table>
+</div>
+<div class="ui_copyright">
+  版权所有：上海国金通用财富资产管理有限公司 ©2016 | Privacy policy
+</div>
+
+</body>
+</html>

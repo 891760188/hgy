@@ -1,0 +1,335 @@
+* {
+  margin:0;
+  padding:0;
+  border:0;
+  font-family:"Microsoft YaHei","微软雅黑","MicrosoftJhengHei","华文细黑","STHeiti","MingLiu","SimHei";
+  -webkit-font-smoothing: antialiased;/*苹果电脑上，字体更细腻*/
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: auto;
+}
+
+body {
+  position:relative;
+  background-color:#FFF;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  font-family:"Microsoft YaHei","微软雅黑","MicrosoftJhengHei","华文细黑","STHeiti","MingLiu","SimHei";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size:14px;
+  color:#424242;
+  min-width:1200px;
+}
+ul{
+	list-style-type:none
+}
+
+/*头部*/
+header{
+	width: 100%;
+	color: #cccccc;
+	background-color: #2c3e50;
+	height: 110px;
+}
+header .head-top{
+	width: 100%;
+	background-color: #22303d;
+	height: 30px;
+}
+header .head-top .head-top-left{
+	float: left;
+	width: 50%;
+	margin: 5px auto;
+}
+header .head-top .head-top-left ul{
+	width: 70%;
+	margin-left:15%;
+}
+header .head-top .head-top-left ul li{
+	float: left;
+	margin-left:16px ;
+	margin-right:16px ;
+	font-size: 14px;
+}
+/*header .head-top .head-top-left ul li:last-child{
+	background-image: url(../img/bag-img-app.png);
+	background-position: left center;
+	background-repeat:no-repeat;
+}*/
+header .head-top .head-top-right{
+	float: left;
+	width: 50%;
+	margin: 5px auto;
+}
+header .head-top .head-top-right span{
+	width: 50%;
+	padding-left: 30%;
+}
+header .head-buttom{
+	width: 100%;
+	height: 80px;
+}
+header .head-buttom .head-buttom-left{
+	float: left;
+	width: 40%;
+	height:  80px;
+	margin: 0px auto;
+}
+header .head-buttom .head-buttom-left div{
+	float: left;
+	height:  80px;
+	
+}
+header .head-buttom .head-buttom-left1{
+	width: 80px;
+	padding: 9px;
+	margin-left: 10%;
+}
+header .head-buttom .head-buttom-left2{
+	width: 1px;
+	margin: 15px 0px;
+	height:  50px !important;
+	background-color:gray;
+	margin-left: -22px;
+}
+header .head-buttom .head-buttom-left3{
+	padding: 18px;
+	margin-left: -20px;
+}
+header .head-buttom .head-buttom-left4{
+	padding-top: 30px;
+	margin-left: 10px;
+}
+header .head-buttom .head-buttom-right{
+	float: left;
+	width: 60%;
+	height:  80px;
+	margin: 0px auto;
+	
+}
+img .gj_logo{
+	width: 62px;
+	height: 62px;
+}
+img .gj_logo_text{
+	width: 101px;
+	height: 43px;
+}
+img .slogan_text{
+	width: 150px;
+	height: 19px;
+}
+/*头部end*/
+
+/*中间内容部分*/
+.content{
+	width: 100%;
+	height: 534px;
+	background-image: url(../img/login_bg.png);
+}
+.content .content-left{
+	float: left;
+	width: 40%;
+	height: 90%;	
+	padding-top: 80px;
+	margin-left:15% ;
+	 color: rgb( 48, 71, 121 );
+}
+.content .content-left .content-left-02{
+		margin-top: 48px;
+}
+.content .content-left .content-left-02 span{
+		font-size: 33px;
+	  line-height: 1.455em;
+}
+.content .content-left .content-left-03{
+		font-size: 17px;
+	  line-height: 1.944em;
+	  margin-top: 40px;
+}
+.content .content-left .content-left-03{
+		font-size: 17px;
+	  line-height: 1.944em;
+	  margin-top: 40px;
+}
+.content .content-left .content-left-04{
+	  margin-top: 2px;
+	  padding-left: 13%;
+}
+.content .content-left .content-left-04 img{
+	width: 122px;
+	height: 138px;
+}
+.content .content-right{
+	float: left;
+	width: 40%;
+	height: 90%;
+	padding-top: 80px;
+	margin-left:3% ;
+	color: #FFF;
+}
+.content .content-right .login-out{
+		width: 70%;
+		background-color:rgba(62,74,91,0.2); 
+		height: 70%;	
+		padding: 5%;
+}
+.content .content-right .login-out .login-out-li01{
+	border-bottom: 1px solid #D2CFCF;
+	height: 44px;
+	vertical-align: middle;
+}
+.content .content-right .login-out .login-out-li01 span{
+	font-size: 20px;
+	height: 48px;
+	padding: 15px 0px;
+	border-bottom: 3px solid #cdba78;
+}
+.content .content-right .login-out .login-out-li02,.login-out-li03{
+	margin-top: 27px;
+	border: 1px solid #d2cfcf;
+	height: 50px;
+	border-radius:3px;
+}
+.content .content-right .login-out .login-out-li02 input{
+	height: 100%;
+	width:70%;
+	border-radius:3px;
+	padding: 0px 15%;
+	background-image: url(../img/icon_person.png) ;
+	 background-repeat: no-repeat;
+	  background-position:3% 50%;
+}
+.content .content-right .login-out .login-out-li03 input{
+	height: 100%;
+	width:70%;
+	border-radius:3px;
+	padding: 0px 15%;
+	background-image: url(../img/icon_password.png) ;
+	background-repeat: no-repeat;
+	background-position:3% 50%;
+}
+.content .content-right .login-out .login-out-li04{
+	margin-top: 27px;
+	height: 50px;
+	border-radius:3px;
+}
+.content .content-right .login-out .login-out-li04 input{
+	height: 100%;
+	width:100%;
+	border-radius:3px;
+	background-color: rgb( 205, 186, 120 );
+	color: #FFF;
+	font-size: 16px;
+	font-weight: bold;
+}
+.login-button{
+	margin-top: 15px;
+	font-size: 16px;
+}
+.login-button a:link{
+	color: white;
+	text-decoration: none;
+}
+.login-button a:visited{
+	color: white;
+	text-decoration: none;
+}
+.login-button a:hover{
+	color: white;
+	text-decoration: underline;
+}
+.login-button a:first-child{
+	margin-left: 8px;
+}
+.login-button a:last-child{
+	float: right;
+	margin-right: 8px;
+}
+footer{
+	height: 260px;
+	width: 100%;
+	color: #cccccc;
+	
+}
+footer .footer-out{
+	height: 100%;
+	width: 100%;
+	background-color: #2c3e50;
+}
+
+footer .footer-out .footer-top{
+	height: 200px;
+	width: 80%;
+	margin: 0px auto;
+}
+footer .footer-out .footer-top .footer-top-01{
+	float: left;
+	height: 100%px;
+	width: 35%;
+	border-right:1px solid #949aa1 ;
+}
+footer .footer-out .footer-top .footer-top-01 .footer-top-011{
+	float: left;
+	width: 45%;
+	margin-left: 20%;
+}
+footer .footer-out .footer-top .footer-top-01 .footer-top-011 h3{
+	font-size: 18px;
+}
+footer .footer-out .footer-top .footer-top-01  ul{
+	font-size: 14px;
+	margin-top: 24px;
+}
+footer .footer-out .footer-top .footer-top-01  ul li{
+	line-height: 24px;
+}
+footer .footer-out .footer-top .footer-top-01 .footer-top-02{
+	float: left;
+}
+footer .footer-out .footer-top .footer-top-02{
+	float: left;
+	width: 28%;
+	padding-left: 5%;
+	border-right:1px solid #949aa1 ;
+}
+
+footer .footer-out .footer-top .footer-top-02 h3{
+	font-size: 18px;
+}
+footer .footer-out .footer-top .footer-top-02 h1{
+	font-size: 21px;
+	background-image: url(../img/tel.png);
+	background-position: left center;
+	background-repeat:no-repeat;
+	padding-left: 47px;
+	margin-top: 13px;
+	line-height: 43px;
+}
+footer .footer-out .footer-top .footer-top-02 ul{
+	font-size: 14px;
+	line-height: 24px;
+}
+footer .footer-out .footer-top .footer-top-03{
+	float: left;
+	width: 30%;
+}
+footer .footer-out .footer-top .footer-top-03 .footer-top-03-img{
+	position:relative;
+	left: 100px;
+}
+
+footer .footer-out .footer-buttom{
+	height: 60px;
+	width: 100%;
+	background-color: #22303d;
+}
+footer .footer-out .footer-buttom div{
+	width: 100%;
+	text-align: center;
+	font-size: 14px;
+	position: relative;
+	top: 30%;
+}

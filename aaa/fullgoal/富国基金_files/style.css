@@ -1,0 +1,700 @@
+/*-------------------publick-------------------------*/
+@font-face {font-family: 'mnjyh';src:url('../font/mnjyh.TTF');}
+#UserNameDiv{font-family: 'mnjyh';}
+.new_bj {
+    background: #ff4a49 !important;
+        padding-top: 15%;
+}
+
+.new_btn {
+    background-color: #e45f5f;
+    color: white;
+}
+
+.index_section {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.flowerA {
+    -webkit-animation: translateK 2s linear 0.8s infinite;
+}
+.flowerB {
+    -webkit-animation: translateK 2.5s ease-in-out 0.5s infinite;
+}
+.flowerC {
+    -webkit-animation: translateK 3s linear 2.2s infinite;
+}
+.flowerD {
+    -webkit-animation: translateK 2.2s ease-in-out 1.2s infinite;
+}
+.flowerE {
+    -webkit-animation: translateK 2.5s ease-in-out 1s infinite;
+}
+.flowerF {
+    -webkit-animation: translateK 2s linear 1.8s infinite;
+}
+.flowerG {
+    -webkit-animation: translateK 3s ease-in 0.9s infinite;
+}
+.flowerH {
+    -webkit-animation: translateK 2.5s ease-in-out 0.4s infinite;
+}
+.flowerI {
+    -webkit-animation: translateK 2.8s ease-in-out 1.6s infinite;
+}
+
+.flowerA1 {
+    -webkit-animation: translateK 2.5s ease-in-out 1.6s infinite;
+}
+.flowerB1 {
+    -webkit-animation: translateK 3s ease-in-out 1s infinite;
+}
+.flowerC1 {
+    -webkit-animation: translateK 2.8s ease-in-out 0.6s infinite;
+}
+.flowerD1 {
+    -webkit-animation: translateK 2.5s ease-in-out 2.1s infinite;
+}
+.flowerE1 {
+    -webkit-animation: translateK 3s ease-in-out 2.3s infinite;
+}
+.flowerF1 {
+    -webkit-animation: translateK 2.2s ease-in-out 0.8s infinite;
+}
+.flowerG1 {
+    -webkit-animation: translateK 3s ease-in-out 0.4s infinite;
+}
+.flowerH1 {
+    -webkit-animation: translateK 2.6s ease-in-out 0.8s infinite;
+}
+.flowerI1 {
+    -webkit-animation: translateK 3s ease-in-out 2s infinite;
+}
+
+.flower_blocks {
+    position: absolute;
+    left: 0;
+    bottom: -20%;
+    z-index: 1;
+    /*width: 100%;*/
+}
+.flower_blocks div {
+    float: left;
+    margin-left: 10%;
+    width: 5%;
+    margin-right: 10%;
+}
+.flower_blocks div img {
+    width: 100%;
+}
+
+.new_bottom {
+    position:relative;
+    height:13em;
+    width: 100%;
+}
+
+.new_bottom div {
+    z-index:5;
+    position: absolute;
+    width: 35%;
+    bottom: 15%;
+    left: 44%;
+    -webkit-transform: translateX(-44%);
+    -webkit-animation: fadeInB 1s ease-in-out backwards;
+}
+.new_img {
+    position: absolute;
+    bottom: 0;
+}
+
+.new_bottom img {
+    display: block;
+    margin: 0 auto;
+}
+
+/*-------------------publick end-------------------------*/
+
+/*-------------------newCustomer-------------------------*/
+.contentDiv{
+    padding-top: 1em;
+}
+.newCustomer_top {
+    text-align:center;
+    margin-left:0.5em;
+    /*min-height:17em;*/
+    width: 96.25%;
+    -webkit-animation: fadeInDown 1s ease-in-out 0.5s backwards;
+}
+.timeDiv{
+    position: absolute;
+    top: 88%;
+    left: 0;
+    width: 96%;
+    text-align: center;
+    font-size: 0.75em;
+}
+#inviteCodeDiv {
+    position: absolute;
+    top: 80%;
+    left: 0;
+    width: 96%;
+    text-align: center;
+}
+
+.newCustomer_top img {
+    width: 100%;
+}
+
+.newCustomer_middle {
+    width: 100%;
+    text-align: center;
+    z-index: 9;
+}
+
+.newCustomer_middle a {
+    width: 35.6%;
+    display: block;
+    margin: 0 auto;
+    -webkit-animation: scaleB 2s ease-in-out infinite;
+}
+
+.newCustomer_middle div {
+    color: #fff;
+    padding-top: 0.5em;
+}
+
+.newCustomer_pop {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    width: 74.6%;
+    top: 28.5%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -webkit-animation: fadeInB 0.2s ease-in-out backwards;
+}
+.newCustomer {
+    display: none;
+    position: absolute;
+    z-index: 1100;
+    width: 14em;
+    height:15em;
+    left:50%;
+    top:25%;
+    -webkit-transform: translateX(-50%);
+    -webkit-animation: fadeInB 0.2s ease-in-out backwards;
+}
+.newCustomer_pop img {
+    display: block;
+    width: 100%;
+}
+
+.newCustomer_pop_ico {
+    position: absolute;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    width: 81.5%;
+    height: 50%;
+    top: 33%;
+    left: 50%;
+    -webkit-transform: translateX(-50%)
+}
+
+.newCustomer_pop_ico ul {
+    -webkit-box-flex: 1;
+    overflow: hidden;
+}
+
+.newCustomer_pop_ico ul:last-child {
+    margin-top: 7%;
+}
+
+.newCustomer_pop_ico ul li {
+    float: left;
+    width: 25%;
+    text-align: center;
+    font-size: 12px;
+}
+
+.newCustomer_pop_ico ul li img {
+    width: 55%;
+    display: block;
+    margin: 0 auto 10% auto;
+}
+
+.newCustomer_pop span {
+    position: absolute;
+    display: inline-block;
+    width: 2.5em;
+    height: 4em;
+    top: 0;
+    right: 0;
+}
+
+.newCustomer_pop span i {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 1.2em;
+    height: 1.2em;
+}
+
+.newCustomer_pop_rule {
+    display: none;
+    position: absolute;
+    z-index: 999;
+    width: 88%;
+    top: 30%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    -webkit-animation: fadeInB 0.2s ease-in-out backwards;
+}
+
+.newCustomer_pop_rule img {
+    display: block;
+}
+
+.newCustomer_pop_rule div {
+    background: #e8403f;
+    color: #fff;
+    padding: 1.5em
+}
+
+.newCustomer_pop_rule div h2 {
+    font-size: 1.2em
+}
+
+.newCustomer_pop_rule div p {
+    font-size: 1em;
+    line-height: 1.6em;
+    text-align: justify;
+    text-justify: distribute-all-lines;
+}
+
+.newCustomer_pop_rule span {
+    position: absolute;
+    width: 2.5em;
+    height: 2.5em;
+    top: 0;
+    right: 0;
+    z-index: 99;
+}
+
+.newCustomer_pop_rule span i {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 1.2em;
+    height: 1.2em;
+}
+/*-------------------newCustomer end-------------------------*/
+
+/*-------------------newDownloadApp-------------------------*/
+
+.newDownloadApp_top {
+    width: 100%;
+    padding-top: 5%;
+}
+
+.newDownloadApp_top img {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.newDownloadApp_number {
+    position: absolute;
+    top: 50.5%;
+    left: 43%;
+    width: 56%;
+}
+
+.newDownloadApp_but {
+    position: absolute;
+    top: 82%;
+    left: 39%;
+    width: 21%;
+    height: 9%;
+}
+
+.newDownloadApp_but img {
+    display: block;
+    width: 26.25%;
+}
+
+.newDownloadApp_bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.newDownloadApp_bottom img {
+    display: block;
+}
+
+/*-------------------newDownloadApp end-------------------------*/
+
+/*-------------------newHave-------------------------*/
+
+.newHave_top {
+    position: absolute;
+    top: 13%;
+    bottom: 0;
+    width: 100%;
+}
+
+.newHave_top a {
+    display: block;
+    position: absolute;
+    width: 100%;
+    top: 24%;
+    -webkit-animation: scaleB 2s ease-in-out infinite;
+}
+
+.newHave_top a img {
+    display: block;
+    width: 22%;
+    margin: 0 auto;
+}
+
+.newHave_top img {
+    display: block;
+    width: 88%;
+    margin: 0 auto;
+}
+
+.newHave_bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.newHave_bottom img {
+    display: block;
+}
+
+/*-------------------newHave end-------------------------*/
+
+/*-------------------newRedPaper-------------------------*/
+
+.newOpen_top {
+    position: absolute;
+    top: 13%;
+    bottom: 0;
+    width: 100%;
+}
+
+.newOpen_top a {
+    display: block;
+    position: absolute;
+    width: 100%;
+    top: 24%;
+    -webkit-animation: scaleB 2s ease-in-out infinite;
+}
+
+.newOpen_top a img {
+    display: block;
+    width: 22%;
+    margin: 0 auto;
+}
+
+.newOpen_top img {
+    display: block;
+    width: 88%;
+    margin: 0 auto;
+}
+
+.newOpen_bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.newOpen_bottom img {
+    display: block;
+}
+
+/*-------------------newRedPaper end-------------------------*/
+
+/*-------------------动画-------------------------*/
+
+@-webkit-keyframes fadeInDown
+{
+0%{ -webkit-transform:translate(0px,-40px);opacity:0;}
+100%{ -webkit-transform:translate(0px,0px);opacity:1;}
+}
+
+@-webkit-keyframes scaleB
+{
+0%{ -webkit-transform:scale(1);}
+50%{ -webkit-transform:scale(1.05);}
+100%{ -webkit-transform:scale(1);}
+}
+
+@-webkit-keyframes translateK
+{
+0%{ -webkit-transform:translate(0px,0px) rotate(-360deg);opacity:1;}
+100%{ -webkit-transform:translate(0px,-500px) rotate(0);opacity:.2;}
+}
+
+@-webkit-keyframes fadeInB
+{
+0%{ bottom:0;opacity:0;}
+100%{ opacity:1;}
+}
+
+
+
+/*复制遮罩框*/
+.mask {
+    background: #000000;
+    opacity: 0.7;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 8888;
+}
+.ejecWindowsw{
+    position: fixed;
+    top:0;
+    width:100%;
+    height: 6em;
+    padding-top: 3em;
+    z-index: 9999;
+}
+.img_gray_chas{
+    background: url("../image/ccha.png") no-repeat;
+    background-size:2em;
+    height: 3em;
+    width: 3em;
+    position: absolute;
+    left:1em;
+    top: 1em;
+    z-index: 1;
+}
+.img_gray_chad{
+    background: url("../image/jiant.png") no-repeat;
+    background-size:6em 6em;
+    height: 6em;
+    width: 6em;
+    position: absolute;
+    right:0em;
+    top: 0.5em;
+    z-index: 1;
+}
+.steps{
+    width:80%;
+    padding: 1em;
+    color: #fff;
+}
+.stepImg,.stepsImg{
+    height: 3em;
+    line-height: 3em;
+}
+.stepImg img{
+    width: 3em;
+    height:2em;
+    margin-left: 0.5em;
+    position: absolute;
+    top: 0.6em;
+}
+.stepsImg img{
+    width: 10em;
+    height:2em;
+    margin-left: 0.5em;
+    position: absolute;
+    top: 0.5em;
+}
+
+.newDownloadApp_UserName {
+    position: absolute;
+    top: 26%;
+    left: 44%;
+    width: 50%;
+}
+.newDownloadApp_copy{
+    position: absolute;
+    color: #999;
+    top: 59%;
+    left: 43%;
+    font-size: 0.7em;
+}
+
+/*2017.02.27新建分享好友页面样式*/
+.shareFriend_top{
+    margin-top:0%;
+    height:60%;
+    text-align:center;
+    width: 100%;
+    /*background-image: url("../image/shareTop.png");*/
+}
+.shareFriend_top img{
+    height: 80%;
+    width: 80%;
+}
+.shareFriend_bottom{
+    text-align:center;
+    width: 100%;
+    padding-top: 1.3em;
+    background-image: url("../image/shareBottom.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 16em;
+}
+.shareTextDiv{
+    height: 8em;
+    width: 100%;
+    margin-top: -0.6em;
+}
+.shareText {
+    color:#652302;
+    width: 80%;
+    margin-left:10%;
+    height: 2.2em;
+    border-radius: 1.8em 1.8em 1.8em 1.8em;
+    border: 0.1em solid #efd4ac;
+    line-height: 2.2em;
+    /*font-weight: bold;*/
+    margin-top: 1.5em;
+    cursor: pointer;
+    background-color: #fdf0dd;
+    font-size: 1.2em;
+}
+.saveImgText{
+    text-align:center;
+    /*font-size:0.815em;*/
+    height: 2em;
+    line-height: 2em;
+    background: white;
+}
+
+.shareFriend_top2{
+    text-align:center;
+    width: 100%;
+    background-image: url("../image/myDY.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 22em;
+}
+.shareFriend_bottom2{
+    text-align:center;
+    width: 100%;
+    background-image: url("../image/shareBottom.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height: 16em;
+    margin-top: -6em;
+}
+.DYbottom{
+    padding-top: 6.5em;
+    height: 6em;
+    width: 80%;
+    margin-left: 10%;
+}
+.ewmDIV{
+    margin-top: -2em;
+    z-index: 1;
+}
+.myName {
+    font-size:1.5em;
+    height: 2em;
+    line-height: 2em;
+}
+.myDy {
+    font-size:1.8em;
+    height: 2em;
+    line-height: 2em;
+    color: #a16814;
+    font-weight: bolder;
+}
+.share {
+  background-image: url("../image/shareImg.png");
+  height: 1.5em;
+}
+
+.backColor {
+    background-color: #fdf0dd;
+}
+
+
+/*分享的*/
+.ejecWindows {
+    position: fixed;
+    top: 25%;
+    margin-left: 18%;
+    margin-right: 18%;
+    width: 64%;
+    height: 17.5em;
+    background: #FFFFFF;
+    padding-top: 2em;
+    z-index: 9999;
+}
+.fgjj {
+    text-align:center;
+    width: 18em;
+    height: 8.5em;
+}
+.uhide {
+    display: none !important;
+}
+.mask {
+    background: #000000;
+    opacity: 0.7;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 8888;
+}
+.img_gray_cha{
+    background: url("../../Products/image/cha.png") no-repeat;
+    background-size:2em;
+    height: 3em;
+    width: 3em;
+    position: absolute;
+    right: -0.7em;
+    top: -1.9em;
+}
+
+.nameFontColor {
+    color: #a16814;
+    font-weight: bolder;
+}
+.contentCss {
+    background-color: #fdf0dd;
+    text-align: center;
+    margin-left: 4%;
+    width: 92%;
+    margin-bottom: 1em;
+    overflow-y: auto;
+    height: 85%;
+}
+
+.overlay {
+    background: #000;
+    opacity: 0.5; /* 透明度 */
+    filter: alpha(opacity=50); /* IE的透明度 */
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999; /* 此处的图层要大于页面 */
+    position: fixed;
+}
+
+.ejecWindow {
+    position: fixed;
+    top:30%;
+    width: 90%;
+    left: 5%;
+    z-index: 10000;
+    background-color: white;
+    border-radius: 0.5em;
+}

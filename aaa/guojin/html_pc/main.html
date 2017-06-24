@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="fortune.css" />
+<script language="JavaScript" src="resources/js/jquery-3.1.0.min.js"></script>
+<title>投资者登录</title>
+</head>
+<body>
+
+<div id="app_qrcode" class="ui_header_app_down">
+  <img src="./resources/images/qrcode_wechat.png" />
+</div>
+
+<div id="header">
+  <div id="header_login">
+    <table border="0" class="ui_header_login" width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td class="ui_header_channel ui_header_channel_active"><a href="#">投资者</a></td>
+        <td class="ui_header_channel"><a href="#">理财师</a></td>
+        <td class="ui_header_channel"><a href="#">营销系统</a></td>
+        <td style="width:auto"><a class="ui_header_app" href="#" onmouseover="showAppDownQrcode(this);" onmouseout="hideAppDownQrcode();">APP客户端</a></td>
+        <td class="ui_header_status">
+          <a href="#">注册</a>
+          |
+          <a href="#">登录</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div id="header_nav">
+    <table class="ui_header_nav" border="0" width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td class="ui_header_logo"></td>
+        <td class="ui_header_logo_text"></td>
+        <td style="width:1px;"><div class="ui_header_split"></div></td>
+        <td class="ui_header_slogan"></td>
+        <td class="ui_header_menu_block">
+          <table class="ui_header_menu" cellpadding="0" cellspacing="0">
+            <tr>
+              <td><a href="#">首页</a></td>
+              <td class="ui_header_menu_active"><a href="#">产品列表</a></td>
+              <td><a href="#">我的账户</a></td>
+              <td><a href="#">研究资讯</a></td>
+              <td><a href="#">关于我们</a></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<div id="content" class="ui_portal">
+
+  <div class="ui_portal_banner">
+    <div class="ui_portal_content">
+      <div class="ui_portal_banner_title">让财富触手可及</div>
+      <div class="ui_portal_banner_subtitle">提供安全&nbsp;&nbsp;专业的一站式理财咨询服务</div>
+      <div class="ui_portal_banner_subtitle_en">PROVIDE A SAFE, PROFESSIONAL ONE-STEP FINANCIAL ADVISORY SERVICES</div>
+      <div class="ui_portal_banner_btns">
+        <div class="ui_portal_banner_btn"><a href="<%=WEB_CONTEXT%>html/login/login.jsp">登录</a></div>
+        <div style="width:30px">&nbsp;</div>
+        <div class="ui_portal_banner_btn"><a href="<%=WEB_CONTEXT%>html/register/registerUser.jsp">立即注册</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui_portal_product">
+    <div class="ui_portal_content">
+      <div class="ui_portal_product_title">产品精选</div>
+      <div class="ui_portal_product_subtitle">
+        <s>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</s>&nbsp;&nbsp;&nbsp;&nbsp;
+        让您的投资理财更安全，更高效，更简单
+        &nbsp;&nbsp;&nbsp;&nbsp;<s>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</s>
+      </div>
+      <table class="ui_portal_product_catalog">
+        <tr>
+          <td>
+            <div>
+              <a href="#">
+                <div class="ui_portal_product_1"></div>
+                <div class="ui_portal_product_type">类固收益</div>
+                <div class="ui_portal_product_type_desc">最新动态一网打进最新动态<br/>一网打进最新动态一网</div>
+              </a>
+            </div>
+          </td>
+          <td>
+            <div class="ui_align_center">
+              <a href="#">
+                <div class="ui_portal_product_2"></div>
+                <div class="ui_portal_product_type">浮动收益</div>
+                <div class="ui_portal_product_type_desc">最新动态一网打进最新动态<br/>一网打进最新动态一网</div>
+              </a>
+            </div>
+          </td>
+          <td>
+            <div class="ui_align_right">
+              <a href="#">
+                <div class="ui_portal_product_3"></div>
+                <div class="ui_portal_product_type">类固+浮动收益</div>
+                <div class="ui_portal_product_type_desc">分分钟博取预期收益分分<br/>钟博取预期收益分分钟</div>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="ui_portal_professional">
+    <div class="ui_portal_content">
+      <div class="ui_portal_professional_title">专注始终如一</div>
+      <div class="ui_portal_professional_subtitle">精诚, 始终如一&nbsp;&nbsp;安全, 值得托付</div>
+      <div class="ui_portal_professional_subtitle_en">SINCERE, CONSISTENT AND SAFE, WORTHY OF TRUST</div>
+    </div>
+  </div>
+
+  <div class="ui_portal_info">
+    <div class="ui_portal_content">
+      <table border="0" width="100%">
+        <tr>
+          <td width="50%">
+            <table border="0" width="96%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td class="ui_portal_info_title">研究报告</td>
+                <td class="ui_portal_info_more"><a href="#">更多>></a></td>
+              </tr>
+              <tr>
+                <td style="padding-top:16px" height="192px"><img src="./resources/images/sample_research_cover_1.png" border="0" width="260px" height="170px"/></td>
+                <td style="padding-top:16px" height="192px"><img src="./resources/images/sample_research_cover_1.png" border="0" width="260px" height="170px"/></td>
+              </tr>
+              <tr>
+                <td class="ui_portal_info_subject ui_margin_top_22">震荡中布局结构机会</td>
+                <td class="ui_portal_info_subject ui_margin_top_22">震荡中布局结构机会</td>
+              </tr>
+              <tr>
+                <td class="ui_portal_info_content"><div style="width:260px;">A股仍在等待信号中乏味、纠结、酝酿，至今已连续大半月横盘，指数“垃圾化”和行情结构化是近期最好MSCI...</div></td>
+                <td class="ui_portal_info_content"><div style="width:260px;">A股仍在等待信号中乏味、纠结、酝酿，至今已连续大半月横盘，指数“垃圾化”和行情结构化是近期最好MSCI...</div></td>
+              </tr>
+            </table>
+          </td>
+          <td>
+            <table border="0" width="90%" cellpadding="0" cellspacing="0">
+              <tr>
+                <td class="ui_portal_info_title">最新资讯</td>
+                <td class="ui_portal_info_more"><a href="#">更多>></a></td>
+              </tr>
+
+              <tr>
+                <td colspan="2" class="ui_portal_info_subject">震荡中布局结构机会</td>
+              </tr>
+              <tr class="ui_portal_info_split">
+                <td width="173px"><img src="./resources/images/sample_research_cover_1.png" border="0" width="158px" height="100px"/></td>
+                <td class="ui_portal_info_content">A股仍在等待信号中乏味、纠结、酝酿，至今已连续大半月横盘，指数“垃圾化”和行情结构化是近期最好MSCI...</td>
+              </tr>
+
+              <tr>
+                <td colspan="2" class="ui_portal_info_subject">震荡中布局结构机会</td>
+              </tr>
+              <tr>
+                <td width="173px"><img src="./resources/images/sample_research_cover_1.png" border="0" width="158px" height="100px"/></td>
+                <td class="ui_portal_info_content">A股仍在等待信号中乏味、纠结、酝酿，至今已连续大半月横盘，指数“垃圾化”和行情结构化是近期最好MSCI...</td>
+              </tr>
+
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+
+<div id="footer">
+  <table class="ui_footer" border="0">
+    <tr>
+    <td class="ui_footer_div ui_footer_div1">
+      <div class="ui_footer_title">首页</div>
+      <ol>
+        <li><a href="#">投资者</a></li>
+        <li><a href="#">理财师</a></li>
+        <li><a href="#">营销系统</a></li>
+      </ol>
+    </td>
+    <td class="ui_footer_div ui_footer_div2">
+      <div class="ui_footer_title">关于国金财富</div>
+      <ol>
+        <li><a href="#">关于我们</a></li>
+        <li><a href="#">产品列表</a></li>
+        <li><a href="#">帮助中心</a></li>
+      </ol>
+    </td>
+    <td class="ui_footer_div"><div class="ui_footer_split">&nbsp;</div></td>
+    <td class="ui_footer_div ui_footer_div3">
+      <div class="ui_footer_title">服务热线</div>
+      <div class="ui_footer_tel">400-022-1008</div>
+      <span>工作时间：09:30-18:00（国家节假日除外）</span><br/>
+      <span>传真号码：010-58888800</span>
+    </td>
+    <td class="ui_footer_div"><div class="ui_footer_split">&nbsp;</div></td>
+    <td class="ui_footer_div ui_footer_div4"></td>
+    <td class="ui_footer_div ui_footer_div5">
+      <a href="#">
+        <img class="ui_footer_qrcode" src="/invest/resource/images/qrcode_wechat.png" title="微信公众号" />
+        <span>微信扫描, 开始理财</span>
+      </a>
+    </td>
+    <td class="ui_footer_div ui_footer_div6">
+      <a href="#">
+        <img class="ui_footer_qrcode" src="/invest/resource/images/qrcode_wechat.png" title="微信公众号" />
+        <span>扫描下载APP</span>
+      </a>
+    </td>
+    </tr>
+  </table>
+</div>
+<div class="ui_copyright">
+  版权所有：上海国金通用财富资产管理有限公司 ©2016 | Privacy policy
+</div>
+</body>
+</html>

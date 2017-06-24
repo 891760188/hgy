@@ -1,0 +1,31 @@
+/**
+ * 动态加载js文件
+ * yangtao 2016.3.17
+ */
+
+//js链式加载
+var loadScript = function(url, callback) {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+
+    if (script.readyState) {
+        script.onreadystatechange = function() {
+            if (script.readyState == "loaded" || script.readyState == "complete") {
+                script.onreadystatechange = null;
+                callback();
+            }
+        }
+    } else {
+        script.onload = function() {
+            callback();
+        }
+    }
+    script.src = url;
+    document.getElementsByTagName("body")[0].appendChild(script);
+}
+//链式加载公共js
+var loadScriptAll = function(scriptArry) {
+if(scriptArry){
+    scriptArry();
+}  
+}                                                                                                    

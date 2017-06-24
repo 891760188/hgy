@@ -1,0 +1,694 @@
+/**
+ * @fileOverview 通用的ajax请求，所有请求使用此文件中提供的方法
+ *
+ * @author zhaojia 2015-10-09 v1.0
+ */
+
+/**
+ * @description 超时事件的ID
+ * @field
+ */
+var m_timeID;
+// 请求渠道分支编号，默认H5：0001，0001-H5，0002-微信订阅号，0003-微信服务号，0004-微信企业号,0005-APP换量推广 ,0006-合协社区富钱包运营活动
+var reqChlBrnNo = "0001";
+
+/**
+ * @description 通用的ajax请求
+ * @method postAjax
+ * @param targetUrl 请求mas接口地址
+ * @param data 参数,无参数时传null
+ * @param isOffline 是否需要缓存
+ * @param successCBFunction 请求成功的success回调函数
+ * @param errorCallBack error的回调，可以在请求失败时，重置按钮等。
+ * @param timeoutCBFunction 请求超时处理时的回调，部分需要处理的可以自定义，不部分情况下不需要。
+ * @returns void
+ * @author zhaojia 2015-10-09
+ *
+ * @example
+ * var a = "0";
+ */
+function postAjax(targetUrl, paraData, isOffline, successCBFunction, errorCallBack, timeoutCBFunction) {
+    var strSID = "public";
+    if(isWeixinBinding){
+        strSID =apiPublicResultForWeixin(targetUrl);
+    }else{
+        strSID = apiPublicResult(targetUrl);
+    }
+    appcan.request.ajax({
+        type : "POST",
+        url : targetUrl,
+        data : {
+            "data" : base64ParaDate(paraData)
+        },
+        datatype : "json",
+        cache:false,
+        ifModified:true,
+        timeout : TIMEOUT, // config.js中设置10s超时
+        appVerify : true, // 在请求头中加入appVerify字段 true、false
+        offline : isOffline, // 是否直接调用离线数据，包括true,false,undefined
+        headers : {
+            "x-mas-app-info" : "1234567/" + strSID,
+            "reqChlBrnNo" :reqChlBrnNo
+        },
+        success : function(data, status, requestCode, response, xhr) {
+            if (isDefine(data.status) && data.status != 0) {
+                defaultHandleJsonStatus(data);
+            } else {
+                if (successCBFunction) {
+                    successCBFunction(data, status, requestCode, response, xhr);
+                }
+            }
+        },
+        error : function(xhr, erroType, error, msg) {// 异常和超时回调
+            /*
+             * 当开启gzip压缩时，iOS会调用两次请求，第一次是正常请求，第二次是一个未知请求
+             * 这个未知请求会进入error回调，返回的msg是“100”。
+             * 所以，屏蔽掉这个“100”错误，就可以让逻辑正常，而不会错误的进入error回调
+             */
+            if (msg == "100") {
+                return;
+            }
+            appcan.frame.resetBounce(0);
+            // 收起 顶部下拉刷新
+            appcan.frame.resetBounce(1);
+            // 收起 底部上拉刷新
+            //endLoadingHint();
+            if (errorCallBack) {
+                errorCallBack(xhr, erroType, error, msg);
+            }
+            if (msg == "A connection failure occurred") {// 网络请求不通的处理
+                commonHint("toast", "网络不可用,请检查网络!");
+            } else if (msg == "The request timed out") {// 超时的处理
+                if (timeoutCBFunction) {// 超时
+                    timeoutCBFunction();
+                }
+                commonHint("toast", "亲，服务器太累了，请稍后再试");
+                //亲,网络不给力
+            }
+        },
+        complete : function() {
+            var lastRequestTime = (new Date()).getTime();
+            setLocVal("lastRequestTime", lastRequestTime);
+        }
+    });
+}
+
+/**
+ * @description 通用的ajax请求  带有timeout参数
+ * @method postAjax
+ * @param targetUrl 请求mas接口地址
+ * @param data 参数,无参数时传null
+ * @param isOffline 是否需要缓存
+ * @param timeVal timeout 时间 单位毫秒  默认为   config.js中设置的10s
+ * @param successCBFunction 请求成功的success回调函数
+ * @param errorCallBack error的回调，可以在请求失败时，重置按钮等。
+ * @param timeoutCBFunction 请求超时处理时的回调，部分需要处理的可以自定义，不部分情况下不需要。
+ * @param showToast 是否显示失败默认的toast
+ * @returns void
+ * @author zhaojia 2015-10-09
+ *
+ * @example
+ * var a = "0";
+ */
+function postAjaxWithTimeOut(targetUrl, paraData, isOffline, timeVal, successCBFunction, errorCallBack, timeoutCBFunction, showToast) {
+    var strSID = apiPublicResult(targetUrl);
+    var tmpTime = timeVal == undefined ? TIMEOUT : timeVal;
+    appcan.request.ajax({
+        type : "POST",
+        url : targetUrl,
+        data : {
+            "data" : base64ParaDate(paraData)
+        },
+        datatype : "json",
+        timeout : tmpTime, // 超时时间
+        appVerify : true, // 在请求头中加入appVerify字段 true、false
+        offline : isOffline, // 是否直接调用离线数据，包括true,false,undefined
+        headers : {
+            "x-mas-app-info" : appKey + "/" + strSID,
+            "reqChlBrnNo" :reqChlBrnNo
+        },
+        success : function(data, status, requestCode, response, xhr) {
+            if (successCBFunction) {
+                successCBFunction(data, status, requestCode, response, xhr);
+            }
+        },
+        error : function(xhr, erroType, error, msg) {// 异常和超时回调
+            /*
+             * 当开启gzip压缩时，iOS会调用两次请求，第一次是正常请求，第二次是一个未知请求
+             * 这个未知请求会进入error回调，返回的msg是“100”。
+             * 所以，屏蔽掉这个“100”错误，就可以让逻辑正常，而不会错误的进入error回调
+             */
+            if (msg == "100") {
+                return;
+            }
+
+            appcan.frame.resetBounce(0);
+            // 收起 顶部下拉刷新
+            appcan.frame.resetBounce(1);
+            // 收起 底部上拉刷新
+            endLoadingHint();
+            if (errorCallBack) {
+                errorCallBack(xhr, erroType, error, msg);
+            }
+
+            var show = (showToast != undefined && !showToast) ? show : true;
+            // 是否显示toast 默认显示
+
+            if (msg == "A connection failure occurred") {// 网络请求不通的处理
+                if (show) {
+                    commonHint("toast", "网络不可用,请检查网络!");
+                }
+            } else if (msg == "The request timed out") {// 超时的处理
+                if (timeoutCBFunction) {// 超时
+                    timeoutCBFunction();
+                }
+                if (show) {
+                    commonHint("toast", "亲，服务器太累了，请稍后再试");
+                    //亲,网络不给力
+                }
+            }
+        },
+        complete : function() {
+            var lastRequestTime = (new Date()).getTime();
+            setLocVal("lastRequestTime", lastRequestTime);
+        }
+    });
+}
+
+/**
+ *
+ * 登录接口 ....
+ * @returns {boolean}
+ */
+
+function loginPostAjax(targetUrl, data, isOffline, privacy, successCBFunction, resetbutton) {
+    //添加提示
+    appcan.request.ajax({
+        type : "POST",
+        url : targetUrl,
+        async : true,
+        data : {
+            "data" : base64ParaDate(data)
+        },
+        datatype : "json",
+        cache:false,
+        ifModified:true,
+        timeout : LOGINTIMEOUT, //config.js中设置5s超时
+        appVerify : true, //在请求头中加入appVerify字段 true、false
+        offline : isOffline, //是否直接调用离线数据，包括true,false,undefined
+        headers : {
+            "x-mas-app-info" : "1234567/" + privacy,
+            "reqChlBrnNo" :reqChlBrnNo
+        },
+        success : function(data, status, requestCode, response, xhr) {
+            if (isDefine(data.status) && data.status != 0) {
+                defaultHandleJsonStatus(data);
+            } else {
+                var errCode = JSON.parse(data).status;
+                var errMsg = JSON.parse(data).msg;
+                if (errCode == "-1") {
+                    if (resetbutton) {//服务器异常时，登录按钮恢复红色，已经结束loading图
+                        resetbutton();
+                    }
+                    showHint(errMsg);
+                } else if (errCode == "-2") {
+
+                } else if (errCode == "-3") {
+                    //token值未通过校验(重复提交)
+                    commonHint('toast', '重复提交啦，请返回并再试一次！');
+                } else if (errCode == "-4") {
+                    //非直销用户不做处理
+                    //代销用户不允许业务提交
+                    commonHint('toast', '代销用户不允许业务提交');
+                } else {
+                    if (successCBFunction)
+                        successCBFunction(data, status, requestCode, response, xhr);
+                }
+            }
+
+        },
+        error : function(xhr, erroType, error, msg) {
+            if (msg == "100") {
+                return;
+            }
+            if (resetbutton) {
+                resetbutton();
+            }
+            if (isAndroid) {
+                uexWindow.destroyProgressDialog();
+            }
+            if (msg == "A connection failure occurred") {// 网络请求不通的处理
+                commonHint("toast", "网络不可用,请检查网络!");
+            } else if (msg == "The request timed out") {// 超时的处理
+                commonHint("toast", "亲，服务器太累了，请稍后再试");
+            }
+        },
+        complete : function() {
+            var lastRequestTime = (new Date()).getTime();
+            //设置最后一次请求的时间
+            setLocVal("lastRequestTime", lastRequestTime);
+        }
+    });
+}
+
+//同步提交
+function postAjaxSync(targetUrl, data, isOffline, successCBFunction) {
+    var strSID = apiPublicResult(targetUrl);
+
+    var data11 = {
+        "data" : base64ParaDate(data)
+    };
+    $.ajax({
+        type : "post",
+        url : targetUrl,
+        data : data11,
+        dataType : "string",
+        async : false,
+        headers : {
+            "x-mas-app-info" : "1234567/" + strSID,
+            "appVerify" : true,
+            "reqChlBrnNo" :reqChlBrnNo
+        },
+        success : successCBFunction
+    });
+}
+
+/*
+function errorCallBack(xhr, erroType, error, msg) {
+appcan.frame.resetBounce(0);
+appcan.frame.resetBounce(1);
+uexWindow.closeToast();
+commonHint('toast','请求异常，请稍后再试！');
+}
+*/
+/**
+ *
+ * 登录获取时间戳函数 ....
+ * 维护人员：张金辉
+ */
+function asyncGetServerTimeSpan() {
+    if (!getLocVal("kTimeSpan") && !getLocVal("ClientTimeSpan")) {
+        setLocVal("kTimeSpan", Date.parse(new Date()));
+        setLocVal("ClientTimeSpan", Date.parse(new Date()));
+    }
+    appcan.request.ajax({
+        type : "POST",
+        url : serverUrl + "Service_time",
+        async : true,
+        data : {
+            "data" : ""
+        },
+        datatype : "json",
+        timeout : LOGINTIMEOUT, //config.js中设置5s超时
+        appVerify : true, //在请求头中加入appVerify字段 true、false
+        offline : undefined, //是否直接调用离线数据，包括true,false,undefined
+        headers : {
+            "x-mas-app-info" : appKey + "/" + "public"
+        },
+        success : function(data, status, requestCode, response, xhr) {
+            setLocVal("kTimeSpan", data);
+            setLocVal("ClientTimeSpan", Date.parse(new Date()));
+            //endLoadingHint();
+        },
+        error : function() {
+            if (msg == "100") {
+                return;
+            }
+
+            setTimeout(asyncGetServerTimeSpan, 3000);
+            //endLoadingHint();
+        }
+    });
+}
+
+/**
+ *
+ *更新本地缓存的服务器时间戳
+ */
+function getLatestServerTimeSpan() {
+    var serverTimeSpan = new Number(getLocVal("kTimeSpan"));
+    var clientTimeSpan = new Number(getLocVal("ClientTimeSpan"));
+    var difference = new Number(Date.parse(new Date())) - clientTimeSpan;
+    return serverTimeSpan + difference;
+}
+
+/**
+ * @description 加载最新公告内容
+ * @method loadNotice
+ * @returns void
+ *
+ * @author xuhairong 2015-10-09
+ */
+function loadNotice() {
+    var startDate = fmtToady();
+    var token;
+    if (isPhone) {
+        token = encodeURI(getLocVal("EmmSoftToken"));
+    } else {
+        token = '';
+    }
+    var url = MSGLIST_URL + '?appId=' + appKey + '&content=&startDate=' + startDate + '&endDate=&pageNo=1&token=' + token;
+    appcan.ajax({
+        url : url,
+        type : 'GET',
+        dataType : 'json',
+        success : function(data) {
+            if (data.status == 'OK' && data.list && data.list.length > 0) {
+                setLocVal("PublishNotice", JSON.stringify(data));
+                setLocVal("pushList", data.list);
+                appcan.window.publish("showPubNoticeInfo", "更新首页通知信息");
+            }
+        },
+        error : function() {
+
+        }
+    });
+}
+
+/* 判断接口是否为public
+ *url 为传入的接口URL
+ * 不是public 返回sid 是public 返回“public”
+ */
+function apiPublicResult(url) {
+    var result = "public";
+    // url 不合法时 默认返回  public
+    if (url == undefined || url.length == 0) {
+        return result;
+    }
+    var lastSubStr = url.replace(serverMasUrl, "");
+    var cardQryType = getLocVal("cardQryType");
+    // 开户接口是否传 sid 标示
+    switch (lastSubStr) {
+    //红包接口
+    case "fullgoal_products_purchase":
+    case "fullgoal_products_productsList":
+    case "fullgoal_myfund_quickCash":
+    case "fullgoal_myfund_redemption":
+    case "fullgoal_myfund_myFundList":
+    case "fullgoal_user_userInfo":
+    case "fullgoal_myfund_revokeList":
+    case "fullgoal_myfund_modifyDividend":
+    case "fullgoal_myfund_tradingRecord":
+    case "fullgoal_myfund_paymentApplication":
+    case "fullgoal_myfund_revoke":
+    case "fullgoal_myfund_modifyDividendList":
+    case "fullgoal_myfund_modifyDividend":
+    case "fullgoal_products_conversionList":
+    case "fullgoal_product_poundage":
+    case "fullgoal_fuqianbao_fqbAssets":
+    case "fullgoal_account_modifyPhone":
+    case "fullgoal_register_transformDirectSell":
+    case "fullgoal_public_getToken":
+    case "fullgoal_user_rorgotPassword":
+    case "fullgoal_myfund_redemptionList":
+    case "fullgoal_products_conversion":
+    case "fullgoal_register_openAccount":
+    case "fullgoal_register_checkAndSendSMS":
+    case "fullgoal_myfund_increasingly":
+    case "fullgoal_key_parse":
+    case "fullgoal_account_bankCardInfo":
+    case "fullgoal_register_SMSCalidation":
+    case "fullgoal_register_SMSVerifiction":
+    case "fullgoal_account_modifyPassword":
+    case "fullgoal_autoinvest_list":
+    case "fullgoal_autoinvest_transactionquery":
+    case "fullgoal_autoinvest_infoquery":
+    case "fullgoal_autoinvest_add":
+    case "fullgoal_autoinvest_modify":
+    case "fullgoal_autoinvest_myquery":
+    case "fullgoal_autoinvest_operationquery":
+    case "fullgoal_autoinvest_statusmodify":
+    case "fullgoal_autoinvest_suspendTrade":
+    case "fullgoal_autoinvest_treaty":
+    case "fullgoal_myAssets_Info":
+    case "fullgoal_public_getSMSCode":
+    case "fullgoal_public_calidationSMSCode":
+    case "fullgoal_account_SMSForBindingNewMob":
+    case "fullgoal_account_FqbBankCardAssets":
+    case "fullgoal_risk_questionList":
+    case "fullgoal_risk_question_result":
+    case "fullgoal_account_CheckAndBindingNewMob":
+    case "fullgoal_redPacket_list":
+    case "fullgoal_activity_oldnew":
+    case "fullgoal_privilege_use":
+    case "fullgoal_register_openAccount_new":
+    case "fullgoal_account_addBankCard":
+        result = isDefine(getLocVal("sid")) ? getLocVal("sid") : "public";
+        // result 赋值为sid
+        break;
+    // 公共接口
+    default:
+        result = "public";
+        break;
+    }
+
+    return result;
+}
+
+/* 默认对postAjax 返回data的status 不为0 的处理
+ *
+ */
+function defaultHandleJsonStatus(result) {
+    if(!isWeixinBinding){
+        $.removeimage();
+    }
+    var staVal = parseInt(result.status);
+    if (staVal < 0) {//mas  自定义错误
+        if (staVal == -3) {// token 过期
+            setLocVal("sidInvalid", "S");
+            // sid 过期标志 与token过期使用相似，故共用
+            uexWindow.cbConfirm = function(opId, dataType, data) {
+                if (data == 0) {
+                    openNewWindow("login", "../login.html");
+                }
+            };
+            uexWindow.confirm('温馨提示', result.msg, '确认取消');
+        } else {
+            appcan.frame.resetBounce(0);
+            // 收起 顶部下拉刷新
+            appcan.frame.resetBounce(1);
+            // 收起 底部上拉刷新
+            commonHint("toast", result.msg);
+        }
+    } else if (result.status == "14504" || result.status == 14504) {// mas 系统错误 sid 失效
+        setLocVal("sidInvalid", "S");
+        if (isWeixinBinding) {
+            //微信登录超时，直接弹出密码输入框
+            var hrefUrl=window.location.href;
+            if(hrefUrl.indexOf("updatePawwsord.html")!=-1){
+                //微信登录不需要密码控件但超时处理
+                noSaveKeyOpert();
+            }else{
+                //需要生成密码控件并弹出输入框
+                getPwdKeys();
+            }
+        } else {
+            // sid 过期标志
+            openNewWindow("login", "../login.html");
+        }
+    } else {//其他mas 系统错误  如14500
+        appcan.frame.resetBounce(0);
+        // 收起 顶部下拉刷新
+        appcan.frame.resetBounce(1);
+        // 收起 底部上拉刷新
+        commonHint("alert", result.message);
+    }
+}
+
+var base64ParaDate = function(paraData) {
+    //paraData MD5加密
+    //截取前10位 str1
+    //截图后5位str2
+    //st1+paraData64为加密+st2
+    //是否开启加密
+
+    if (ISBASE64 && paraData != "" && paraData != null && paraData != undefined) {
+        if ( typeof (paraData) == "object") {
+            paraData = JSON.stringify(paraData);
+        }
+        var md5Str = appcan.crypto.md5(paraData).toLowerCase();
+        var str1 = md5Str.substr(0, 10);
+        var str2 = md5Str.substr(md5Str.length - 5, 5);
+        paraData = str1 + base64encode(utf16to8(paraData)) + str2;
+    }
+    return paraData;
+};
+
+/**
+ * @decripse 简单ajax函数调用
+ * @method simplePostAjax
+ * @param targetUrl 请求mas接口地址
+ * @param data 参数,无参数时传null
+ * @param successCBFunction 请求成功的success回调函数
+ * @returns void
+ */
+function simplePostAjax(targetUrl, data, successSimpleFunction) {
+    //判断是否需要添加token值，true标识需要
+    if (txnIsNeedToken(targetUrl)) {
+        //需要添加token
+        needTokenTxnUrlStr = null;
+        needTokenTxnParam = null;
+        needTokenTxnSuccessr = null;
+        getTokenFunction(targetUrl, data, successSimpleFunction);
+    } else {
+        if ( typeof (data) == "object") {
+            data = JSON.stringify(data);
+        }
+        //不需要添加token
+        postAjax(targetUrl, data, false, successSimpleFunction, errorSimpleCallBack, timeoutSimpleFunction);
+    }
+}
+
+/**
+ *获取token值之后调用交易接口，并添加token值
+ */
+function getTokenFunction(targetUrl, data, successSimpleFunction) {
+    needTokenTxnUrlStr = targetUrl;
+    needTokenTxnParam = data;
+    needTokenTxnSuccessr = successSimpleFunction;
+    postAjax(GETTOKENURL, "", false, successGetTokenFunction, errorSimpleCallBack, timeoutSimpleFunction);
+}
+
+//需要token交易的参数保存
+var needTokenTxnUrlStr = null;
+var needTokenTxnParam = null;
+var needTokenTxnSuccessr = null;
+/**
+ *token回调成功函数
+ */
+var successGetTokenFunction = function(data) {
+    var result = JSON.parse(data);
+    var token = result.token;
+    setLocVal("MAS_token", token);
+    needTokenTxnParam = addTokenValue(needTokenTxnParam, token);
+    //调用ajax查数据
+    postAjax(needTokenTxnUrlStr, needTokenTxnParam, false, needTokenTxnSuccessr, errorSimpleCallBack, timeoutSimpleFunction);
+};
+/**
+ *为交易数据添加token值
+ */
+function addTokenValue(paraData, token) {
+    if (isDefine(paraData)) {
+        if ( typeof (paraData) != "object") {
+            paraData = JSON.parse(paraData);
+        }
+        paraData.token = token;
+    } else {
+        paraData = {};
+        paraData.token = token;
+    }
+    return JSON.stringify(paraData);
+};
+//回调失败
+var errorSimpleCallBack = function(data) {
+    $.removeimage();
+    commonHint("alert","网络异常了");
+};
+
+//ajax超时
+var timeoutSimpleFunction = function(data) {
+    $.removeimage();
+    commonHint("alert","网络超时了");
+};
+
+/**
+ *判断交易是否需要添加token值，需要返回true，否则返回false
+ * @param {Object} url
+ */
+function txnIsNeedToken(url) {
+    // url 不合法时 默认返回  false
+    var result = false;
+    if (!isDefine(url)) {
+        return result;
+    }
+    var lastSubStr = url.replace(serverMasUrl, "");
+    // 判断是否是交易接口，交易接口返回true，说明需要token值
+    switch (lastSubStr) {
+    case "fullgoal_products_purchase":
+    case "fullgoal_myfund_revoke":
+    case "fullgoal_autoinvest_modify":
+    case "fullgoal_myfund_quickCash":
+    case "fullgoal_myfund_modifyDividend":
+    case "fullgoal_myfund_redemption":
+    case "fullgoal_products_conversion":
+    case "fullgoal_account_CheckAndBindingNewMob":
+    case "fullgoal_privilege_use":
+    case "fullgoal_register_openAccount_new":
+    case "fullgoal_account_addBankCard":
+    case "fullgoal_autoinvest_add":
+    case "fullgoal_product_poundage":
+    case "fullgoal_autoinvest_statusmodify":
+        result = true;
+        break;
+    default:
+        break;
+    }
+    return result;
+}
+
+/**
+ * 转换调用emm跨域问题
+ */
+function postAjaxEmmCrossDomain(targetUrl, data, isOffline, successCBFunction) {
+    var url = targetUrl + "?emmUrl=" + data;
+    appcan.request.ajax({
+        url : url,
+        type : "get",
+        data : {},
+        datatype : "json",
+        timeout : TIMEOUT, //config.js中设置5s超时
+        offline : undefined, //是否直接调用离线数据，包括true,false,undefined
+        headers : {
+            "Content-type" : "application/json; charset=utf-8",
+            "x-mas-app-info" : "1234567/public"
+        },
+        success : function(data, status, requestCode, response, xhr) {
+            if (successCBFunction) {
+                successCBFunction(data, status, requestCode, response, xhr);
+            }
+        },
+        error : function(xhr, erroType, error, msg) {
+            errorSimpleCallBack(xhr, erroType, error, msg);
+        }
+    });
+}
+
+function apiPublicResultForWeixin(url) {
+    var result = "public";
+    if (url == undefined || url.length == 0) {
+        return result;
+    }
+    var lastSubStr = url.replace(serverMasUrl, "");
+    switch (lastSubStr) {
+    //红包接口
+    case "fullgoal_myfund_quickCash":
+    case "fullgoal_myfund_redemption":
+    case "fullgoal_myfund_paymentApplication":
+    case "fullgoal_myfund_revoke":
+    case "fullgoal_myfund_modifyDividend":
+    case "fullgoal_account_modifyPhone":
+    case "fullgoal_public_getToken":
+    case "fullgoal_products_conversion":
+    case "fullgoal_products_purchase":
+    case "fullgoal_register_SMSCalidation":
+    case "fullgoal_register_openAccount":
+    case "fullgoal_account_modifyPassword":
+    case "fullgoal_account_CheckAndBindingNewMob":
+    case "fullgoal_privilege_use":
+    case "fullgoal_register_openAccount_new":
+    case "fullgoal_account_addBankCard":
+    case "fullgoal_autoinvest_add":
+    case "fullgoal_product_poundage":
+    case "fullgoal_autoinvest_statusmodify":
+    case "fullgoal_autoinvest_modify":
+        result = isDefine(getLocVal("sid")) ? getLocVal("sid") : "public";
+        // result 赋值为sid
+        break;
+    // 公共接口
+    default:
+        result = "public";
+        break;
+    }
+    return result;
+}
+

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="" style="width: 300px;margin: 100px auto;background-color: #C4E3F3;">
+			<div>
+				<input type="button" onclick="add()" value="添加一个输入框">
+				<input type="button" onclick="flash()" value="重置">
+				<input type="button" onclick="result(this)" value="=">
+			</div>
+			<ul id="addInput">
+				<li><input class="calcalcal" type="" name="" id="" value="" placeholder="请输入" /></li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			function flash(){
+				location.reload();
+			}
+			function add(){
+				var addInput =document.getElementById('addInput');
+				var li = document.createElement('li');
+				li.innerHTML='<input type="" class="calcalcal" name="" id="" value="" placeholder="请输入" />';
+				addInput.appendChild(li);
+			}
+			function result(obj){
+				var doms = document.getElementsByClassName('calcalcal');
+				var arrayValue = [];
+				var he = 0;
+				for (i = 0 ; i < doms.length ; i++) {
+					var dom = doms[i];
+					var value = dom.value ;
+					if(value == null || value == '' || value == undefined ){
+						alert('连医生，请检查输入框中是否都有值');
+						return;
+					}
+					if(isNaN(value)){
+						alert('连医生，请检查输入框中的值是否都为数字');
+						return;	
+					}
+					he += Number(value);
+					arrayValue.push(Number(value));
+				}
+				var n = arrayValue.length ;
+				var avg = he / n ;
+				var shang = 0;
+				for (j = 0 ; j < n ; j++) {
+					shang += (Number(arrayValue[j]) - avg)*(Number(arrayValue[j]) - avg);
+				}
+				var fangcha = shang / n ;
+				fangcha = Math.sqrt(fangcha);
+				obj.value = fangcha;
+			}
+		</script>
+	</body>
+</html>

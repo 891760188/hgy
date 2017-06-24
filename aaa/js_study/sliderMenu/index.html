@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=0.5,minimum-scale=0.5,maximum-scale=0.5,user-scalable=no,target-densitydpi=360" />
+		<title>滑动菜单</title>
+		<style type="text/css">
+			.sidenav{
+				height: 100%;
+				/*width: 250px;*/
+				width: 0px;
+				position: fixed;
+				z-index: 1;
+				top: 0;
+				left: 0;
+				background: #111;
+				overflow-x: hidden;
+				transition: 0.5s;/*过渡时间*/
+				padding-top: 60px;
+				white-space: nowrap;/*文本不会换行，文本会在在同一行上继续，直到遇到 <br> 标签为止。*/
+			}
+			.sidenav a{
+				padding: 8px 8px 8px 32px;
+				text-decoration: none;
+				font-size: 25px;
+				color: #818181;
+				display: block;
+				transition: 0.3s;
+			}
+			.sidenav a:hover{
+				color: #F1F1F1;
+			}
+			.sidenav .closebtn{
+				position: absolute;
+				top: 0px;
+				right: 25px;
+				font-size: 36px;
+				margin-left: 50px;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav();">&times;</a>
+			<a href="#">主页</a>
+			<a href="#">关于我们</a>
+			<a href="#">更多示例</a>
+			<a href="#">联系我们</a>
+		</div>
+		<div id="main">
+			<span id="" style="font-size: 30px;cursor: pointer;" onclick="openNav();">
+				&#9776;打开
+			</span>
+		</div>
+		<script type="text/javascript">
+			function openNav(){
+				document.getElementById('mySidenav').style.width = '250px';
+				document.getElementById('main').style.marginLeft = '250px';
+				document.body.style.backgroundColor="rgba(0,0,0,0.4)";
+			}
+			function closeNav(){
+				document.getElementById('mySidenav').style.width = '0px';
+				document.getElementById('main').style.marginLeft = '0px';
+				document.body.style.backgroundColor="white";
+			}
+		</script>
+	</body>
+</html>
