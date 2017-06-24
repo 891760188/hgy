@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+</head>
+<body>
+	<button onclick="share();">click to share!!</button>
+</body>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+/**
+ * 1.必须是微信认证订阅号或服务号才有JS-SDK权限
+ * 2. 以下参数需要微信后端生成
+ * appId 公众账号id
+ * timestamp 签名时间戳 System.currentTimeMillis()/1000
+ * nonceStr	随机数
+ * signature jsapi_ticket,noncestr,timestamp,url的sha1签名
+ 	sha1("jsapi_ticket="+jsapi_ticket+"&noncestr="+noncestr+"&timestamp="+timestamp+"&url="+url)
+ */
+  wx.config({
+      debug: true,
+      appId: 'wx742630069165999e', 
+      timestamp: 1483767646,
+      nonceStr: 'Wm3WZYTPz0wzccnW',
+      signature: '4a9b8671e6f76f0299a85c753970747ee1462277',
+      jsApiList: [
+        'checkJsApi',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage'
+      ]
+  });
+  
+  wx.ready(function () {
+	  wx.checkJsApi({
+	      jsApiList: [
+	        'getNetworkType',
+	        'previewImage'
+	      ],
+	      success: function (res) {
+	        alert(JSON.stringify(res));
+	      },
+	      fail: function (res) {
+		        alert("check api fail.");
+	      }
+	    });
+	});
+  
+  function share() {
+	  alert("dd");
+		wx.onMenuShareTimeline({
+		      title: 'DDDD',
+		      link: 'http://158e9048h7.iask.in/html/share.html',
+		      imgUrl: 'http://s0.hao123img.com/res/r/image/2014-05-14/2cd845e2bf0a57e053615550593a8184.jpg',
+		      trigger: function (res) {
+		        alert('用户点击分享到朋友圈');
+		      },
+		      success: function (res) {
+		        alert('已分享');
+		      },
+		      cancel: function (res) {
+		        alert('已取消');
+		      },
+		      fail: function (res) {
+		        alert(JSON.stringify(res));
+		      }
+		    });
+	}
+</script>
+</html>
