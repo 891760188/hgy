@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+
+		<script type="text/javascript" src="../common/AppBooter.js" ></script>
+		<script src="makeData.js"></script>
+		<script src="makes.js"></script>
+	</head>
+	<style>
+		.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{border-bottom: 2px solid #4896cd;}
+	</style>
+
+	<body>
+		
+		<div class="mui-content">
+			<!--<div id="slider" class="mui-slider">
+				<div  class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item mui-active" href="#item1mobile">
+				我的任务
+			</a>
+					<a class="mui-control-item" href="#item2mobile">
+				我发出的任务
+			</a>
+				</div>
+				
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="mboSearch">
+						<input  id="keySearch" type="text" class="txtSearch" placeholder="输入关键字查找任务…" />
+						<span id="searchBt" class="mui-icon mui-icon-search"></span>
+					</div>
+						<div id="ulId">
+							
+						</div>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="mboSearch">
+						<input  id="id3" type="text" class="txtSearch" placeholder="输入关键字查找任务…" />
+						<span id="search3" class="mui-icon mui-icon-search"></span>
+					</div>
+								<div id="olId">
+							</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>-->
+			
+			
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper mui-col-xs-6">
+				<div class="mui-scroll">
+					<div  class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted dark-bg">
+					<a class="mui-control-item mui-active" href="#item1mobile">
+				我下达的任务
+			</a>
+					<a class="mui-control-item" href="#item2mobile">
+				我接收的任务
+			</a>
+				</div>
+					
+					<!--<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>-->
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div class="mboSearch">
+						<input id="keySearch" type="text" class="txtSearch" placeholder="输入标题或内容查找已下达任务…"/>
+						<span id="searchBt" class="mui-icon mui-icon-search"></span>
+					</div>
+						<div id="ulId" style="display: none;margin-top: -10px;"> 
+					</div>
+						</div>
+						<div id="item2mobile" class="mui-slider-item mui-control-content">
+							<div class="mboSearch">
+						<input id="keySearch1" type="text" class="txtSearch" placeholder="输入标题或内容查找已接收任务…"/>
+						<span id="searchBt1" class="mui-icon mui-icon-search"></span>
+					</div>
+							<div id="olId" style="display: none;margin-top: -10px;"> 
+					</div>
+							</div>
+					
+					
+				</div>
+			</div>
+		</div>
+		<div id="superBt" class="mui-icon mui-icon-plusempty superBt"></div>
+		<div id="superMenu" class="superMenu">
+				<ul>
+					<li><a data-fn="addTask()"><b>新建任务</b><i class="mui-icon mui-icon-compose"></i></a></li>
+					<!--<li><a data-fn="unfinishedTask()"><b>未下达任务</b><i class="mui-icon mui-icon-compose"></i></a></li>-->
+				</ul>
+		</div>
+	</body>
+	<script>
+		mui.init({
+			swipeBack: true, //启用右滑关闭功能
+		});
+		myReceive();
+		YSUI.SuperBt();
+		document.getElementById("searchBt").addEventListener('tap',function(){
+			searchTask();
+		});
+		document.getElementById("searchBt1").addEventListener('tap',function(){
+			searchTask1();
+		});
+		
+		//详情页面跳转
+		mui('#ulId').on('tap','a',function(){
+			var id = this.getAttribute('href');
+			var checkPoint = 1;
+			if(undefined != id && "" != id){
+				var currWebId = plus.webview.currentWebview().id;
+				_App.util.goPage('makeProp.html?id='+id+'&pageId='+currWebId+'&checkPoint='+checkPoint, 
+				                  {refresh:true,pageId:'makeProp.html'});
+			}
+		});	
+		
+		mui('#olId').on('tap','a',function(){
+			var id = this.getAttribute('href');
+			var checkPoint = 2;
+			if(undefined != id && "" != id){
+				var currWebId = plus.webview.currentWebview().id;
+				_App.util.goPage('makeProp.html?id='+id+'&pageId='+currWebId+'&checkPoint='+checkPoint, 
+				                  {refresh:true,pageId:'makeProp.html'});
+			}
+		});	
+		
+		function addTask(){
+			var id = null;
+			_App.util.goPage('addTask.html?id='+id+'&cwebviewId=make.html', {refresh:true,pageId:'addTask.html'});
+		}
+		function unfinishedTask(){
+			_App.util.goPage('../marketing/opport/unfinishedTask.html', {refresh:true,pageId:'unfinishedTask.html'});
+		}
+		
+		window.addEventListener('refreshActive',function(event){
+			refreshData();
+		});
+	</script>
+
+</html>

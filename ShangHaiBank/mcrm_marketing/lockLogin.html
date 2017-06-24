@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>手势锁登陆</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="./pages/common/AppBooter.js"></script>
+		<script src="../resource/mui/js/mui.locker.js"></script>
+		<script type="text/javascript" src="../frame/MK-App-Version.js"></script>
+		<script type="text/javascript" src="../frame/MK-App-OS.js"></script>
+	</head>
+	<style>
+		.myLock{
+			margin-top:70px!important;
+		}
+	</style>
+	<body class="loginBody">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">手势锁登陆</h1>
+		</header>
+		<div class="mui-content">
+			<!--<label>手势密码：</label>-->
+			<div id='loginLocker'  class="mui-locker myLock" data-locker-options='{"ringColor":"rgba(210,210,210,1)","fillColor":"#ffffff","pointColor":"rgba(0,136,204,1)","lineColor":"rgba(0,136,204,1)"}' data-locker-width='300' data-locker-height='300'></div>
+		</div>
+
+		<script type="text/javascript">
+			mui('.mui-scroll-wrapper').scroll();
+			var roleId;
+			var loc = document.querySelector('#loginLocker');
+			var alert = document.querySelector('#alert');
+			var record = [];
+			var records;
+			var locks;
+			//storeage:'locks'中格式为：张晶丽_3_zhangjingli__admin_record
+			//-----用户姓名+用户角色+登录名+登录密码+手势锁
+			//当进入本页面之后会先判定有没有用户设置手势锁，没有则提示相关信息
+			//有的话自动填写用户名，不可更改
+			mui.plusReady(function() {
+				locks = plus.storage.getItem("locks");
+				roleId = locks.split('_')[1];
+				records = locks.split('_')[4];
+			});
+			(function($, doc) {
+			loc.addEventListener('done', function(event) {
+				var deviceId = !window.plus ? "webkit" : _App.os.android ? "android" : _App.os.iphone ? "iphone" : "ipad";
+				var ws;
+				var rs = event.detail;
+				record.push(rs.points.join(''));
+				if(record[0] == records) {
+					ws = plus.nativeUI.showWaiting('正在登录中..');
+					var user = {
+						j_username: locks.split('_')[2],
+						j_password: locks.split('_')[3],
+						deviceId: deviceId
+					};
+					$.ajax({
+						type: "POST",
+						url: basePath + 'j_spring_security_check',
+						data: user,
+						cache: false,
+						dataType: "json",
+						success: function(response) {
+							if(response.status == "00") {
+								var user = {};
+								user.userId = response.datas.userId; //用户id
+								user.userName = response.datas.userName; //用户名称
+								user.unitId = response.datas.unitId; //机构id
+								//					   				user.system=deviceId;//运行终端
+								user.userPic = response.datas.temp1; //用户头像
+								_App.sessionInit(user);
+								console.log(_App.sessionUser.userId() + "--" + _App.sessionUser.unitId() + "--" + _App.sessionUser.userName() + "--" + _App.sessionUser.userPic());
+								plus.storage.setItem("userName", locks.split('_')[2]);
+								plus.storage.setItem("accountName", locks.split('_')[2]);
+								//									plus.storage.setItem("roleId", roleId);
+								plus.storage.setItem("account", locks.split('_')[2] + "_" + locks.split('_')[3]);
+								//						//plus.storage.setItem("newAddOpportunity","");
+								//						//用于商机排名角色分类	
+								//									plus.storage.setItem("roleType_", roleId);
+								plus.storage.setItem("_system", plus.os.name) //手机系统
+								plus.storage.setItem("_userPic", response.datas.temp1);
+								ws.close();
+								rs.sender.clear();
+								_App.util.goPage("pages/homePage/home-page.html", 'slide-in-right');
+							} else {
+								mui.alert(response.errors);
+								ws.close();
+							}
+
+						},
+						error: function(a, b, c) {
+							ws.close();
+							mui.alert("网络连接出错或服务端未开启!");
+						}
+					});
+
+				} else {
+					mui.toast('手势错误！');
+					rs.sender.clear();
+					record = [];
+				}
+			});
+				}(mui, document));
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=PwtEGYwzpanIhIoeNQj9N4Xb"></script>
+		<script src="../../common/AppBooter.js"></script>
+		<script src="../../../resource/mui/js/mui.indexedlist.js"></script>
+		<script src="customerData.js"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/library/AreaRestriction/1.2/src/AreaRestriction_min.js"></script>
+		<title>地图展示</title>
+		<style type="text/css">
+			html,
+			body {
+				width: 100%;
+				height: 100%;
+			}
+			
+			#allmap {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+			
+			.locationPanel {
+				background-color: #fff;
+				margin: 10px;
+				padding: 10px;
+				border-radius: 8px;
+			}
+			
+			.locInfo {
+				padding-bottom: 10px;
+				border-bottom: 1px #ddd solid;
+				position: relative;
+			}
+			
+			.locInfo>b,
+			.locInfo>span {
+				clear: left;
+				display: block;
+				line-height: 20px;
+				padding: 3px 0;
+				font-size: 16px;
+			}
+			
+			.locInfo>span {
+				font-size: 12px;
+				color: #666;
+			}
+			
+			.btView {
+				position: absolute;
+				right: 0;
+				display: block;
+				padding: 5px 8px;
+				border: 1px #ddd solid;
+				border-radius: 3px;
+				top: 35px;
+				color: #333;
+			}
+			
+			.btView:active {
+				color: #ea5404;
+				border: 1px #ea5404 solid;
+			}
+			
+			.liBts {
+				padding-top: 10px;
+				text-align: center;
+			}
+			
+			.liBts>button {
+				width: 65px;
+			}
+			
+			.liBts>button:active {
+				color: #ea5404!important;
+				border: 1px #ea5404 solid;
+				background-color: #fff!important;
+			}
+			.anchorBL{display:none}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a id="trigger-overlay" class="mui-icon mui-icon-search mui-pull-right"></a>
+			<h1 id="title" class="mui-title">地图模式</h1>
+		</header>
+		<div id="allmap"></div>
+		<div id="sheet" class="mui-popover mui-popover-bottom mui-popover-action ">
+			<div class="locationPanel">
+				<div id="div" class="locInfo">
+
+				</div>
+				<div class="liBts">
+					<button class="bs">打电话</button>
+					<button class="bs">到这去</button>
+					<button id="sess" class="bs">发消息</button>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script type="text/javascript">
+	mui.init();
+	//	mui.plusReady(function(){
+	var webview_style0 = {
+		popGesture: "close"
+	};
+	var map = new BMap.Map("allmap",{
+		minZoom: 8,
+		maxZoom: 18
+	});
+	var geolocation = new BMap.Geolocation();
+	var geoc = new BMap.Geocoder();
+	var point; //客户坐标
+	var points; //定位我的坐标
+	var startLon;
+	var startLat;
+	var endLon;
+	var endLat;
+
+	function deal(datas, lon, lat, mapState) {
+		startLon = lon;
+		startLat = lat;
+		console.log("startLon>>>"+startLon+"<<startLat>>>"+startLat);
+		//0表示是范围查询，1表示其它查询
+		if(mapState == 0) {
+			map.clearOverlays();
+		}
+		var div = document.getElementById('div');
+		points = new BMap.Point(lon, lat);
+		map.centerAndZoom(points, 15);
+		var myIcon = new BMap.Icon("../../../themes/default/images/pic_07_2.png", new BMap.Size(32, 58));
+		var mk = new BMap.Marker(points, {
+			icon: myIcon
+		});
+		map.addOverlay(mk);
+		map.panTo(points);
+		
+		
+		
+		mk.addEventListener("click", function(e) {
+			var s;
+			geoc.getLocation(points, function(rs) {
+				var addComp = rs.addressComponents;
+				s = addComp.city + addComp.district + addComp.street;
+				div.innerHTML = '<b>我的位置:</b><span>' + s + '</span>';
+				mui('#sheet').popover('toggle');
+			});
+		});
+		data = datas;
+		for(var i = 0; i < data.length; i++) {
+			//				var dis = data[i].DISTANCE;
+			point = new BMap.Point(data[i].LONGITUDE, data[i].LATITUDE);
+			var marker = new BMap.Marker(point);
+			map.addOverlay(marker);
+			marker.addEventListener("click", function(e) {
+				endLon = this.z.point.lng;
+				endLat = this.z.point.lat;
+				var newpoint = new BMap.Point(this.z.point.lng, this.z.point.lat);
+				geoc.getLocation(newpoint, function(rs) {
+					for(var j = 0; j < data.length; j++) {
+						if(rs.point.lng == data[j].LONGITUDE && rs.point.lat == data[j].LATITUDE) {
+							var addComp = rs.addressComponents;
+							var distance = data[j].DISTANCE; //将千米转换为米
+							div.innerHTML = '<a class="ys-list-cell" data-name="'+data[j].MGR_NAME+'"><span class="ys-lcLeft"><b>' + data[j].MGR_NAME + '</b></span>' +
+								'<span class="ys-lcRMin">' + distance + '公里</span>' +
+								'<span><i class="mui-icon mui-icon-location"></i>地址：' + data[j].LOCATION + '</span>' +
+								'<span><i class="mui-icon mui-icon-person"></i>岗位：客户经理</span>' +
+								'<span><i class="mui-icon  mui-icon-star"></i>所属支行：' + data[j].INSTITUTION_NAME + '</span>' 
+								//												+'<a class="btView">详情</span>'
+								//												+'</a>'
+							;
+							//						div.children[2].id = "3d";
+						}
+					}
+				});
+				mui('#sheet').popover('toggle'); //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+			});
+		}
+	}
+	mui.plusReady(function() {
+
+	});
+	var goPage_ = function(id) {
+		var url = "customer-detail.html?custNo=" + id;
+		_App.util.goPage(url, "none");
+	};
+	var goToVisit = function() {
+		var btnArray = [{
+			title: "驾车路线"
+		}, {
+			title: "公交路线"
+		}];
+		plus.nativeUI.actionSheet({
+			title: "选择前往方式",
+			cancel: "取消",
+			buttons: btnArray
+		}, function(e) {
+			var index = e.index;
+			if(index == 1) {
+				mui.openWindow({
+					id: 'route-demo-id',
+					url: 'route-demo.html',
+					styles: webview_style0,
+					extras: {
+						startLon: startLon,
+						startLat: startLat,
+						endLon: endLon,
+						endLat: endLat
+					},
+					show: {
+						aniShow: 'slide-in-right'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			} else if(index == 2) {
+				mui.openWindow({
+					id: 'busRoute-demo-id',
+					url: 'busRoute-demo.html',
+					styles: webview_style0,
+					extras: {
+						startLon: startLon,
+						startLat: startLat,
+						endLon: endLon,
+						endLat: endLat
+					},
+					show: {
+						aniShow: 'slide-in-right'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			}
+		});
+	};
+	var id = document.getElementById('id');
+	mui(".locInfo").on('tap', '.btView', function() {
+		var s = this.innerHTML;
+		if(s == "详情") {
+			var s = this.id.substring(0, 1);
+			goPage_(s);
+			mui('#sheet').popover('toggle');
+		}
+	});
+	mui(".liBts").on('tap', '.bs', function() {
+		var s = this.innerHTML;
+		if(s == "打电话") {
+			plus.device.dial('10086');
+			mui('#sheet').popover('toggle');
+		} else if(s == "到这去") {
+			goToVisit();
+			mui('#sheet').popover('toggle');
+		} else if(s == "录商机") {
+			mui.openWindow({
+				url: '../../marketing/opport/addOpportunity.html',
+				id: '../../marketing/opport/addOpportunity.html'
+			});
+			mui('#sheet').popover('toggle');
+		} else if(s == "发消息") {
+			var toName = this.parentElement.parentElement.children[0].children[0].getAttribute('data-name');
+			//这里创建聊天组
+			_App.ajax({
+				type: "get",
+				url: basePath + 'chat!saveChatRoom.json',
+				data: {
+					actType: "create",
+					roomtype: '2'
+				},
+				cache: false,
+				dataType: "json",
+				success: function(response) {
+					//创建聊天组后，需要添加人员
+					if(response) {
+						addChatRoomMembers(response.json, toName);
+					} else {
+						mui.alert("创建群组失败!");
+					}
+				},
+				error: function(a, b, c) {
+					mui.alert("网络连接出错!");
+				}
+			});
+		}
+	});
+
+	function addChatRoomMembers(data, toName) {
+		var accountName = plus.storage.getItem("accountName");
+		if(!accountName){
+			accountName = "张晶丽";
+		}
+		var roomId = data.roomid;
+		var roomName = data.roomname;
+		var roomType = data.roomtype;
+		var paras = [];
+		var peo = {
+			roomId: roomId,
+			peopleName: toName
+		};
+		paras.push(peo);
+		peo = {
+			roomId: roomId,
+			peopleName: accountName
+		};
+		paras.push(peo);
+		var data_ = {
+			para: JSON.stringify(paras)
+		};
+		_App.ajax({
+			type: "get",
+			url: basePath + 'chat!addChatRoomMembers.json',
+			data: data_,
+			cache: false,
+			dataType: "json",
+			success: function(response) {
+				//跳转到聊天组界面
+				var url = "../../SocialCol/chat/im-chat.html?chatRoomId=" + roomId + "&chatRoomName=" + encodeURIComponent(roomName) + "&createRoomPeo=" + accountName + "&type=" + roomType;
+				_App.util.goPage(url, {
+					pageId: 'im-chat-id', //viewId可以通过plus.webview.getWebviewById('view001');取到
+					refresh: false //是否刷新viewId为view001的webview
+				});
+			},
+			error: function(a, b, c) {
+				mui.alert("网络连接出错!");
+			}
+		});
+	}
+	var top_left_navigation = new BMap.NavigationControl(); //左上角，添加默认缩放平移控件      
+	map.addControl(top_left_navigation);
+	var geolocationControl = new BMap.GeolocationControl();
+	map.addControl(geolocationControl);
+	//	})
+</script>

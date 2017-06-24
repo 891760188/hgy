@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>首页</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="common/AppBooter.js"></script>
+		<style>
+			html,body{height:100%;max-height:100%;overflow:hidden;}
+			.mui-table-view-cell.mui-active{background: none;}
+			.mui-scroll-wrapper{margin-top: 44px;}
+			.mui-table-view-cell{padding: 0;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">首页</h1>
+		</header>
+		
+		<div class="userDiv">
+			<span>2017年5月9号</span>
+			<span>星期二</span>
+			<span><i class="icon-user"></i>宋某某 您好!</span>
+		</div>
+		<div class="mui-content">
+		<div class="mui-scroll-wrapper"  id="sh-Scroll">
+			<div class="mui-scroll">
+				<ul class="mui-table-view sh-target">
+					<li class="mui-table-view-cell">
+						<div class="sh-selected sh-active">
+							<span>对公贷款余额</span>
+							<span>5423.76</span>
+							<span>同比 +17.11%</span>
+						</div>
+						<div class="myChartBox">
+							<div id="myChart1" style="height: 200px;"></div>
+						</div>
+					</li>
+
+					<li class="mui-table-view-cell">
+						<div class="sh-selected">
+							<span>指标2</span>
+							<span>xxxx</span>
+							<span>同比 +aa.bb%</span>
+						</div>
+						<div class="myChartBox hide">
+							<div style="height: 200px;"></div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="sh-selected">
+							<span>指标3</span>
+							<span>xxxx</span>
+							<span>同比 +aa.bb%</span>
+						</div>
+						<div class="myChartBox hide">
+							<div  style="height: 200px;"></div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="sh-selected">
+							<span>指标4</span>
+							<span>xxxx</span>
+							<span>同比 +aa.bb%</span>
+						</div>
+						<div class="myChartBox hide">
+							<div style="height: 200px;"></div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="sh-selected">
+							<span>指标5</span>
+							<span>xxxx</span>
+							<span>同比 +aa.bb%</span>
+						</div>
+						<div class="myChartBox hide">
+							<div style="height: 200px;"></div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="sh-selected">
+							<span>指标5</span>
+							<span>xxxx</span>
+							<span>同比 +aa.bb%</span>
+						</div>
+						<div class="myChartBox hide">
+							<div style="height: 200px;"></div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="sh-selected">
+							<span>指标5</span>
+							<span>xxxx</span>
+							<span>同比 +aa.bb%</span>
+						</div>
+						<div class="myChartBox hide">
+							<div style="height: 200px;"></div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="sh-selected">
+							<span>指标5</span>
+							<span>xxxx</span>
+							<span>同比 +aa.bb%</span>
+						</div>
+						<div class="myChartBox hide">
+							<div style="height: 200px;"></div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="sh-selected">
+							<span>指标5</span>
+							<span>xxxx</span>
+							<span>同比 +aa.bb%</span>
+						</div>
+						<div class="myChartBox hide">
+							<div style="height: 200px;"></div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="sh-selected">
+							<span>指标5</span>
+							<span>xxxx</span>
+							<span>同比 +aa.bb%</span>
+						</div>
+						<div class="myChartBox hide">
+							<div style="height: 200px;"></div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="sh-selected">
+							<span>指标5</span>
+							<span>xxxx</span>
+							<span>同比 +aa.bb%</span>
+						</div>
+						<div class="myChartBox hide">
+							<div style="height: 200px;"></div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="sh-selected">
+							<span>指标5</span>
+							<span>xxxx</span>
+							<span>同比 +aa.bb%</span>
+						</div>
+						<div class="myChartBox hide">
+							<div style="height: 200px;"></div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		</div>
+	
+		<script>
+		mui('.mui-scroll-wrapper').scroll();
+			
+		var totalHeight =  document.body.scrollHeight;
+		var scrollHeight = totalHeight - 44;
+		var scroll = document.getElementById("sh-Scroll"); 
+		scroll.style.height=scrollHeight+"px";
+		var myC1=document.getElementById('myChart1');
+		
+		setChart(myC1);
+		function setChart(myChart){
+			var myChart1 = echarts.init(myChart);
+			var option1 = {
+				title: {
+					show: false
+				},
+				tooltip: {
+					trigger: 'axis'
+				},
+				legend: {
+					right: '20%',
+					padding: [10, 0, 0, 10],
+					textStyle: {
+						color: '#2D87EA'
+					}
+				},
+				grid: {
+					left: '10',
+					right: '20',
+					bottom: '25',
+					top: '20',
+					containLabel: true
+				},
+				textStyle: {
+					color: '#e4e3e2'
+				},
+				xAxis: {
+					type: 'category',
+					boundaryGap: false,
+					data: ["一月", "二月", "三月", "四月", "五月", "六月"],
+					axisLine: {
+						lineStyle: {
+							color: '#818284'
+						}
+					},
+					axisLabel: {
+						textStyle: {
+							color: '#818284'
+						}
+					},
+				},
+				yAxis: {
+					show: true,
+					type: 'value',
+					axisLabel: {
+						formatter: '{value}%',
+						textStyle: {
+							color: '#818284'
+						}
+					},
+
+				},
+				series: [{
+						type: 'line',
+						data: [10, 20, 40, 50, 60, 70],
+						itemStyle: {
+							normal: {
+								color: '#007AFF'
+							}
+						}
+					},
+					{
+						type: 'line',
+						data: [20, 30, 50, 60, 70, 80],
+						itemStyle: {
+							normal: {
+								color: '#007AFF'
+							}
+						}
+					}
+				]
+			};
+			// 使用刚指定的配置项和数据显示图表。
+			myChart1.setOption(option1);
+}
+		
+			var box=document.querySelectorAll('.sh-selected');
+			function  add(){
+				for(var a=0;a<box.length;a++){
+				box[a].onclick=function(){					
+				  var next=this.nextElementSibling;
+				  if(next.className=="myChartBox hide"){
+				  	allHide();
+				  	next.className="myChartBox";
+				    var nextChildren=next.firstElementChild;
+//				    console.log(nextChildren);
+				    setChart(nextChildren);	
+				    this.classList.add('sh-active');
+				  }
+				  else
+				  {
+				  	next.className="myChartBox hide";
+				  	this.classList.remove('sh-active');
+				  }
+				  
+				}
+			}
+			};
+			function allHide(){
+				var box1=document.querySelectorAll('.myChartBox');
+				for(var i=0;i<box1.length;i++){
+					box1[i].className="myChartBox hide";
+					box[i].classList.remove('sh-active');
+				}
+			}
+			
+			add();
+			
+		</script>
+	</body>
+
+</html>

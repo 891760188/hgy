@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>新建任务</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../common/AppBooter.js" ></script>
+		<script type="text/javascript" src="addTask.js" ></script>
+		<style>
+			.mui-input-row>label{
+				width: 40%;
+			}
+			.mui-input-row label ~ input, .mui-input-row label ~ select{
+				width: 60%;
+				margin-top: 4px;
+			}
+			#picture li>a{
+				color: #007aff;
+			}
+		</style>
+	</head>
+	<body>
+		<!--<nav id="tabPanel" class="mui-bar mui-bar-tab">
+			<a id="defaultTab" class="mui-tab-item mui-active" href="">
+				<span class="mui-icon mui-icon-camera"><span class="mui-badge">18</span></span>				
+			</a>
+			<a class="mui-tab-item"  href="">
+				<span class="mui-icon mui-icon-mic"></span>				
+			</a>
+			<a class="mui-tab-item" href="more.html">
+				<span class="mui-icon mui-icon-image"></span>				
+			</a>
+			<a class="mui-tab-item" href="more.html">
+				<span class="mui-icon mui-icon-location"></span>				
+			</a>
+			<a class="mui-tab-item" href="more.html">
+				<span class="mui-icon ">@</span>
+			</a>
+		</nav>-->
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title" id="muiTitleId">新建任务</h1>
+		    <!--<a id="senLogId" class=".mui-action-back mui-btn mui-btn-blue mui-btn-link mui-pull-right">完成</a>-->
+		    
+		    <a id="senLogId" href="#picture" class=".mui-action-back mui-icon mui-icon-more mui-pull-right"></a>
+		</header>
+		<div class="mui-content dark-bg">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+				 <form class="mui-input-group" style="background-color: white;">
+					<div class="mui-input-row">
+						<label><span class="mui-icon mui-icon-compose"></span>任务名称:</label>
+						<input id="title" type="text" class="mui-input-clear" placeholder="请输入任务名称">
+					</div>
+					<!--<div class="mui-input-row">
+						<label><span class="mui-icon mui-icon-person"></span>任务下达人:</label>
+						<input id="name" type="text" placeholder="">
+					</div>-->
+					<div class="mui-input-row">
+						<label><span class="mui-icon mui-icon-paperclip"></span>下达时间:</label>
+						<input id="time" type="text" readonly="true" placeholder="">
+					</div>
+					<div class="mui-input-row">
+						<label><span class="mui-icon mui-icon-starhalf"></span>任务状态:</label>
+						<select id="state">
+							<option selected value = '0'>非常紧急</option>
+							<option value = '1'>紧急</option>
+							<option value = '2'>一般</option>
+						</select>
+					</div>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" id="visitP">
+							<span class="mui-icon icon-man" style="width: 39%;"><font color="#444444">任务接收人:</font></span>
+							<span style="width: 61%;">
+								<font id="parter" color="#000000"></font>
+							</span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell" style="height:50em;">
+                       	<textarea rows="50" id="detail"  type="text" class="mui-input-clear borderCss" placeholder="任务详情"></textarea>
+					</li>
+				 </form>
+				</div>
+			</div>			
+		</div>
+		<div id="picture" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<!--<li class="mui-table-view-cell">
+					<a href="#">保存任务</a>
+				</li>-->
+				<li class="mui-table-view-cell">
+					<a href="#">下达任务</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#picture"><b>取消</b></a>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script>
+		var id = _App.util.getUrlParamByName("id");
+		mui.init();
+		var backPage;
+		if(window.plus){
+			plusReady();
+		}else{
+			document.addEventListener("plusready",plusReady,false);
+		}
+		function plusReady(){
+			var name = document.getElementById("name");
+			var userName = plus.storage.getItem("userName");
+//			name.value = "userName";
+			backPage = plus.webview.getWebviewById("unfinishedTask_sub.html");				
+		}
+		initTask(id);
+		(function($) {
+			$.init();
+			var dt = new Date(); 
+			var time = document.getElementById("time");
+			time.value = dt.getFullYear()+"-"+(dt.getMonth()+1)+"-"+dt.getDate()+" "+dt.getHours()+":"+dt.getMinutes()+":"+dt.getSeconds();
+		})(mui);
+		
+		mui('body').on('tap', '.mui-popover-action li>a', function() {
+			if(this.innerHTML=="保存任务"){
+				saveTask("0",id);
+			}else if(this.innerHTML=="下达任务"){
+				var parter = document.getElementById("parter").innerText;
+				var title = document.getElementById("title").value;
+				if(title == null || title == "undefined" || title == ""){
+					mui.alert("请输入任务名称！");
+					return;
+				}
+				
+				if(parter == null || parter == "undefined" || parter == ""){
+					mui.alert("请选择任务接收人！");
+					return;
+				}
+				saveTask("1",id);
+			}
+		});
+			
+		document.getElementById("visitP").addEventListener('tap',function(){
+			selectData();
+		});
+		function selectData(){
+			var addr = plus.webview.currentWebview().id;
+           _App.util.goPage('../marketing/opport/financialAdviser.html?pageType=TASK_ADD&cwebviewId=addTask.html', {refresh:true,pageId:'addTask_id'});
+		}
+		//添加产品经理介入定自定义事件监听
+		window.addEventListener('paramBackEvent__',function(event){
+			 var name = event.detail.name;
+		     var con = document.getElementById('parter');
+		     con.innerText = name;
+		})
+	</script>
+</html>

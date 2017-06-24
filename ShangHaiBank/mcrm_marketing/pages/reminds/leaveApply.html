@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+
+		<script type="text/javascript" src="../common/AppBooter.js"></script>
+		<script src="leaveApplys.js"></script>
+	</head>
+	<style>
+		.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+			border-bottom: 2px solid #4896cd;
+		}
+	</style>
+
+	<body>
+
+		<div class="mui-content">
+
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper mui-col-xs-6">
+				<div class="mui-scroll">
+					<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted dark-bg">
+						<a id="judge1" class="mui-control-item mui-active" href="#item1mobile">
+							我的请假申请
+						</a>
+						<a id="judge2" class="mui-control-item" href="#item3mobile">
+							已审批进度
+						</a>
+						<a id="judge3" class="mui-control-item" href="#item4mobile">
+							待审批进度
+						</a>
+					</div>
+
+					<!--<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>-->
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div class="mboSearch">
+							<input id="keySearch" type="text" class="txtSearch" placeholder="输入审批状态" />
+							<span id="searchBt" class="mui-icon mui-icon-search"></span>
+						</div>
+						<div id="ulId" style="display: block;margin-top: -10px;">
+							
+						</div>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<!--<div class="mboSearch">-->
+							<!--<input id="keySearch1" type="text" class="txtSearch" placeholder="输入标题或内容查找已接收任务…" />-->
+							<!--<span id="searchBt1" class="mui-icon mui-icon-search"></span>-->
+						<!--</div>-->
+						<div id="olId" class="dark-bg" style="display: block;margin-top: -10px;">
+							<!--<ul class="mui-table-view mui-table-view-group">
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right" href="'+data[i].ID+'">
+										<b class="tagTips icon-star-full c1 bdc1">已通过</b>标题
+										<p>任务下达人</p>
+										<p id="planDoName">下达时间</p>
+									</a>
+								</li>
+							</ul>
+							<ul class="mui-table-view mui-table-view-group">
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right" href="'+data[i].ID+'">
+										<b class="tagTips icon-star-half c4 bdc4">已打回</b>标题
+										<p>任务下达人</p>
+										<p id="planDoName">下达时间</p>
+									</a>
+								</li>
+							</ul>
+							<ul class="mui-table-view mui-table-view-group">
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right" href="'+data[i].ID+'">
+										<b class="tagTips icon-star-empty c2 bdc2">进行中</b>标题
+										<p>任务下达人</p>
+										<p id="planDoName">下达时间</p>
+									</a>
+								</li>
+							</ul>-->
+						</div>
+					</div>
+					<div id="item4mobile" class="mui-slider-item mui-control-content">
+						<!--<div class="mboSearch">-->
+							<!--<input id="keySearch1" type="text" class="txtSearch" placeholder="输入标题或内容查找已接收任务…" />-->
+							<!--<span id="searchBt1" class="mui-icon mui-icon-search"></span>-->
+						<!--</div>-->
+						<div id="plId" class="dark-bg" style="display: block;margin-top: -10px;">
+							<!--<ul class="mui-table-view mui-table-view-group">
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right" href="'+data[i].ID+'">
+										<b class="tagTips icon-star-full c1 bdc1">已通过</b>标题
+										<p>任务下达人</p>
+										<p id="planDoName">下达时间</p>
+									</a>
+								</li>
+							</ul>
+							<ul class="mui-table-view mui-table-view-group">
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right" href="'+data[i].ID+'">
+										<b class="tagTips icon-star-half c4 bdc4">已打回</b>标题
+										<p>任务下达人</p>
+										<p id="planDoName">下达时间111</p>
+									</a>
+								</li>
+							</ul>
+							<ul class="mui-table-view mui-table-view-group">
+								<li class="mui-table-view-cell">
+									<a class="mui-navigate-right" href="'+data[i].ID+'">
+										<b class="tagTips icon-star-empty c2 bdc2">进行中</b>标题
+										<p>任务下达人</p>
+										<p id="planDoName">下达时间</p>
+									</a>
+								</li>
+							</ul>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="superBt" class="mui-icon mui-icon-plusempty superBt"></div>
+		<div id="superMenu" class="superMenu">
+			<ul>
+				<li>
+					<a data-fn="addApply()"><b>新建任务</b><i class="mui-icon mui-icon-compose"></i></a>
+				</li>
+				<!--<li><a data-fn="unfinishedTask()"><b>未下达任务</b><i class="mui-icon mui-icon-compose"></i></a></li>-->
+			</ul>
+		</div>
+	</body>
+	<script>
+	    mui('.mui-scroll-wrapper').scroll();
+		mui.init({
+			swipeBack: true, //启用右滑关闭功能
+		});
+		YSUI.SuperBt();
+		document.getElementById('searchBt').addEventListener('tap',function(){
+			search();
+		})
+		window.addEventListener('refreshApprove', function(event) {
+			refreshContent();
+		});
+	</script>
+
+</html>

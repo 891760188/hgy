@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>消息回复</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--公共js-->
+		<script type="text/javascript" src="../common/AppBooter.js" ></script>
+		<script type="text/javascript" src="approveReply.js" ></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 id="titles" class="mui-title">消息回复</h1>
+		    <button onclick="backValue()"; type="button" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">回复</button>
+		</header>
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					<div id="divs" class="ys-viewForm">
+						<p><textarea id="testautofocus" style="height:200px;" placeholder="最多500个字符……"></textarea></p>	
+						<div class="mui-pull-left" id="send">抄送：<button style="top: -5px;">选择</button></div>
+						<div class="mui-pull-right" id="nextApprove">下一审批人：<button style="top: -5px;">选择</button></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		var id = _App.util.getUrlParamByName("id");
+		var urlId = "";
+		//对于安卓键盘隐藏关闭进行判断，解决选取办理人时出现的问题
+		mui.plusReady(function(){
+            urlId = plus.webview.currentWebview().id;
+			plus.storage.setItem("replyId",urlId);
+			//弹出键盘，4.0以上有效
+		});
+		mui('.mui-scroll-wrapper').scroll();
+		var height1=document.body.scrollHeight;
+		mui('.ys-viewForm').on('tap','button',function(){
+			if(document.body.scrollHeight<height1){
+				var Context = plus.android.importClass("android.content.Context");
+			    var InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+			    var main = plus.android.runtimeMainActivity();
+			    var imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+			    imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+			}
+			document.activeElement.blur();
+			var s="下一审批人";
+			if(this.parentElement.className=="mui-pull-left"){
+				s="抄送";
+			}
+			_App.util.goPage('../work/register/linkMan.html?test='+encodeURIComponent(s), "none");
+		});
+		var divs=document.getElementById('divs');
+		window.addEventListener('replyId',function(event){
+			var name=event.detail.name;
+			var test=event.detail.test;
+			if(test=="抄送"){
+                divs.children[1].children[0].innerHTML=name;
+			}else{
+				divs.children[2].children[0].innerHTML=name;
+			}
+		});
+	</script>
+</html>

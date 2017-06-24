@@ -1,0 +1,173 @@
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<script src="../../common/AppBooter.js"></script>
+		<style type="text/css">
+			body, html {
+				width: 100%;
+				height: 100%; 
+				margin:0;
+				font-family:"微软雅黑";
+				position: absolute;
+				/*background: url(../../../images/bg01.png) no-repeat bottom left;
+				background-size: cover;*/
+			}
+			#r-result-b{width:100%;margin-top: 286px;}
+			#l-map-b{margin-top:46px;height:240px;width:100%;}
+			.anchorBL{display:none}
+		</style>
+		<!--自定义.css-->
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=PwtEGYwzpanIhIoeNQj9N4Xb"></script>
+		<title>定位</title>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav yc-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a id="places" class="mui-icon mui-icon-location mui-pull-right"></a>
+			<h1 id="title" class="mui-title">定位</h1>
+		</header>
+		<div id="l-map-b"></div>
+		<div id="r-result-b" class="mui-scroll-wrapper">
+			<div class="mui-scroll">
+			<ul class="mui-table-view mui-table-view-radio" id="ulId">
+			</ul>
+			</div>
+		</div>
+	</body>
+
+</html>
+<script type="text/javascript">
+	var backPageId = _App.util.getUrlParamByName("currentId");
+	var map = new BMap.Map("l-map-b");   
+	var point = new BMap.Point(116.50, 39.992);
+	map.centerAndZoom(point, 12);
+	var mk;
+	var ss='';
+	var infoWindow;
+	var points;
+	var options = {      
+      onSearchComplete: function(results){ 
+          if (local.getStatus() == BMAP_STATUS_SUCCESS){ 
+                // 判断状态是否正确      
+                var s = [];      
+                for (var i = 0; i < results.getCurrentNumPois(); i ++){      
+                    s.push(results.getPoi(i).title + ", " + results.getPoi(i).address);      
+                }      
+//           document.getElementById("ulId").innerHTML = s.join("<br>"); 
+			ss='<li class="mui-table-view-cell toolHover mui-selected"><a class="mui-navigate-right"><div class="mui-media-body"><p class="mui-ellipsis"> 不显示位置</p></div></a></li>';
+			for(var i=0;i<s.length;i++){
+				ss+='<li class="mui-table-view-cell toolHover">'
+					+'<a class="mui-navigate-right">'
+					+'<div class="mui-media-body">'
+					+'<span>'+s[i].split(',')[0]+'</span><br/>'
+					+'<p class="mui-ellipsis">'+s[i].split(',')[1]+'</p>'
+					+'</div></a></li>';
+			}
+			document.getElementById("ulId").innerHTML = ss; 
+			if(ws){
+				ws.close();
+			}
+          }else{
+          	ss+="<li class='mui-table-view-cell' style='text-align: center;'><p>没有符合的匹配项</p></li>";
+          	document.getElementById("ulId").innerHTML=ss;
+          	if(ws){
+				ws.close();
+			}
+          }
+      }      
+ }; 
+    mui('.mui-scroll-wrapper').scroll();
+    var local =  new BMap.LocalSearch(map,options);
+	mui.plusReady(function(){
+		starts();
+	});
+	var places=document.getElementById('places');
+	places.addEventListener('tap',function(){
+		starts();
+	});
+	function starts(){
+		ws=plus.nativeUI.showWaiting("请等待..."); 
+		plus.geolocation.getCurrentPosition( function(p){
+				if(!p.addresses){
+					mui.alert('定位失败，请检查相关设备!', '提示', function() {
+						plus.webview.currentWebview().close();
+					});
+				}else{
+					map.clearOverlays(); 
+//					var myIcon = new BMap.Icon("icon_st.png", new BMap.Size(30,36));//这里的size是格局图片宽高决定的
+					
+					points = new BMap.Point(p.coords.longitude ,p.coords.latitude);
+					mk = new BMap.Marker(points);
+					mk.enableDragging();
+					mk.addEventListener("dragend", function(e){ 
+					 	//打印拖动结束坐标 
+//					 	take(e.point.lng,e.point.lat);
+					});
+					map.addOverlay(mk);
+					map.panTo(points);
+					var opts = {
+					  width : 100,     // 信息窗口宽度
+					  height: 100,     // 信息窗口高度
+					  title : "我的位置" , // 信息窗口标题
+					  enableMessage:true//设置允许信息窗发送短息
+					}
+					infoWindow = new BMap.InfoWindow(p.addresses, opts);
+					mk.addEventListener("click", function(){          
+						map.openInfoWindow(infoWindow,points); //开启信息窗口
+					});
+					ss='<li class="mui-table-view-cell mui-selected">'
+					+'<a class="mui-navigate-right">'
+					+'<div class="mui-media-body">'
+					+'<span>[当前位置]'+p.addresses+'</span><br/>'
+					+'<p class="mui-ellipsis">'+p.addresses+'</p>'
+					+'</div></a></li>';
+					local.searchNearby(p.address.province+p.address.district+p.address.street,points,1000);
+				}
+				
+			},function(e){
+				ws.close();
+				alert( "Geolocation error: " + e.message );
+				plus.webview.currentWebview().close();
+			}
+//			,{provider:'baidu'}
+			);
+	}
+	mui('.mui-table-view').on('tap','.mui-table-view-cell',function(){
+		if(this.children[0].innerHTML=="没有符合的匹配项"){
+			return;
+		}
+		var s=this.children[0].children[0].children[0].innerHTML;
+		if(s.substring(0,6)=="[当前位置]"){
+			s=s.substring(6,s.length);
+		}
+		backPage = plus.webview.getWebviewById(backPageId);
+		mui.fire(backPage,'getDetail',{name:s});
+		plus.webview.currentWebview().close();
+	});
+	function moveMap(a,b){
+		map.clearOverlays(); 
+//		var myIcon = new BMap.Icon("icon_st.png", new BMap.Size(30,36));//创建图标
+		points = new BMap.Point(a,b);//设置坐标点
+		mk = new BMap.Marker(points);//创建icon对象
+		map.addOverlay(mk); //添加标注
+		var geoc = new BMap.Geocoder();
+		geoc.getLocation(points, function(p){
+			
+			ss='<li class="mui-table-view-cell mui-selected">'
+			+'<a class="mui-navigate-right">'
+			+'<div class="mui-media-body">'
+			+'<span>[当前位置]'+p.address+'</span><br/>'
+			+'<p class="mui-ellipsis">'+p.address+'</p>'
+			+'</div></a></li>';
+			local.searchNearby(p.addressComponents.province+p.addressComponents.district+p.addressComponents.street,points,1000);
+		});
+					
+	}
+	map.addEventListener("dragend", function(){    
+	 var center = map.getCenter();    
+	 moveMap(center.lng,center.lat);
+	});
+</script>

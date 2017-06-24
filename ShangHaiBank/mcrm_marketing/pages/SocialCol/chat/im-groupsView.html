@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../common/AppBooter.js" ></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title" id="muiTitleId"></h1>
+		</header>
+		<div class="mui-content dark-bg">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					<div class="im-groupUsers" id="membersId">
+						<!--<span><i class="im-user icon-user"></i><b>刘成</b></span>
+						<span><img src="../../../themes/default/images/temp/temp_01.gif" alt=""/><b>张三丰</b></span>
+						<span><img src="../../../themes/default/images/temp/temp_03.gif" alt=""/><b>陈可</b></span>
+						<span><img src="../../../themes/default/images/temp/temp_02.gif" alt=""/><b>张厅</b></span>
+						<span><img src="../../../themes/default/images/temp/temp_01.gif" alt=""/><b>张三丰</b></span>
+						<span><i class="im-user icon-user"></i><b>刘成</b></span>
+						<span><img src="../../../themes/default/images/temp/temp_03.gif" alt=""/><b>陈可</b></span>
+						<span><i class="im-user icon-user"></i><b>刘成</b></span>
+						<span><img src="../../../themes/default/images/temp/temp_02.gif" alt=""/><b>张厅</b></span>
+						<span><img src="../../../themes/default/images/temp/temp_04.gif" alt=""/><b>李丽掀</b></span>
+						<span><img src="../../../themes/default/images/temp/temp_05.gif" alt=""/><b>谢采一</b></span>
+						<span onclick="mui.toast('前往同事页面…');"><i class="im-user icon-plus"></i></span>
+						<span onclick="mui.toast('前往同事页面…');"><i class="im-user icon-minus"></i></span>-->
+					</div>
+					<ul class="mui-table-view mui-table-view-group">
+						<li class="mui-table-view-cell">
+							<a id="allMembersId"></a>
+						</li>
+					</ul>
+					
+					<ul class="mui-table-view mui-table-view-group">
+						<li class="mui-table-view-cell">
+							<a href="javascript:go2EditGroupName();">
+								群聊名称
+								<span class="mtvcRight c6" ><div id="groupNameId"></div></span>
+							</a>
+						</li>
+					</ul>
+					<div class="mui-content-padded">
+						<button type="button" onclick="exitChatRoom();" class="mui-btn fullBt" id="exeButId"></button>
+					</div>
+				</div>
+			</div>			
+		</div>
+	</body>
+	<script type="text/javascript" src="im-groupsView.js" ></script>
+	<script>
+		mui('.mui-scroll-wrapper').scroll();
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+	</script>
+	
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>附近的客户</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--公共js-->
+		<script src="../../common/AppBooter.js"></script>
+		<script src="customerData.js"></script>
+		<script src="nearbyCust.js"></script>
+		<style>
+		#ulId .toolHover>a:active{background-color: #f0f8fe;}
+		a.mui-active>b{background:none;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="titleId">附近的客户</h1>
+		</header>
+		<div class="mui-content">
+			<div id="pullrefresh" class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					<div class="mboSearch">
+						<input type="text" class="txtSearch" placeholder="输入关键字查找客户…" />
+						<span class="mui-icon mui-icon-search"></span>
+					</div>
+					<div class="ys-custTitle"><span class="mui-icon icon-line-25"></span>附近的客户</div>
+					<!--<div class="ys-tips">附近无客户</div>-->
+					<ul class="mui-table-view" id="list1">
+						<li class="mui-table-view-cell toolHover">
+							<a class="ys-list-cell" onclick="goSelect('600040439305','广西航桂房产有限公司');" id="firstCustAId">
+								<b>广西航桂房产有限公司</b>
+								<span class="ys-lcRMin">2公里</span>
+								<span class="ys-lcLeft1">梅林路63号</span>
+								<span class="ys-lcRCk">
+									<div class="mui-input-row mui-checkbox">
+										<label>&nbsp;</label>
+										<input name="checkbox1" value="Item 1" type="checkbox" id="firstCustInputId">
+									</div>
+								</span>
+								<span class="ys-lcLeft"><i class="mui-icon mui-icon-paperplane"></i>上次拜访9月8日9点</span>
+								<span class="ys-lcRight"><i class="mui-icon mui-icon-star"></i>拜访次数1次</span>
+							</a>
+						</li>
+					</ul>
+					<div class="ys-custTitle"><span class="mui-icon icon-line-9"></span>我的客户</div>
+					<ul class="mui-table-view" id="ulId">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+//		mui('.mui-scroll-wrapper').scroll();
+	</script>
+
+</html>

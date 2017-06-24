@@ -1,0 +1,142 @@
+<!--
+	作者：wangfr
+	时间：2016-11-29
+	描述：名片扫描
+-->
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>对私客户新增</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<script type="text/javascript" src="./common.js"></script>
+		<script src="../common/AppBooter.js"></script>
+		<script src="certificateScan.js"></script>
+		<script type="text/javascript">
+			var Intent = null,
+				File = null,
+				Uri = null,
+				main = null;
+			// H5 plus事件处理
+
+			function plusReady() {
+				if(plus.os.name == "Android") {
+					Intent = plus.android.importClass("android.content.Intent");
+					File = plus.android.importClass("java.io.File");
+					Uri = plus.android.importClass("android.net.Uri");
+					main = plus.android.runtimeMainActivity();
+				}
+			}
+			if(window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+		</script>
+		<style type="text/css">
+			p {
+				margin: 10px;
+				line-height: 25px;
+			}
+			
+			#sharecontent {
+				height: 150px;
+				margin: 20px;
+				margin: 0;
+			}
+			
+			p>button.mui-btn {
+				width: 100%;
+				background-color: #943ebd;
+				border: none;
+				color: #fff;
+				padding: 10px;
+			}
+			
+			p.img {
+				text-align: center;
+			}
+			
+			#pic {
+				width: 150px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">对私客户新增</h1>
+		</header>
+		<div class="mui-content dark-bg">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					<form class="mui-input-group" id="changeDis">
+						<div class="mui-input-row">
+							<label>姓名：</label>
+							<input id="name" type="text" placeholder="姓名">
+						</div>
+						<div class="mui-input-row">
+							<label>性别：</label>
+							<input id="sex" type="text" placeholder="公司">
+						</div>
+						<div class="mui-input-row">
+							<label>民族：</label>
+							<input id="nationality" type="text" placeholder="部门">
+						</div>
+						<div class="mui-input-row">
+							<label>出生：</label>
+							<input id="birth" type="text" placeholder="邮箱">
+						</div>
+						<div class="mui-input-row">
+							<label>住址：</label>
+							<input id="address" type="text" placeholder="手机">
+						</div>
+						<div class="mui-input-row">
+							<label>公民身份号码：</label>
+							<input id="num" type="text" placeholder="座机">
+						</div>
+						<div class="mui-button-row">
+							<button type="button" class="mui-btn mui-btn-danger" id="saveButId" onclick="addCustInfo1()">新增</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui('.mui-scroll-wrapper').scroll();
+			var certificateNum = _App.util.getUrlParamByName('certificateNum');
+				var name = _App.util.getUrlParamByName('name');
+				if(!name || name == "undefined")
+					name = "";
+				var sex = _App.util.getUrlParamByName('sex');
+				var nationality = _App.util.getUrlParamByName('nationality');
+				var birth = _App.util.getUrlParamByName('birth');
+				var address = _App.util.getUrlParamByName('address');
+
+                if(certificateNum!=undefined){
+					document.getElementById("num").value = certificateNum;
+				}
+                if(name!=undefined){
+					document.getElementById("name").value = name;
+				}
+                if(sex!=undefined){
+					document.getElementById("sex").value = sex;
+				}
+                if(nationality!=undefined){
+					document.getElementById("nationality").value = nationality;
+				}
+                if(birth!=undefined){
+					document.getElementById("birth").value = birth;
+				}
+                if(address!=undefined){
+					document.getElementById("address").value = address;
+				}
+		</script>
+	</body>
+
+</html>

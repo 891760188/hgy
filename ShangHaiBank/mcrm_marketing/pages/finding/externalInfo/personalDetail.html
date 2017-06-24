@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>个人身份查询</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../common/AppBooter.js"></script>
+		<style>
+			.pClass {
+				font-weight: bold;
+				color: #000000;
+				font-size: 16px;
+			}
+			
+			.pClass font{
+				margin-left: 35px;
+				display: inline-block;
+			}
+			input {
+				color: #00AAFF;
+			}
+			
+			font {
+				position: absolute;
+				left: 150px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<!--<a id="perSearch" class="mui-icon mui-icon-search mui-pull-right"></a>-->
+			<h1 class="mui-title">个人身份查询</h1>
+		</header>
+		<!--<div class="mui-content dark-bg" id="peSearch" style="display: block;">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					<div class="mui-content" style="margin-top: 8%;">
+						<div class="loginContnet">
+							<h1>个人身份查询/SEARCH</h1>
+							<p><i class="icon-user"></i>
+								<input id="userName" type="text" placeholder="用户名-admin" class="mui-input-clear" />
+							</p>
+							<p><i class="icon-key"></i>
+								<input id="userPassword" type="password" placeholder="密码-admin" class="mui-input-clear" />
+							</p>
+							<p><i class="icon-user"></i>
+								<input id="icname" type="text" placeholder="姓名-测试用户" class="mui-input-clear" />
+							</p>
+							<p><i class="icon-key"></i>
+								<input id="icno" type="text" placeholder="编码--暂时不用填写" class="mui-input-clear" />
+							</p>
+							<p>
+								<button id="btLogin" type="button" class="mui-btn">查　询</button>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>-->
+		<div class="mui-content dark-bg" id="peContent">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					<!--<ul class="mui-table-view mui-table-view-group">
+						<li class="mui-table-view-cell">
+							<div class="mui-media-body">
+								<p class="pClass">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：<a>测试用户</a>
+									<font>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：<a>汉族</a></font>
+								</p>
+								<p class="pClass" style="margin-top: 15px;">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：<a>不清楚自己性别</a>
+									<font>出生日期：<a>1999-07-08</a></font>
+								</p>
+								
+								<p class="pClass" style="margin-top: 15px;">婚姻状况：<a>已婚</a>
+									<font>查询结果：<a>一致</a></font>
+								</p>
+							</div>
+						</li>
+					</ul>
+					<ul class="mui-table-view mui-table-view-group">
+						<li class="mui-table-view-cell mui-media">
+							<div class="mui-media-body">
+								<p class="pClass">曾&nbsp;&nbsp;用&nbsp;&nbsp;名：<a>无</a></p>
+							</div>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<div class="mui-media-body">
+								<p class="pClass">身份证号：<a>1111000011110000</a></p>
+							</div>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<div class="mui-media-body">
+								<p class="pClass">教&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;育：<a>大学</a></p>
+							</div>
+						</li>
+					</ul>
+					<ul class="mui-table-view mui-table-view-group">
+						<li class="mui-table-view-cell mui-media">
+							<div class="mui-media-body">
+								<p class="pClass">公&nbsp;&nbsp;&nbsp;&nbsp;司</p>
+								<div class="mui-table-view-cell-bt" style="margin-right: -15px;"></div>
+								<p class="pClass"><a>其它</a></p>
+							</div>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<div class="mui-media-body">
+								<p class="pClass">籍&nbsp;&nbsp;&nbsp;&nbsp;贯</p>
+								<div class="mui-table-view-cell-bt" style="margin-right: -15px;"></div>
+								<p class="pClass"><a>辽宁省广安市**县</a></p>
+							</div>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<div class="mui-media-body">
+								<p class="pClass">出生地</p>
+								<div class="mui-table-view-cell-bt" style="margin-right: -15px;"></div>
+								<p class="pClass"><a>辽宁省广安市**县</a></p>
+							</div>
+						</li>
+						<li class="mui-table-view-cell mui-media">
+							<div class="mui-media-body">
+								<p class="pClass">居住地</p>
+								<div class="mui-table-view-cell-bt" style="margin-right: -15px;"></div>
+								<p class="pClass"><a>辽宁省广安市**县驿都中路</a></p>
+							</div>
+						</li>
+					</ul>-->
+				</div>
+			</div>
+		</div>
+		<script>
+			//App配置信息
+			var appConfig = {
+				tabConfig: {
+					titileId: 'title',
+					preLoadPages: true
+				},
+				uiReady: function() {},
+				deviceReady: function() {
+					mui('.mui-scroll-wrapper').scroll();
+//					var peContent = document.getElementById('peContent');
+//					var btLogin = document.getElementById('btLogin');
+//					var perSearch = document.getElementById('perSearch');
+//					//搜索列表
+//					var userName = document.getElementById('userName');
+//					var userPassword = document.getElementById('userPassword');
+//					var icname = document.getElementById('icname');
+//					var icno = document.getElementById('icno');
+					//获取个人信息id
+					var ids = _App.util.getUrlParamByName('id');
+					//监听搜索按钮是否被点击
+					mui.plusReady(function(){
+						var ws=plus.nativeUI.showWaiting();
+						var data={
+							ids:ids
+						}
+						mui.ajax({
+						    	type : "get",
+						  		url :basePath+'mobilePersonalAction!getStore.json',
+								data : data,
+						 		cache: false,
+						   		dataType: "json",
+						   		success : function(response){
+									if(response.code==200){
+										var data=response.data[0];
+										var formerName=data.FORMERNAME;
+										if(formerName==""||formerName==null){
+											formerName="无";
+										}
+										peContent.children[0].children[0].innerHTML='<ul class="mui-table-view mui-table-view-group">'
+											+'<li class="mui-table-view-cell">'
+											+'<div class="mui-media-body">'
+											+'<p class="pClass">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：<a>'+data.NAME+'</a><font>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族：<a>'+data.NATION+'</a></font></p>'
+											+'<p class="pClass" style="margin-top: 15px;">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：<a>'+data.SEX+'</a><font>出生日期：<a>'+data.BIRTHDATE+'</a></font></p>'
+											+'<p class="pClass" style="margin-top: 15px;">婚姻状况：<a>'+data.MARTIAT+'</a><font>查询结果：<a>'+data.CITIZENIDRESULT+'</a></font></p>'
+											+'</div>'
+											+'</li>'
+											+'</ul>'
+											+'<ul class="mui-table-view mui-table-view-group">'
+											+'<li class="mui-table-view-cell mui-media">'
+											+'<div class="mui-media-body">'
+											+'<p class="pClass">曾&nbsp;&nbsp;用&nbsp;&nbsp;名：<a>'+formerName+'</a></p>'
+											+'</div>'
+											+'</li>'
+											+'<li class="mui-table-view-cell mui-media">'
+											+'<div class="mui-media-body">'
+											+'<p class="pClass">身份证号：<a>'+data.CITIZENIDNUMBER+'</a></p>'
+											+'</div>'
+											+'</li>'
+											+'<li class="mui-table-view-cell mui-media">'
+											+'<div class="mui-media-body">'
+											+'<p class="pClass">教&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;育：<a>'+data.EDUCATION+'</a></p>'
+											+'</div>'
+											+'</li>'
+											+'</ul>'
+											+'<ul class="mui-table-view mui-table-view-group">'
+											+'<li class="mui-table-view-cell mui-media">'
+											+'<div class="mui-media-body">'
+											+'<p class="pClass">公&nbsp;&nbsp;&nbsp;&nbsp;司</p>'
+											+'<div class="mui-table-view-cell-bt" style="margin-right: -15px;"></div>'
+											+'<p class="pClass"><a>'+data.COMPANY+'</a></p>'
+											+'</div>'
+											+'</li>'
+											+'<li class="mui-table-view-cell mui-media">'
+											+'<div class="mui-media-body">'
+											+'<p class="pClass">籍&nbsp;&nbsp;&nbsp;&nbsp;贯</p>'
+											+'<div class="mui-table-view-cell-bt" style="margin-right: -15px;"></div>'
+											+'<p class="pClass"><a>'+data.NATIONPLACE+'</a></p>'
+											+'</div>'
+											+'</li>'
+											+'<li class="mui-table-view-cell mui-media">'
+											+'<div class="mui-media-body">'
+											+'<p class="pClass">出生地</p>'
+											+'<div class="mui-table-view-cell-bt" style="margin-right: -15px;"></div>'
+											+'<p class="pClass"><a>'+data.BIRTHPLACE+'</a></p>'
+											+'</div>'
+											+'</li>'
+											+'<li class="mui-table-view-cell mui-media">'
+											+'<div class="mui-media-body">'
+											+'<p class="pClass">居住地</p>'
+											+'<div class="mui-table-view-cell-bt" style="margin-right: -15px;"></div>'
+											+'<p class="pClass"><a>'+data.ADDRESS+'</a></p>'
+											+'</div>'
+											+'</li>'
+											+'</ul>';
+										ws.close();
+										peContent.style.display="block";
+									}else{
+										ws.close();
+										mui.alert(response.msg);
+									}
+	       					},
+				         		error:function(a,b,c){
+				         			ws.close();
+				         			mui.alert("网络连接出错或服务端未开启!");
+				         		}
+				         });
+					});
+				}
+			};
+			_App.init(appConfig);
+		</script>
+	</body>
+
+</html>

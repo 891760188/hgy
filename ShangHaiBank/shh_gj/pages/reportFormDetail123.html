@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>报表详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../resource/css/jquery-ui.css" rel="stylesheet" media="screen">
+		<link href="../resource/css/ui.jqgrid.css" rel="stylesheet" media="screen">
+		<script src="common/AppBooter.js"></script>
+		<script src="../resource/jquery/grid.locale-cn.js"></script>
+		<script src="../resource/jquery/grid.locale-cn.js"></script>
+		<script src="../resource/jquery/jquery.jqGrid.min.js"></script>
+		<style>
+			html,
+			body {
+				height: 100%;
+				max-height: 100%;
+				overflow: hidden;
+			}
+			.mui-content{padding-top: 0;}
+			.mui-scroll-wrapper { margin-top:309px; padding-top: 0; }
+			#popover {height: 200px; width: 300px;margin-left: -150px !important;margin-top: -100px!important;left: 50%!important;top: 50%!important;}
+			#showDate{line-height: 44px;font-size: 18px;margin-right: 10px;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">报表详情</h1>
+			<a id="showDate" data-options='{"type":"date","beginYear":2016,"endYear":2030}' class="icon-line-94 mui-pull-right"></a>
+		</header>
+		<div class="mui-content">
+			<div id="mychartForm" style="height: 200px;width: calc(100% - 20px);"></div>
+			<div class="sh-tittle">本外币存款</div>
+			<!--<div class="mui-scroll">
+				<div class="mui-scroll-wrapper">-->
+					<div class="sh-reportTable">
+			<table class="mui-table table-bordered">
+				<tr>
+					<thead>
+					<td id="showUserPicker">指标</td>
+					<td>余额</td>
+					<td id="showInstructionPicker">较上日</td>
+					</thead>
+				</tr>
+			</table>
+			</div>
+			<div class="mui-scroll-wrapper" id="sh-reScroll">
+				<div class="mui-scroll sh-reportTable">
+					<table class="mui-table table-bordered">
+						<tbody>
+							<tr>
+								<td class="color1">本外币贷款</td>
+								<td>5575.34</td>
+								<td>323</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="#popover" id="openPopover" class="color2">人民币贷款</a>
+								</td>
+								<td>5575.34</td>
+								<td>323</td>
+							</tr>
+							<tr>
+								<td>
+								<a href="#popover" id="openPopover">对公</a>
+								</td>
+								<td>5575.34</td>
+								<td>323</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="#popover" id="openPopover">对私</a>
+								</td>
+								<td>5575.34</td>
+								<td>323</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="#popover" id="openPopover">信用卡</a>
+								</td>
+								<td>5575.34</td>
+								<td>323</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="#popover" id="openPopover">本外币贷款</a>
+								</td>
+								<td>5575.34</td>
+								<td>323</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="#popover" id="openPopover">本外币贷款</a>
+								</td>
+								<td>5575.34</td>
+								<td>323</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="#popover" id="openPopover">本外币贷款</a>
+								</td>
+								<td>5575.34</td>
+								<td>323</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="#popover" id="openPopover" class="color1">本外币存款</a>
+								</td>
+								<td>5575.34</td>
+								<td>323</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="#popover" id="openPopover" class="color2">人民币存款</a>
+								</td>
+								<td>5575.34</td>
+								<td>323</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="#popover" id="openPopover">外币存款</a>
+								</td>
+								<td>5575.34</td>
+								<td>323</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="#popover" id="openPopover">外币存款</a>
+								</td>
+								<td>5575.34</td>
+								<td>323</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="#popover" id="openPopover">人民币存款</a>
+								</td>
+								<td>5575.34</td>
+								<td>323</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="#popover" id="openPopover">外币存款</a>
+								</td>
+								<td>5575.34</td>
+								<td>323</td>
+							</tr>	
+							<tr>
+								<td>
+									<a href="#popover" id="openPopover">外币存款</a>
+								</td>
+								<td>5575.34</td>
+								<td>323</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="#popover" id="openPopover">人名币存款</a>
+								</td>
+								<td>5575.34</td>
+								<td>323</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+				<!--</div>
+			</div>-->
+			
+				<div id="popover" class="mui-popover">
+				<div id="myReportChart1" style="height: 200px;"></div>
+			</div>
+		</div>
+		<script src="reportFormDetail123.js"></script>
+		<script src="jzcol.js"></script>
+	</body>
+
+</html>

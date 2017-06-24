@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的指标</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../../../common/AppBooter.js"></script>
+		<style>
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			
+			.mui-segmented-control.mui-scroll-wrapper .mui-scroll {
+				height: 38px;
+			}
+			
+			.mui-fullscreen .mui-segmented-control~.mui-slider-group {
+				top: 38px;
+			}
+		</style>
+		<style>
+			.progress {
+				padding: 0px;
+				background: rgba(0, 0, 0, 0.25);
+				border-radius: 6px;
+				-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+				box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+			}
+			
+			.progress-bar {
+				position: relative;
+				height: 16px;
+				border-radius: 4px;
+				-webkit-transition: 0.4s linear;
+				-moz-transition: 0.4s linear;
+				-o-transition: 0.4s linear;
+				transition: 0.4s linear;
+				-webkit-transition-property: width, background-color;
+				-moz-transition-property: width, background-color;
+				-o-transition-property: width, background-color;
+				transition-property: width, background-color;
+				-webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+				box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+			}
+			
+			.progress-bar:before,
+			.progress-bar:after {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+			}
+			
+			.progress-bar:before {
+				bottom: 0;
+				background: url("../img/stripes.png") 0 0 repeat;
+				border-radius: 4px 4px 0 0;
+			}
+			
+			.progress-bar:after {
+				z-index: 2;
+				bottom: 45%;
+				border-radius: 4px;
+				background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+				background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+				background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+				background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+			}
+			.chart {
+				height: 350px;
+				margin: 0px;
+				padding: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的指标</h1>
+		</header>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-slider-bt">
+					<a class="mui-control-item mui-active" href="#item1mobile"><b>对公存款</b></a>
+					<a class="mui-control-item" href="#item2mobile"><b>营业收入</b></a>
+					<a class="mui-control-item" href="#item3mobile"><b>有效户</b></a>
+					<a class="mui-control-item" href="#item4mobile"><b>国际结算量</b></a>
+					<a class="mui-control-item" href="#item5mobile"><b>不良贷款率</b></a>
+					<a class="mui-control-item" href="#item6mobile"><b>新增重点客户</b></a>
+					<a class="mui-control-item" href="#item7mobile"><b>新增贷款量</b></a>
+					<a class="mui-control-item" href="#item8mobile"><b>资本充足率</b></a>
+				</div>
+				<div class="mui-slider-group" style="top: 120px;">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div class="mui-loading" style="margin:50%;">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-loading" style="margin:50%;">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-loading" style="margin:50%;">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+					<div id="item4mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-loading" style="margin:50%;">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+					<div id="item5mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-loading" style="margin:50%;">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+					<div id="item6mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-loading" style="margin:50%;">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+					<div id="item7mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-loading" style="margin:50%;">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+					<div id="item8mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-loading" style="margin:50%;">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../../../../resource/echarts3/echarts.min.js"></script>
+		<script>
+			mui.init({
+				swipeBack: false //启用右滑关闭功能
+			});
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true //是否显示滚动条
+			});
+			var item1 = document.getElementById('item1mobile');
+			var item2 = document.getElementById('item2mobile');
+			var item3 = document.getElementById('item3mobile');
+			var item4 = document.getElementById('item4mobile');
+			var item5 = document.getElementById('item5mobile');
+			var item6 = document.getElementById('item6mobile');
+			var item7 = document.getElementById('item7mobile');
+			var item8 = document.getElementById('item8mobile');
+			var controls = item1;
+			mui.plusReady(function() {
+				getDatas(controls,0);
+			});
+			document.querySelector('.mui-slider').addEventListener('slide', function(e) {
+				if (e.detail.slideNumber === 0) {
+					setTimeout(function() {
+						controls = item1;
+						getDatas(controls,e.detail.slideNumber);
+					}, 0);
+				} else if (e.detail.slideNumber === 1) {
+					setTimeout(function() {
+						controls = item2;
+						getDatas(controls,e.detail.slideNumber);
+					}, 0);
+				} else if (e.detail.slideNumber === 2) {
+					setTimeout(function() {
+						controls = item3;
+						getDatas(controls,e.detail.slideNumber);
+					}, 0);
+				} else if (e.detail.slideNumber === 3) {
+					setTimeout(function() {
+						controls = item4;
+						getDatas(controls,e.detail.slideNumber);
+					}, 0);
+				} else if (e.detail.slideNumber === 4) {
+					setTimeout(function() {
+						controls = item5;
+						getDatas(controls,e.detail.slideNumber);
+					}, 0);
+				} else if (e.detail.slideNumber === 5) {
+					setTimeout(function() {
+						controls = item6;
+						getDatas(controls,e.detail.slideNumber);
+					}, 0);
+				} else if (e.detail.slideNumber === 6) {
+					setTimeout(function() {
+						controls = item7;
+						getDatas(controls,e.detail.slideNumber);
+					}, 0);
+				} else if (e.detail.slideNumber === 7) {
+					setTimeout(function() {
+						controls = item8;
+						getDatas(controls,e.detail.slideNumber);
+					}, 0);
+				}
+			});
+			function getDatas(controls,chars) {
+					if(controls.children.length<2){
+						var ul = document.createElement('ul');
+						ul.className = 'mui-table-view mui-unfold';
+						ul.innerHTML = '<table>' + '<tr><th>月份</th><th>目标值</th><th>完成值</th><th>完成率</th></tr>' + '<tr><td>6月</td><td>12,000</td><td>13,921</td><td>116%</td></tr></table>';
+						ul.innerHTML = ul.innerHTML + '<div class="chart" id="Chart'+chars+'"></div>';
+						controls.innerHTML = ul.innerHTML;
+						var Chats = echarts.init(document.getElementById("Chart"+chars));
+						setTimeout(function(){
+							Chats.setOption(getOption());
+						},500);
+					}
+			}
+			var getOption = function() {
+				var chartOption = {
+				    tooltip : {
+				        trigger: 'axis',
+				        formatter: function (params, ticket, callback){
+				        	return params[0].name+'<br/>'+params[0].seriesName+':'+ params[0].value 
+				        		+'<br/>'+params[1].seriesName+':'+ params[1].value
+				        		+'<br/>完成率：'+(params[0].value/params[1].value*100).toFixed(0)+'%';
+				        }
+				    },
+					legend: {
+				        orient: 'horizontal', // 'vertical'
+				        x: 'center', // 'center' | 'left' | {number},
+				        y: 'bottom', // 'center' | 'bottom' | {number}
+				        backgroundColor: '#ffffff',
+				        borderColor: 'rgba(178,34,34,0.8)',
+				        borderWidth: 1,
+				        padding: 1,    // [5, 10, 15, 20]
+				        itemGap: 5,
+				        textStyle: {color: 'red'},
+				        data: [
+				            '完成值','目标值'
+				        ]
+				    },
+					grid: {
+						x: 45,
+						x2: 10,
+						y: 30,
+						y2: 45
+					},
+					barWidth:"40",
+					xAxis: [{
+						type: 'category',
+						data: ['1月', '2月', '3月','4月','5月','6月']
+					}],
+					yAxis: [{
+						type: 'value',
+						splitArea: {
+							show: true
+						}
+					}],
+					
+					series: [{
+						name: '完成值',
+						type: 'line',
+						itemStyle: {normal:{color:'#007aff'}},
+						data: [1000*(Math.ceil(Math.random()*5+5)), 1000*(Math.ceil(Math.ceil(Math.random()*5+5))), 1000*(Math.ceil(Math.random()*5+5)), 1000*(Math.ceil(Math.random()*5+5)),1000*(Math.ceil(Math.random()*5+5)),13921]
+					},{
+						name: '目标值',
+						type: 'bar',
+						itemStyle: {normal:{color:'#ff713c',}},
+						data: [5000*((Math.random()*1+1).toFixed(1)), 5000*((Math.random()*1+1).toFixed(1)), 5000*((Math.random()*1+1).toFixed(1)), 5000*((Math.random()*1+1).toFixed(1)),5000*((Math.random()*1+1).toFixed(1)),12000]
+					}],
+					animation:false
+				};
+				return chartOption;
+			};
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>工商信息</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../common/AppBooter.js"></script>
+		<style>
+			.cospan{
+				position: absolute;
+				right: 0px;
+			}
+			.cde-baseInfo{overflow: auto;display: block;background-color: #fff;}
+			.cde-baseInfo>div{float: left;width: 50%;height: 60px;line-height: 20px;padding: 10px;text-align: center;color: #444;font-size: 14px;border-right: 1px #ddd solid;border-bottom: 1px #ddd solid;}
+			.cde-baseInfo>div>p{font-size: 12px;color: #4896cd;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">专利详细</h1>
+		</header>
+		<div class="mui-content dark-bg"> 
+			<div class="mui-scroll-wrapper" style="top: 46px;">
+				<div class="mui-scroll">
+					<div class="ys-custTitle" style="text-align: center;font-size: 16px;">摩托车轮胎全合成胎冠胶</div>
+					<div class="cde-baseInfo">
+						<div>申请号
+							<p>CN2012XXXX49.9</p>
+						</div>
+						<div>申请日
+							<p>2011-04-27</p>
+						</div>
+						<div>授权公布号
+							<p>CN10203SSS</p>
+						</div>
+						<div>授权公布日期
+							<p>2011-11-26</p>
+						</div>
+					</div>
+					<ul class="mui-table-view mui-table-view-group">
+						<li class="mui-table-view-cell">
+							<div class="mui-media-body">
+								<p class="cde-p">发明人：<span class="cospan">丁XX，崔XX</span></p>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-media-body">
+								<p class="cde-p">专利类型：<span class="cospan">发明授权</span></p>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-media-body">
+								<p class="cde-p">分类号：<span class="cospan">H04N1/00</span></p>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-media-body">
+								<p class="cde-p">法律状态：<span class="cospan">授权，权利转移</span></p>
+							</div>
+						</li>
+					</ul>
+					<ul class="mui-table-view mui-table-view-group">
+						<li class="mui-table-view-cell">
+							<div class="mui-media-body">
+								<p class="cde-p has-b">公司名称</p>
+								<p class="cde-p"><span>北京某科技股份有限公司</span></p>
+							</div>
+						</li>
+					</ul>
+					<ul class="mui-table-view mui-table-view-group">
+						<li class="mui-table-view-cell mui-media">
+							<div class="mui-media-body">
+								<p class="cde-p has-b">代理机构（代理人）</p>
+								<p class="cde-p"><span>大为专利商标事务所（曹XX）</span></p>
+							</div>
+						</li>
+					</ul>
+					<ul class="mui-table-view mui-table-view-group">
+						<li class="mui-table-view-cell mui-media">
+							<div class="mui-media-body">
+								<p class="cde-p has-b">详细信息</p>
+								<p class="cde-p"><span>开发、生产、销售程控交换机，传输设备，数据通信设备，
+					宽带多媒体设备，电源、无线通信设备，微电子产品，系统集成工程，计算机及配套设备，终端设备及相关的设备及维修；
+					技术咨询服务；进出口业务（按深贸管审证字第621号文规定办理）；国内商业、物资供销业（不含专营、专控、专卖商品）；
+					经营对外经济技术合作业务（具体按中华人民共和国对外贸易经济合作部[1998]外经贸政审函字第326号文规定办理）；
+					房屋租赁（持许可证经营）。</span></p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script>
+			mui.init({
+				swipeBack: false
+			});
+			//	-webkit-transform: translate3d(120px, 0px, 0px) translateZ(0px)
+			mui('.mui-scroll-wrapper').scroll();
+		</script>
+
+	</body>
+
+</html>

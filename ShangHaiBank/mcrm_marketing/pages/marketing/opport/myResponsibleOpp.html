@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>我负责的商机 </title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../common/AppBooter.js" ></script>
+		<script type="text/javascript" src="typeToNameData.js" ></script>
+		<script type="text/javascript" src="myResponsibleOpp.js" ></script>
+	</head>
+	<style type="text/css">
+	   .mui-table-view-cell>a:not(.mui-btn){padding-bottom:20px;}
+		.mui-table-btn-flag{}
+		.mui-table-view-cell-bt>button{float: right;height: 45px;}
+		.mui-table-view-cell-bt{padding-top: 0;margin-top: 10px;}
+		.mui-table-view:before{top: 0;}
+		#ulId .toolHover>a:active{background-color: #f0f8fe;}
+		.iconBlue{
+				color: #4896cd!important;
+			}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title" id="muiTitleId">我负责的商机</h1>
+		</header>
+		<div class="mui-content dark-bg">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					<div class="mboSearch dark-input">
+						<input type="text" class="txtSearch" placeholder="输入关键字查找商机…"/>
+						<span class="mui-icon mui-icon-search"></span>
+					</div>
+					<div id="ulId">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="superBt" class="mui-icon mui-icon-plusempty superBt"></div>
+		<div id="superMenu" class="superMenu">
+				<ul>
+					<li><a data-fn="addBusiOppor()"><b>商机录入</b><i class="mui-icon mui-icon-compose"></i></a></li>
+					<!--<li><a data-fn="javascript:mui.alert('此为示例，开发中…');"><b>商机查找</b><i class="mui-icon mui-icon-search"></i></a></li>-->
+				</ul>
+		</div>
+	</body>
+</html>

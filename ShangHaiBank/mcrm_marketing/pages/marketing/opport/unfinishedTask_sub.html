@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../common/AppBooter.js" ></script>
+		<script type="text/javascript" src="unfinishedTask.js"></script>
+		<style>
+			
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="mboSearch">
+						<input id="keySearch" type="text" class="txtSearch" placeholder="输入关键字查找未完成任务"/>
+						<span id="searchBt" class="mui-icon mui-icon-search"></span>
+					</div>
+					<div id="ulId" style="display: none;margin-top: -10px;"> 
+						
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<script>
+			mui.init({
+				swipeBack: true, //启用右滑关闭功能
+			});
+			//刷新数据
+			window.addEventListener('paramBackEvent__',function(event){
+			    //更新数据				
+				initTask();
+			});
+			
+			//修改页面跳转
+			mui('#ulId').on('tap','.text',function(){
+				var id = this.getAttribute('href');
+				if(undefined != id && "" != id){
+					var currWebId = plus.webview.currentWebview().id;
+					_App.util.goPage('../../reminds/addTask.html?id='+id, 
+					                  {refresh:true,pageId:'addTask.html'});
+				}
+			});
+			
+			mui('#ulId').on('tap', '.mui-btn', function(event) {
+				var id = this.getAttribute('href');
+				var id = this.getAttribute('href');
+				var dataTmp = {};
+				dataTmp.id = id;
+				var btnArray = ['是', '否'];
+				mui.confirm('确定要删除吗？', '提示', btnArray, function(e) {
+					if (e.index == 0) {
+						plus.nativeUI.showWaiting();
+						_App.ajax({
+							type : "post",
+					  		url :basePath + 'ocrmFMobileWaitingTaskAction!delTask.json?',
+							data:dataTmp,
+					 		cache: false,
+					   		dataType: "json",
+					   		success : function(response){
+					   			plus.nativeUI.closeWaiting();
+					   			refreshTask();
+					   		},
+					 		error:function(a,b,c){
+					 			plus.nativeUI.closeWaiting();
+					 			mui.alert("网络连接出错!");
+					 		}
+						});
+					}
+				})
+			});
+		</script>
+	</body>
+</html>

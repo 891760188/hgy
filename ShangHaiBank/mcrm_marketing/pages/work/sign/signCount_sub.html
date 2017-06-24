@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>ECahrt 示例</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=PwtEGYwzpanIhIoeNQj9N4Xb"></script>
+		<script src="../../common/AppBooter.js"></script>
+		<script src="../../../../resource/mui/js/mui.picker.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../../../resource/mui/css/mui.picker.min.css" />
+		<!--App自定义的css-->
+		<style>
+			.chart {
+				height: 400px;
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			.mui-popover {
+				width: 290px;
+			}
+			
+			.date-Cell {
+				margin: 8px 8px 8px 60px;
+				min-height: 80px;
+				padding: 5px 8px;
+				background-color: #fffdfb;
+				box-shadow: 0px 1px 1px #ddd;
+				position: relative;
+				border-radius: 3px
+			}
+			
+			.date-Cell>div.dc-ico {
+				position: absolute;
+				right: 10px;
+			}
+			
+			.date-Cell>div.dc-ico>b {
+				font-size: 12px;
+				color: #666;
+				margin-left: 5px;
+			}
+			
+			.dc-time {
+				width: 47px;
+				position: absolute;
+				left: -52px;
+				top: 0;
+				line-height: 18px;
+			}
+			
+			.dc-time>b {
+				display: block;
+				border-radius: 3px;
+				background-color: #fffdfb;
+				box-shadow: 0px 1px 1px #ddd;
+				text-align: center;
+				font-size: 20px;
+				padding: 5px 0;
+			}
+			
+			.dc-time>b>i {
+				clear: left;
+				display: block;
+				text-align: center;
+				font-style: normal;
+				font-weight: normal;
+				font-size: 14px;
+			}
+			
+			.dc-time>span {
+				display: block;
+				text-align: center;
+				font-size: 14px;
+				color: #6d655f;
+				line-height: 30px;
+				background-color: #E4E3E6;
+			}
+			
+			.date-Cell>p {
+				padding: 3px 0;
+				margin: 0;
+				line-height: 20px;
+				display: block;
+				font-size: 14px;
+				color: #777;
+			}
+			
+			.date-Cell>.dc-time+p {
+				font-size: 16px;
+				color: #555;
+			}
+			
+			.date-Cell>p>b {
+				color: #777;
+				font-weight: normal;
+				font-size: 14px;
+			}
+			
+			.date-Cell>p>i {
+				font-style: normal;
+				padding-right: 2px;
+				font-size: 14px;
+			}
+			
+			.date-Cell>p.dc-title {
+				color: #555;
+			}
+			
+			.c2 {
+				color: #00aaff!important;
+			}
+			
+			.mui-search-slider>.mui-slider-group .mui-slider-item:last-child {
+				height: 60px!important;
+				min-height: 200px!important;
+			}
+			
+			.has-search-silder {
+				margin-top: 39px;
+			}
+			
+			.mui-search-slider>.mui-slider-group .mui-slider-item:last-child {
+				min-height: 135px!important;
+			}
+			
+			.popSignONn {
+				font-size: 35px;
+				margin-bottom: 5%;
+				margin-left: calc((100% - 35px) / 2);
+			}
+			
+			
+			/**
+			 * 列表布局st
+			 */	
+			 i{font-style: normal;}
+			 .centDiv{width: 240px;}
+			 .leftIconDiv{position: absolute;top: 0px;right: 0px;width: 50px;height: 100%;}
+			 .leftIconDiv>span{font-size: 34px;margin-top: ;position: absolute;top: calc((100% - 34px) / 2);right: 13px;}
+			 /**end
+		</style>
+	</head>
+
+	<body class=" dark-bg">
+		<div id="mss1" class="mui-slider mui-search-slider">
+			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-control-item icon-search" href="#item1mobile">搜索</a>
+				<a class="mui-control-item" href="#item2mobile"><span class="mtIcoDro icon-play3">历史查询</span></a>
+			</div>
+			<div class="mui-slider-group">
+				<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+					<div class="mboSearch">
+						<input type="text" id="searchContent" class="txtSearch" placeholder="输入关键字查找客户…" />
+						<span class="mui-icon mui-icon-search" onclick="searchData()"></span>
+					</div>
+				</div>
+				<div id="item2mobile" class="mui-slider-item mui-control-content mui-active ">
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<label>开始时间:</label>
+							<input id="sign_select1" name="checkbox" type="text" placeholder="自定义开始时间" readonly="readonly">
+						</div>
+						<div class="mui-input-row">
+							<label>结束时间:</label>
+							<input id="sign_select2" name="checkbox" type="text" readonly="readonly">
+						</div>
+						<div class="mui-search-slider-bt">
+							<button type="button" class="mui-btn" onclick="restore();">清空</button>
+							<button id='cut_searchBt' type="button" class="mui-btn" onclick="searchData();">确定</button>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="mui-content dark-bg">
+			<div id="pullrefresh" class="mui-scroll-wrapper has-search-silder">
+				<div class="mui-scroll">
+					<div id="ulId">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="superBt" class="mui-icon mui-icon-plusempty superBt"></div>
+		<div id="superMenu" class="superMenu">
+			<ul>
+				<li>
+					<a data-fn="gos(1)"><b>签到</b><i class="mui-icon mui-icon-compose"></i></a>
+				</li>
+				<li>
+					<a data-fn="gos(2)"><b>签退</b><i class="mui-icon mui-icon-compose"></i></a>
+				</li>
+				<li>
+					<a data-fn="gos(4)"><b>每月进度</b><i class="mui-icon mui-icon-search"></i></a>
+				</li>
+			</ul>
+		</div>
+		<!--<div id="popover" class="mui-popover signPop" style="width: 100%;left: 0;top: 0px!important;height:100%;border-radius: 0;">
+			<ul class="mui-table-view mui-table-view-group">
+				<li class="mui-table-view-cell">
+					<a>
+						<span class="mui-icon mui-icon-minus"></span>
+						<b>时间:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="div1"></span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a onclick="selects()">
+						<span class="mui-icon mui-icon-location"></span>
+						<b>地址:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="div2"></span>
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view mui-table-view-group">
+				<li class="mui-table-view-cell">
+					<a onclick="selectedCust();">
+						<span class="mui-icon mui-icon-star"></span>
+						<b>关联客户:</b>&nbsp;&nbsp;&nbsp;&nbsp;<span id="custName"></span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a onclick="selectedCusts();">
+						<span class="mui-icon mui-icon-personadd"></span>
+						<b>关联联系人:</b>&nbsp;&nbsp;&nbsp;&nbsp;<span id="custNames"></span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a>
+						<span class="mui-icon mui-icon-compose"></span>
+						<b>签到详情:</b><br /><br />
+						<span>
+							<textarea type="text"  id="ts" class="mui-input-clear" style="height:5em;" placeholder="备注内容"></textarea>
+						</span>
+					</a>
+				</li>
+
+			</ul>
+			<a>
+				<span class="mui-icon icon-line-107 popSignONn"></span>
+			
+			<a>
+		</div>-->
+		<script src="signCount.js"></script>
+		<script>
+			//点击图标更新数据
+			YSUI.SuperBt();
+			var searchContent = document.getElementById("searchContent");
+			mui.plusReady(function() {
+				var now = new Date();
+				var myDate = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+				sign_select2.value = myDate;
+				getAddr();
+			});
+			//开始时间的日期选择
+			sign_select1.addEventListener('tap', function() {
+				var optionsJson = '{"type":"date"}';
+				var options = JSON.parse(optionsJson);
+				var picker = new mui.DtPicker(options);
+				picker.show(function(rs) {
+					if(sign_select2.value > rs.text || sign_select2.value == "") {
+						sign_select1.value = rs.text;
+					} else {
+						mui.alert('开始日期要小于结束日期!', '提示');
+					}
+					picker.dispose();
+				});
+			});
+			//结束时间的日期选择
+			sign_select2.addEventListener('tap', function() {
+				var optionsJson = '{"type":"date"}';
+				var options = JSON.parse(optionsJson);
+				var picker = new mui.DtPicker(options);
+				picker.show(function(rs) {
+					if(rs.text > sign_select1.value || sign_select1.value == "") {
+						sign_select2.value = rs.text;
+					} else {
+						mui.alert('结束日期要大于开始日期!', '提示');
+					}
+					picker.dispose();
+				});
+			});
+			//签到详情页面跳转
+			mui('#ulId').on('tap', 'div.date-Cell', function() {
+				var ids = this.getAttribute('id');
+				var id = ids.split("_")[1];
+				if(undefined != id && "" != id) {
+					_App.util.goPage('sign_xiang.html?id=' + id, {
+						refresh: true,
+						pageId: 'work_logDetail_html'
+					});
+				}
+			});
+
+			//签到后刷新
+			window.addEventListener('paramBackEvent__', function(event) {
+				refreshData();
+			});
+		</script>
+	</body>
+
+</html>

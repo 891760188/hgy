@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>营销活动列表</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../common/AppBooter.js"></script>
+		<link rel="stylesheet" href="../../../../resource/mui/css/mui.dtpicker.css" />
+		<link rel="stylesheet" href="../../../../resource/mui/css/mui.picker.min.css" />
+		<script src="../../../../resource/mui/js/mui.dtpicker.js"></script>
+		<script src="../../../../resource/mui/js/mui.picker.min.js"></script>
+		<script type="text/javascript" src="addMktActivityList.js"></script>
+		<style>
+			.has-search-silder {
+				margin-top: 39px;
+			}
+			
+			.ys-list-cell:active {
+				background-color: #F0F8FE;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="mss1" class="mui-slider mui-search-slider">
+			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-control-item icon-search" href="#item1mobile">搜索</a>
+				<a class="mui-control-item" href="#item2mobile"><span class="mtIcoDro icon-play3">筛选条件</span></a>
+				<a class="mui-control-item" href="#item3mobile"><span class="mtIcoDro icon-play3">创建时间</span></a>
+			</div>
+			<div class="mui-slider-group">
+				<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+					<div class="mboSearch">
+						<input id="mktName" type="text" class="txtSearch" placeholder="输入关键字查找营销活动…" />
+						<span class="mui-icon mui-icon-search" onclick="search();"></span>
+					</div>
+				</div>
+				<div id="item2mobile" class="mui-slider-item mui-control-content ">
+					<div class="mui-search-right" style="width: 100%;height: 150px;">
+						<div id="muiCard1" class="mui-card msr-card mui-sr-show">
+							<form class="mui-input-group">
+								<!--<div class="mui-input-row"> 
+									<label>营销活动名称</label>
+									<input id="roleId5" type="text" placeholder="输入营销活动名称">
+								</div>-->
+								<div class="mui-input-row">
+									<label>审批状态</label>
+									<select id="roleId3" style="background-color: #eee!important;;margin-top: 4px;">
+										<option value="0" selected>请选择审批状态</option>
+										<option value="1">未提交</option>
+										<option value="2">审批中</option>
+										<option value="3">审批通过</option>
+										<option value="4">审批不通过</option>
+									</select>
+								</div>
+								<div class="mui-input-row">
+									<label>创建人</label>
+									<input id="roleId4" type="text" placeholder="输入创建人">
+								</div>
+								<div class="mui-input-row">
+									<label>开始时间:</label>
+									<input id="sign_select1" name="checkbox" type="text" placeholder="自定义开始时间" readonly="readonly">
+								</div>
+								<div class="mui-input-row">
+									<label>结束时间:</label>
+									<input id="sign_select2" name="checkbox" type="text" placeholder="自定义结束时间" readonly="readonly">
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="mui-search-slider-bt">
+						<button type="button" class="mui-btn" onclick="clearAll();">清空</button>
+						<button type="button" class="mui-btn" onclick="search();">确定</button>
+					</div>
+				</div>
+				<div id="item3mobile" class="mui-slider-item mui-control-content">
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<div class="mui-card">
+								<form class="mui-input-group">
+									<div class="mui-input-row mui-checkbox mc-order" onclick="subOrder(this)">
+										<label>按更新时间 倒序</label>
+										<input name="checkbox" type="checkbox">
+									</div>
+									<div class="mui-input-row mui-checkbox mc-order" onclick="subOrder(this)">
+										<label>按创建时间 倒序</label>
+										<input name="checkbox" type="checkbox" checked="checked">
+									</div>
+									<div class="mui-input-row mui-checkbox mc-order" onclick="subOrder(this)">
+										<label>按活动名称 顺序</label>
+										<input name="checkbox" type="checkbox">
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="mui-content dark-bg">
+			<div id="pullrefresh" class="mui-scroll-wrapper has-search-silder">
+				<div class="mui-scroll">
+					<div id="ulId">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="superBt" class="mui-icon mui-icon-plusempty superBt"></div>
+		<div id="superMenu" class="superMenu">
+			<ul>
+				<li>
+					<a data-fn="addMktActivity()"><b>新增</b><i class="mui-icon mui-icon-compose"></i></a>
+				</li>
+			</ul>
+		</div>
+		<script>
+			//			mui.plusReady(function(){
+			//				var now = new Date();
+			//				var myDate = now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate();
+			//				sign_select2.value = myDate;
+			//			});
+			var custName = document.getElementById("mktName");
+			var statu = document.getElementById("roleId3");
+			var createName = document.getElementById("roleId4");
+			var startDate = document.getElementById("sign_select1");
+			var endDate = document.getElementById("sign_select2");
+			var sign_select1 = document.getElementById('sign_select1'); //开始时间
+			var sign_select2 = document.getElementById('sign_select2'); //结束时间
+			//			var sign_select3=document.getElementById('sign_select3');//结束时间
+			var optionsJson = '{"type":"date"}';
+			var options = JSON.parse(optionsJson);
+			var picker = new mui.DtPicker(options);
+			sign_select1.addEventListener('tap', function() {
+				picker.hide();
+				optionsJson = '{"type":"date"}';
+				options = JSON.parse(optionsJson);
+				picker = new mui.DtPicker(options);
+				picker.show(function(rs) {
+					if(sign_select2.value > rs.text || sign_select2.value == "") {
+						sign_select1.value = rs.text;
+					} else {
+						mui.alert('开始日期要小于结束日期!', '提示');
+					}
+					picker.dispose();
+				});
+			});
+			sign_select2.addEventListener('tap', function() {
+				picker.hide();
+				optionsJson = '{"type":"date"}';
+				options = JSON.parse(optionsJson);
+				picker = new mui.DtPicker(options);
+				picker.show(function(rs) {
+					if(rs.text > sign_select1.value || sign_select1.value == "") {
+						sign_select2.value = rs.text;
+					} else {
+						mui.alert('结束日期要大于开始日期!', '提示');
+					}
+					picker.dispose();
+				});
+			});
+			/*客户筛选 UI逻辑  sta*/
+			var _mask = mui.createMask(hideSearchSlider);
+			//展开所有筛选
+			mui('.mui-search-slider').on('tap', 'a.mui-control-item', function() {
+				var _controlItem = this;
+				if(_controlItem.classList.contains('mui-active')) {
+					setTimeout(function() {
+						_controlItem.classList.remove('mui-active');
+					}, '100');
+					hideSearchSlider();
+					_mask.close();
+				} else {
+					document.querySelector(".mui-slider-group").classList.add('show');
+					document.querySelector('#mss1').classList.remove('mui-tm-hasShow');
+					_mask.show();
+				}
+			});
+			//关闭所有筛选
+			function hideSearchSlider() {
+				document.querySelector(".mui-slider-group").classList.remove('show');
+				var _mci = document.getElementsByClassName("mui-control-item");
+				for(var i = 0; i < _mci.length; i++) {
+					_mci[i].classList.remove('mui-active');
+				}
+				//document.querySelector(".mui-backdrop").style.display='none';
+			};
+			//筛选条件
+			mui('.mui-search-left').on('tap', 'li.mui-table-view-cell', function() {
+				if(!this.classList.contains('mui-active')) {
+					var _mm = document.getElementsByClassName('msl-menu');
+					var _mc = document.getElementsByClassName('msr-card');
+					for(var i = 0; i < _mm.length; i++) {
+						_mm[i].classList.remove('mui-active');
+						_mc[i].classList.remove('mui-sr-show');
+					}
+					this.classList.add('mui-active');
+					document.querySelector("#" + this.getAttribute('control')).classList.add('mui-sr-show');
+				}
+			});
+
+			//详情页面跳转			
+			mui('#ulId').on('tap', '.mui-table-view-cell', function() {
+				var id = this.getAttribute('id');
+				_App.util.goPage('mktActivityDetail.html?id=' + id, { refresh: true, pageId: 'mktActivityDetail.html' });
+			});
+		</script>
+	</body>
+
+</html>

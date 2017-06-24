@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>消息回复</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--公共js-->
+		<script type="text/javascript" src="../common/AppBooter.js" ></script>
+		<script src="reply.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">消息回复</h1>
+		    <button onclick="backFn();" type="button" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" style="color: #666;">回复</button>
+		</header>
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					<div class="ys-viewForm">
+						<p><textarea id="feedbackContent" style="height:200px;" placeholder="最多500个字符……"></textarea></p>	
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		mui('.mui-scroll-wrapper').scroll();
+		function chooseAdviser(){
+			_App.util.goPage('financialAdviser.html?pageType=OPP_', "none");
+			
+		}
+		(function($, doc) {
+				$.init();
+				doc.querySelector("#btSub").addEventListener('tap', function() {
+					mui.toast('新增成功！');
+					mui.openWindow({
+						    url: 'opportunityDetail.html',
+						    id: 'opportunityDetail'
+  						});
+				});
+			}(mui, document));
+			
+			function backFn(){
+				backContent();
+				var id = _App.util.getUrlParamByName("id");
+			    var checkPoint = _App.util.getUrlParamByName("checkPoint");
+			    mui.back();
+			    var wobj = plus.webview.getWebviewById("makeProp.html");
+			    wobj.reload();
+			}
+	</script>
+</html>

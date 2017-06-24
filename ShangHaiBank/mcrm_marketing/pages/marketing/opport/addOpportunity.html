@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>商机录入</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--公共js-->
+		<script src="../../common/AppBooter.js"></script>
+		<script src="addOpportunity.js"></script>
+	</head>
+		<style>
+			.mui-input-group:last-child:after{background: none;}
+		</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">商机录入</h1>
+		</header>
+
+		<div class="mui-content dark-bg">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-scroll-step dark-input">
+						<div class="mui-scroll">
+							<a class="mui-control-item c1" href="javascript:marketDetail();">商机录入</a>
+							<b></b>
+							<a class="mui-control-item c6" href="javascript:marketDetail();">确定方案</a>
+							<b></b>
+							<a class="mui-control-item c6" href="javascript:marketDetail();">业务落地</a>
+						</div>
+					</div>
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<label>客户名称：</label>
+							<input id="custName" type="text" placeholder="客户名称">
+							<span class="mui-icon mui-ipt-ico mui-icon-search" onclick="selectedCust();"></span>
+						</div>
+						<div id="custQueryList" class="keywordsList">
+							<p class="icon-search">中国AA集团公司</p>
+							<p class="icon-search">中国BB科技公司</p>
+							<p class="icon-search">中国CC实业股份公司</p>
+							<p class="icon-search">中国DD生态制造有限公司</p>
+							<p class="icon-search">中国EE网络科技公司</p>
+							<p class="icon-search">中国FF化工产业科技公司</p>
+							<p class="icon-search">中国GG科技公司</p>
+							<p class="icon-search">中国HH实业股份公司</p>
+						</div>
+						<div class="mui-input-row">
+							<label>机构代码：</label>
+							<input id="bodyCodeId" type="text" class="mui-input-clear" placeholder="机构代码">
+						</div>
+						<div class="mui-input-row">
+							<label>资产规模：</label>
+						</div>
+						<div>
+							<div class="mui-input-row mui-checkbox mui-left mui-input-row-left">
+								<label>存款</label>
+								<input name="checkbox1" value="1" type="checkbox">
+							</div>
+							<div class="mui-input-row mui-input-row-right">
+								<label>规模：</label>
+								<input id="t2" type="text" class="mui-input-clear" placeholder="规模(万)" />
+							</div>
+						</div>
+
+						<div>
+							<div class="mui-input-row mui-checkbox mui-left mui-input-row-left">
+								<label>贷款</label>
+								<input name="checkbox1" value="1" type="checkbox">
+							</div>
+							<div class="mui-input-row mui-input-row-right">
+								<label>规模：</label>
+								<input id="t2" type="text" class="mui-input-clear" placeholder="规模(万)" />
+							</div>
+						</div>
+
+						<div>
+							<div class="mui-input-row mui-checkbox mui-left mui-input-row-left">
+								<label>结算</label>
+								<input name="checkbox1" value="1" type="checkbox">
+							</div>
+							<div class="mui-input-row mui-input-row-right">
+								<label>规模：</label>
+								<input id="t2" type="text" class="mui-input-clear" placeholder="规模(万)" />
+							</div>
+						</div>
+
+						<div>
+							<div class="mui-input-row mui-checkbox mui-left mui-input-row-left">
+								<label>贴现</label>
+								<input name="checkbox1" value="1" type="checkbox">
+							</div>
+							<div class="mui-input-row mui-input-row-right">
+								<label>规模：</label>
+								<input id="t2" type="text" class="mui-input-clear" placeholder="规模(万)" />
+							</div>
+						</div>
+
+						<div>
+							<div class="mui-input-row mui-checkbox mui-left mui-input-row-left">
+								<label>其他</label>
+								<input name="checkbox1" value="1" type="checkbox">
+							</div>
+							<div class="mui-input-row mui-input-row-right">
+								<label>规模：</label>
+								<input id="t2" type="text" class="mui-input-clear" placeholder="规模(万)" />
+							</div>
+						</div>
+						<div class="mui-input-row">
+							<label>商机描述：</label>
+						</div>
+						<div class="mui-input-row" style="height:5em;">
+							<textarea id="t2" type="text" class="mui-input-clear" placeholder="商机描述"></textarea>
+						</div>
+
+						<div class="mui-button-row">
+							<button type="button" class="mui-btn mui-btn-danger" onclick="save2();">保 存</button>
+							<button type="button" class="mui-btn mui-btn-danger" onclick="cancle();">返 回</button>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		
+		
+//		var addType = _App.util.getUrlParamByName("addType");
+		var backPage;
+		var backPage2;
+//		function plusReady(){
+//			var b = "../marketing/marketing.html"
+//			backPage = plus.webview.getWebviewById(b);
+//			backPage2 = plus.webview.getWebviewById("opport/myResponsibleOpp.html?typeId=1-id");
+//
+//		}
+//		
+//		if(window.plus){
+//			plusReady();
+//		}else{
+//			document.addEventListener("plusready",plusReady,false);
+//		}
+		
+		
+		
+		
+		window.document.querySelector("#custName").addEventListener('input',function(){
+			var _cql=window.document.querySelector("#custQueryList");
+			if(this.value.length!=0){
+				_cql.style.display='block';
+			}
+			else{
+				_cql.style.display='none';
+			}
+		});
+		
+		mui('#custQueryList').on('tap','p',function(){
+			window.document.querySelector("#custName").value=this.innerText;
+			window.document.querySelector("#bodyCodeId").value='033839388';
+			window.document.querySelector("#custQueryList").style.display='none';
+		});
+		
+		function save(){//600040439305 600034258813 600009013634
+			var roleType = plus.storage.getItem("roleType_");
+			var userName = document.getElementById("custName").value;
+			if(!userName){
+				mui.alert("请选择客户！");
+				return false;
+			}
+			var bodyCodeId = document.getElementById("bodyCodeId").value;
+			var zcgmvalue = document.getElementById("t2").value;
+			if(1*zcgmvalue >= 5000){
+				mui.alert("资产规模超5000万，给团队长发短信中...");
+			}
+			var vmap = {"custName":userName,"bodyCode":bodyCodeId};
+			var newAddOpportunity = plus.storage.getItem("newAddOpportunity");
+			if(!newAddOpportunity){
+				newAddOpportunity = [];
+			}else{
+				newAddOpportunity = JSON.parse(newAddOpportunity);
+			}
+			newAddOpportunity.push(vmap);
+			plus.storage.removeItem("newAddOpportunity");
+			plus.storage.setItem("newAddOpportunity",JSON.stringify(newAddOpportunity));
+			
+			mui.fire(backPage,'newAddOppBackEvent__',{
+			  	 isNewAdd:1,
+			  	 
+			});
+			
+			if(undefined != backPage2){
+				mui.fire(backPage2,'newAddOppBackEvent2__',{
+			  	 isNewAdd:1,
+			  	 
+			});
+			}
+			mui.back();
+		}
+		
+		function cancle(){
+			mui.back();
+		}
+		
+	</script>
+
+</html>

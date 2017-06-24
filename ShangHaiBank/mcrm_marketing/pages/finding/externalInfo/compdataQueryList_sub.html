@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=PwtEGYwzpanIhIoeNQj9N4Xb"></script>-->
+		<script type="text/javascript" src="../../common/AppBooter.js"></script>
+		<style>
+			.mui-bar-nav ~ .mui-content .mui-pull-top-pocket {
+				top: 85px;
+			}
+			
+			.has-search-silder {
+				margin-top: 40px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="mss1" class="mui-slider mui-search-slider">
+			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-control-item icon-search" href="#item1mobile">搜索</a>
+				<a class="mui-control-item" href="#item2mobile"><span class="mtIcoDro icon-play3">注册与年限</span></a>
+				<a class="mui-control-item" href="#item3mobile"><span class="mtIcoDro icon-play3">区域与行业</span></a>
+			</div>
+			<div class="mui-slider-group">
+				<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+					<div class="mboSearch">
+						<input type="text" id="cut_sourch" class="txtSearch" placeholder="企业名称模糊查询…" />
+						<span class="mui-icon mui-icon-search" onclick="cus_sourch()"></span>
+					</div>
+				</div>
+				<div id="item2mobile" class="mui-slider-item mui-control-content">
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<label>注册:</label>
+							<select id="roleId1" style="margin-top: 4px;">
+								<option value="不限" selected="selected">不限</option>
+								<option value="2">100万以内</option>
+								<option value="1">100万到200万</option>
+								<option>200万到500万</option>
+								<option>500万到1000万</option>
+								<option>1000万以上</option>
+							</select>
+						</div>
+						<div class="mui-input-row">
+							<label>年限:</label>
+							<select id="roleId2" style="margin-top: 4px;">
+								<option value="不限" selected="selected">不限</option>
+								<option value="2">1年内</option>
+								<option value="1">1-2年</option>
+								<option>2-3年</option>
+								<option>3-5年</option>
+								<option>5-10年</option>
+								<option>10年以上</option>
+							</select>
+						</div>
+					</form>
+					<div class="mui-search-slider-bt">
+						<button type="button" class="mui-btn" onclick="cus_delete()">清空</button>
+						<button id='cut_searchBt' type="button" class="mui-btn">确定</button>
+					</div>
+				</div>
+				<div id="item3mobile" class="mui-slider-item mui-control-content">
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<label>区域：</label>
+							<select id="roleId3" style="margin-top: 4px;">
+								<option value="" selected="selected">全国</option>
+								<option value="2">当前城市</option>
+								<option value="1">北京</option>
+								<option>上海</option>
+								<option>广东</option>
+								<option>浙江</option>
+								<option>山东</option>
+								<option>安徽</option>
+								<option>河北</option>
+								<option>河南</option>
+								<option>辽宁</option>
+								<option>福建</option>
+								<option>四川</option>
+								<option>湖北</option>
+								<option>湖南</option>
+								<option>天津</option>
+								<option>重庆</option>
+								<option>江西</option>
+								<option>黑龙江</option>
+								<option>陕西</option>
+								<option>云南</option>
+								<option>山西</option>
+								<option>广西</option>
+								<option>吉林</option>
+								<option>贵州</option>
+								<option>海南</option>
+								<option>内蒙古</option>
+								<option>甘肃</option>
+								<option>宁夏</option>
+								<option>新疆</option>
+								<option>青海</option>
+							</select>
+						</div>
+						<div class="mui-input-row">
+							<label>行业：</label>
+							<select id="roleId3" style="margin-top: 4px;">
+								<option value="" selected="selected">不限行业</option>
+								<option value="2">农、林、牧、渔业</option>
+								<option value="1">采矿业</option>
+								<option>制造业</option>
+								<option>电力、热力、燃气及水生产和供应业</option>
+								<option>建筑业</option>
+								<option>批发和零售业</option>
+								<option>交通运输、仓储和邮政业</option>
+								<option>住宿和餐饮业</option>
+								<option>信息传输、软件和信息技术服务业</option>
+								<option>金融业</option>
+								<option>房地产业</option>
+								<option>租赁和商务服务业</option>
+								<option>科学研究和技术服务业</option>
+								<option>水利、环境和公共设施管理业</option>
+								<option>居民服务、修理和其他服务业</option>
+								<option>教育</option>
+								<option>卫生和社会工作</option>
+								<option>文化、体育和娱乐业</option>
+								<option>公共管理、社会保障和社会组织</option>
+							</select>
+						</div>
+					</form>
+					<div class="mui-search-slider-bt">
+						<button type="button" class="mui-btn" onclick="custClear()">清空</button>
+						<button type="button" class="mui-btn" onclick="custSS()">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mui-content dark-bg">
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper has-search-silder">
+				<div class="mui-scroll">
+					<div id="ulId">
+						<ul class="mui-table-view mui-table-view-group">
+							<li class="mui-table-view-cell toolHover">
+								<a href="javascript:go2CompHome(1);" class="mui-navigate-right">
+										北京某科技股份有限公司
+										<p>法定代表：张三</p>
+										<p>注册资本：3800万 人民币</p>
+										<p>成立日期：2010-04-12</p>
+									</a>
+							</li>
+						</ul>
+						<ul class="mui-table-view mui-table-view-group">
+							<li class="mui-table-view-cell toolHover">
+								<a href="javascript:go2CompHome(2);" class="mui-navigate-right">
+										天津某实业科技集团有限公司
+										<p>法定代表：李四</p>
+										<p>注册资本：1260万 人民币</p>
+										<p>成立日期：2009-01-18</p>
+									</a>
+							</li>
+						</ul>
+						<ul class="mui-table-view mui-table-view-group">
+							<li class="mui-table-view-cell toolHover">
+								<a href="javascript:go2CompHome(3);" class="mui-navigate-right">
+										北京某科技股份有限公司
+										<p>法定代表：张三</p>
+										<p>注册资本：3800万 人民币</p>
+										<p>成立日期：2010-04-12</p>
+									</a>
+							</li>
+						</ul>
+						<ul class="mui-table-view mui-table-view-group">
+							<li class="mui-table-view-cell toolHover">
+								<a href="javascript:go2CompHome(4);" class="mui-navigate-right">
+										天津某实业科技集团有限公司
+										<p>法定代表：李四</p>
+										<p>注册资本：1260万 人民币</p>
+										<p>成立日期：2009-01-18</p>
+									</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		mui('.mui-scroll-wrapper').scroll();
+			/*客户筛选 UI逻辑  sta*/
+			var _mask = mui.createMask(hideSearchSlider);
+			//展开所有筛选
+			mui('.mui-search-slider').on('tap', 'a.mui-control-item', function() {
+				var _controlItem = this;
+				if (_controlItem.classList.contains('mui-active')) {
+					setTimeout(function() {
+						_controlItem.classList.remove('mui-active');
+					}, '100');
+					hideSearchSlider();
+					_mask.close();
+				} else {
+					document.querySelector(".mui-slider-group").classList.add('show');
+					document.querySelector('#mss1').classList.remove('mui-tm-hasShow');
+					_mask.show();
+				}
+			});
+			//关闭所有筛选
+			function hideSearchSlider() {
+				document.querySelector(".mui-slider-group").classList.remove('show');
+				var _mci = document.getElementsByClassName("mui-control-item");
+				for (var i = 0; i < _mci.length; i++) {
+					_mci[i].classList.remove('mui-active');
+				}
+				//document.querySelector(".mui-backdrop").style.display='none';
+			};
+			//筛选条件
+			mui('.mui-search-left').on('tap', 'li.mui-table-view-cell', function() {
+				if (!this.classList.contains('mui-active')) {
+					var _mm = document.getElementsByClassName('msl-menu');
+					var _mc = document.getElementsByClassName('msr-card');
+					for (var i = 0; i < _mm.length; i++) {
+						_mm[i].classList.remove('mui-active');
+						_mc[i].classList.remove('mui-sr-show');
+					}
+					this.classList.add('mui-active');
+					document.querySelector("#" + this.getAttribute('control')).classList.add('mui-sr-show');
+				}
+			});
+		</script>
+	</body>
+	<script src="compdataQueryList_sub.js"></script>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script type="text/javascript" src="../common/AppBooter.js"></script>
+		<script src="approveDetail.js"></script>
+		<style>
+			.idxStepBox {
+				clear: left;
+			}
+			
+			.idxStep {
+				float: left;
+				margin-top: 10px;
+				padding-right: 10px;
+				background: url(../../images/pic_07.gif) right center no-repeat;
+				margin-right: 3px;
+			}
+			
+			.idxStepBox .idxStep:last-child {
+				padding-right: 0;
+				background: none;
+				margin-right: 0;
+			}
+			
+			.idxsQ {
+				float: left;
+				height: 20px;
+				line-height: 18px;
+				width: 20px;
+				border: 2px #ccc solid;
+				border-radius: 10px;
+				color: #666;
+				font-size: 12px;
+				text-align: center;
+			}
+			
+			.idxsT {
+				float: left;
+				font-size: 12px;
+				padding-left: 3px;
+				text-align: center;
+				line-height: 22px;
+			}
+			
+			.idxsOk {
+				background: url(../../images/pic_07_2.gif) right center no-repeat;
+			}
+			
+			.idxsOk .idxsQ {
+				height: 20px;
+				width: 20px;
+				border: 2px #77af05 solid;
+				color: #77af05;
+			}
+			
+			.idxsOk .idxsT {
+				color: #77af05;
+			}
+			
+			.idxsNow {
+				background: url(../../images/pic_07_1.gif) right center no-repeat;
+			}
+			
+			.idxsNow .idxsQ {
+				height: 20px;
+				width: 20px;
+				border: 2px #ff6600 solid;
+				color: #ff6600;
+			}
+			
+			.idxsNow .idxsT {
+				color: #ff6600;
+			}
+			/*.mui-backdrop {
+			    position: fixed;
+			    top: 100px;
+			    right: 0;
+			    bottom: 0;
+			    left: 0;
+			    z-index: 998;
+			    background-color: rgba(0,0,0,.3);
+			}*/
+		</style>
+	</head>
+	<!--<span class="mui-icon mui-icon-arrowup"></span>-->
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">审批详情</h1>
+		</header>
+		<div class="mui-content">
+			
+			<div id="slider" class="mui-slider">
+				
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-12"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="mboSearch">
+						<!--<input  id="id2" type="text" class="txtSearch" placeholder="输入关键字查找任务…" />-->
+						<!--<span class="mui-icon mui-icon-search"></span>-->
+					</div>
+					<!--<div id="custQueryList" class="keywordsList">
+							<p class="icon-search">中国AA集团公司</p>
+							<p class="icon-search">中国BB科技公司</p>
+							<p class="icon-search">中国CC实业股份公司</p>
+							<p class="icon-search">中国DD生态制造有限公司</p>
+							<p class="icon-search">中国EE网络科技公司</p>
+							<p class="icon-search">中国FF化工产业科技公司</p>
+							<p class="icon-search">中国GG科技公司</p>
+							<p class="icon-search">中国HH实业股份公司</p>
+						</div>-->
+						<div id="ulId">
+							
+						</div>
+							</div>
+						</div>
+					</div>
+					<!--<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="mboSearch">
+						<input  id="id2" type="text" class="txtSearch" placeholder="输入关键字查找任务…" />
+						<span class="mui-icon mui-icon-search"></span>
+					</div>
+					<div id="custQueryList" class="keywordsList">
+							<p class="icon-search">中国AA集团公司</p>
+							<p class="icon-search">中国BB科技公司</p>
+							<p class="icon-search">中国CC实业股份公司</p>
+							<p class="icon-search">中国DD生态制造有限公司</p>
+							<p class="icon-search">中国EE网络科技公司</p>
+							<p class="icon-search">中国FF化工产业科技公司</p>
+							<p class="icon-search">中国GG科技公司</p>
+							<p class="icon-search">中国HH实业股份公司</p>
+						</div>
+								<!--<div class="mui-loading">
+									<div class="mui-spinner">
+									</div>
+								//加载</div>
+								<div id = "olId">
+								
+							</div>
+							</div>
+						</div>
+
+					</div>-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		mui.plusReady(function(){
+				var id = _App.util.getUrlParamByName("id");//获取APPROVE_ID
+				detail(id);
+		});
+		mui('.mui-scroll-wrapper').scroll();
+		var tabbar1 = document.getElementById('tabbar1');
+		var tabbar2 = document.getElementById('tabbar2');
+		mui('.mui-table-view-cell-bt').on('tap', '.mui-pull-left', function() {
+			if (this.innerHTML == "关注") {
+				mui.toast("已关注");
+				this.innerHTML = "已关注";
+			} else {
+				mui.toast("取消关注");
+				this.innerHTML = "关注";
+			}
+		});
+		mui('.mui-table-view-cell-bt').on('tap', '.mui-table-btn-flag', fun);
+
+		function fun() {
+			var sty = this.innerHTML;
+			var url = "reply.html?sty=" + encodeURIComponent(sty);
+			_App.util.goPage(url);
+		}
+				window.document.querySelector("#id2").addEventListener('input',function(){
+					var _cql=window.document.querySelector("#custQueryList");
+					if(this.value.length!=0){
+						_cql.style.display='block';
+					}
+					else{
+						_cql.style.display='none';
+					}
+				});
+		mui('#custQueryList').on('tap', 'p', function() {
+			window.document.querySelector("#id2").value = this.innerText;
+			window.document.querySelector("#custQueryList").style.display = 'none';
+			document.activeElement.blur();
+		});
+	</script>
+
+</html>

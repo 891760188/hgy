@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>手势设置</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../../common/AppBooter.js"></script>
+		<script src="../../../../resource/mui/js/mui.locker.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">手势设置</h1>
+		    <button id="btRegSub" type="button" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">完成</button>
+		</header>
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					<div class="ys-viewForm">
+						<label>手势密码：</label>
+						<div id="lockDiv" style="text-align: center;margin-top: 10%;"></div>
+						<div id='loginLocker' class="mui-locker" data-locker-options='{"ringColor":"rgba(210,210,210,1)","fillColor":"#ffffff","pointColor":"rgba(0,136,204,1)","lineColor":"rgba(0,136,204,1)"}' data-locker-width='300' data-locker-height='300'></div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		mui('.mui-scroll-wrapper').scroll();
+		(function($, doc) {
+				$.init();
+				var loc = doc.querySelector('#loginLocker');
+				var record = [];
+				var records;
+				var lockDiv=doc.querySelector('#lockDiv');
+				var p=0;//p代表状态，0表示已有保存的手势锁，1表示没有设置过
+				//处理事件
+				mui.plusReady(function(){
+					var locks=plus.storage.getItem("locks");
+					if(locks==null){ 
+						p=1;
+						lockDiv.innerHTML="绘制解锁图案，至少连接4个点";
+					}else{
+						records=locks.split('_')[4];
+						lockDiv.innerHTML="请先确认已保存的手势锁";
+					}
+				});
+				loc.addEventListener('dragstart',function(){
+					lockDiv.innerHTML="完成后松开手指即可";
+				});
+				loc.addEventListener('done', function(event) {
+					var rs = event.detail;
+					if(p==0){
+						record.push(rs.points.join(''));
+						if(record[0]==records){
+							p=1;
+							record = [];  
+							rs.sender.clear();
+							lockDiv.innerHTML="绘制新的解锁图案，至少连接4个点";
+						}else{
+							lockDiv.innerHTML="手势锁错误，请重试";
+							record = [];
+							rs.sender.clear();
+						} 
+					}else{
+						if (record.length >= 1) {
+							record.push(rs.points.join(''));
+							if (record[0] == record[1]) {
+								var s=plus.storage.getItem("userName")+"_"+plus.storage.getItem("roleId")+"_"+plus.storage.getItem("account")+"_";
+								plus.storage.setItem("locks",s+record[0]);
+								rs.sender.clear();
+								records=record[0];
+								record = [];
+								lockDiv.innerHTML="手势锁已设定完成";
+								p=0;
+							} else {
+								lockDiv.innerHTML="两次手势不一致，请重试";
+								record.pop();
+								rs.sender.clear();
+							}
+						} else {
+							if(rs.points.length < 4){
+								lockDiv.innerHTML="绘制新的解锁图案，至少连接4个点,请重试";
+								return;
+							}
+							record.push(rs.points.join(''));
+							lockDiv.innerHTML="再次绘制图案进行确认";
+							rs.sender.clear();
+						}
+					}
+				});				
+				doc.querySelector("#btRegSub").addEventListener('tap', function() {
+					plus.webview.currentWebview().close();
+				});
+			}(mui, document));
+	</script>
+	</body>
+</html>

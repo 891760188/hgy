@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>营销工具</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../../common/AppBooter.js"></script>
+		<style>
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			.mui-segmented-control.mui-scroll-wrapper .mui-scroll{
+				height: 38px;
+			}
+			.mui-fullscreen .mui-segmented-control~.mui-slider-group{
+				top: 38px;
+			}
+			.mui-input-group .mui-table-view-cell:after{
+				background-color: 1px solid #E5E5E5;
+			}
+			.mui-input-group .mui-input-row:after{background-color: #E5E5E5;}
+			.mui-input-group:before{height: 0;}
+			.mui-input-group{margin-top:0;}
+			.mui-input-group:last-child:after{background:none;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">营销工具</h1>
+		</header>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" class=" mui-slider-indicator mui-segmented-control mui-segmented-control-inverted dark-bg">
+					
+						<a class="mui-control-item mui-active" href="#item1mobile">
+							产品询价
+						</a>
+						<a class="mui-control-item" href="#item2mobile">
+							收益测算
+						</a>
+						<a class="mui-control-item" href="#item3mobile">
+							奖费测算
+						</a>
+				
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active dark-bg">
+						<ul id="list1" class="mui-table-view mui-input-group">
+							<li class="mui-table-view-cell toolHover">
+								<a class="mui-navigate-right" href="javascript:goPage('priceFinProds.html')">
+									 理财产品询价
+								</a>
+							</li>
+							<li class="mui-table-view-cell toolHover">
+								<a class="mui-navigate-right" href="javascript:goPage('priceDiscounts.html')">
+									贴现价格
+								</a>
+							</li>
+							<li class="mui-table-view-cell toolHover">
+								<a class="mui-navigate-right" href="javascript:goPage('priceFtps.html')">
+									内部资金转移价格（FTP）
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content dark-bg">
+						<form id="list2" class="mui-input-group">
+							<div class="mui-input-row">
+								<label>贷款金额(万元):</label>
+								<input type="text" id="test1" value="300.00" placeholder="请输入">
+							</div>
+							<div class="mui-input-row">
+								<label>贷款期限:</label>
+								<select id="test2">
+									<option value="3">3个月</option>
+									<option value="6" selected>6个月</option>
+									<option value="9">9个月</option>
+									<option value="12">12个月</option>
+									<option value="24">24个月</option>
+									<option value="36">36个月</option>
+								</select>
+							</div>
+							<div class="mui-input-row">
+								<label>上浮比例:</label>
+								<select id="test3">
+									<option selected>基准利率</option>
+									<option>上浮1.1倍</option>
+									<option>上浮1.2倍</option>
+								</select>
+							</div>
+							<div class="mui-input-row">
+								<label>基准利率(%):</label>
+								<input type="text" id="test4" value="3.30" />
+							</div>
+							<div class="mui-input-row">
+								<label>贷款利率(%):</label>
+								<input type="text" id="test5" value="3.30" />
+							</div>
+							<div class="mui-input-row">
+								<label class="c1">贷款收益(万元):</label>
+								<input type="text" id="test6" placeholder="计算结果" />
+							</div>
+							<div class="mui-button-row">
+								<button type="button" class="mui-btn mui-btn-danger" onclick="calc('test6');">收益测算</button>
+							</div>
+						</form>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content dark-bg">
+						<form id="list3" class="mui-input-group">
+							<div class="mui-input-row">
+								<label>贷款金额(万元):</label>
+								<input type="text" id="test8" value="300.00" placeholder="请输入">
+							</div>
+							<div class="mui-input-row">
+								<label>贷款期限:</label>
+								<select id="test9">
+									<option value="3">3个月</option>
+									<option value="6" selected>6个月</option>
+									<option value="9">9个月</option>
+									<option value="12">12个月</option>
+									<option value="24">24个月</option>
+									<option value="36">36个月</option>
+								</select>
+							</div>
+							<div class="mui-input-row">
+								<label>上浮比例:</label>
+								<select id="test10">
+									<option selected>基准利率</option>
+									<option>上浮1.1倍</option>
+									<option>上浮1.2倍</option>
+								</select>
+							</div>
+							<div class="mui-input-row">
+								<label>基准利率(%):</label>
+								<input type="text" id="test11" value="3.30" />
+							</div>
+							<div class="mui-input-row">
+								<label>贷款利率(%):</label>
+								<input type="text" id="test12" value="3.30" />
+							</div>
+							<div id="div1" class="mui-input-row">
+								<label>奖金利率(%):</label>
+								<input type="text" id="test13" value="11.00" />
+							</div>
+							<div class="mui-input-row">
+								<label class="c1">奖费收益(万元):</label>
+								<input type="text" id="test7" placeholder="计算结果" />
+							</div>
+							<div class="mui-button-row">
+								<button type="button" class="mui-btn mui-btn-danger" onclick="calc('test7');">奖金测算</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			mui.init({
+				swipeBack: false //启用右滑关闭功能
+			});
+			document.querySelector('.mui-slider').addEventListener('slide', function(event) {});
+			
+			function goPage(url){
+				_App.util.goPage(url);
+			}
+			
+			var test3 = document.getElementById("test3");
+			test3.addEventListener('change',function(){
+				var test4 = document.getElementById("test4").value;
+				var test5 = document.getElementById("test5");
+				if(this.selectedIndex == "0"){
+					test5.value = test4;
+				}else if(this.selectedIndex == "1"){
+					test5.value = (test4*1.1).toFixed(2);
+				}else if(this.selectedIndex == "2"){
+					test5.value = (test4*1.2).toFixed(2);
+				}
+			});
+			var test10 = document.getElementById("test10");
+			test10.addEventListener('change',function(){
+				var test11 = document.getElementById("test11").value;
+				var test12 = document.getElementById("test12");
+				if(this.selectedIndex == "0"){
+					test12.value = test11;
+				}else if(this.selectedIndex == "1"){
+					test12.value = (test11*1.1).toFixed(2);
+				}else if(this.selectedIndex == "2"){
+					test12.value = (test11*1.2).toFixed(2);
+				}
+			});
+			var test4 = document.getElementById("test4");
+			test4.addEventListener('blur',function(){
+				var test3 = document.getElementById("test3").value;
+				var test5 = document.getElementById("test5");
+				if(test3 == "基准利率"){
+					test5.value = test4.value;
+				}else if(test3 == "上浮1.1倍"){
+					test5.value = (test4.value*1.1).toFixed(2);
+				}else if(test3 == "上浮1.2倍"){
+					test5.value = (test4.value*1.2).toFixed(2);
+				}
+			});
+			var test11 = document.getElementById("test11");
+			test11.addEventListener('blur',function(){
+				var test10 = document.getElementById("test10").value;
+				var test12 = document.getElementById("test12");
+				if(test10 == "基准利率"){
+					test12.value = test11.value;
+				}else if(test10 == "上浮1.1倍"){
+					test12.value = (test11.value*1.1).toFixed(2);
+				}else if(test10 == "上浮1.2倍"){
+					test12.value = (test11.value*1.2).toFixed(2);
+				}
+			});
+			
+			/**
+			 * 测算
+			 */
+			var calc = function(id){
+				if(id == "test6"){
+					var test1 = document.getElementById("test1").value;
+					var test2 = document.getElementById("test2").value;
+					test2.substring(0,1);
+					var test5 = document.getElementById("test5").value;
+					var result = test1*test2*30*test5*0.01;
+					document.getElementById(id).value = result.toFixed(2);
+				}else{
+					var test8 = document.getElementById("test8").value;
+					var test9 = document.getElementById("test9").value;
+					test9.substring(0,1);
+					var test12 = document.getElementById("test12").value;
+					var test13 = document.getElementById("test13").value;
+					var result = test8*test9*30*test12*0.01*test13*0.01;
+					document.getElementById(id).value = result.toFixed(5);
+				}
+			};
+			(function($) {
+				$('.mui-scroll-wrapper').scroll({
+					indicators: true //是否显示滚动条
+				});
+				
+				var sliderSegmentedControl = document.getElementById('sliderSegmentedControl');
+				$('.mui-input-group').on('change', 'input', function() {
+					if (this.checked) {
+						sliderSegmentedControl.className = 'mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-' + this.value;
+						//force repaint
+						sliderProgressBar.setAttribute('style', sliderProgressBar.getAttribute('style'));
+					}
+				});
+			})(mui);
+		</script>
+	</body>
+
+</html>

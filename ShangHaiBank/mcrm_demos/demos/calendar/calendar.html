@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+		<meta charset="utf-8">
+		<title>日程</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../../common/AppBooter.js"></script>
+		<link rel="stylesheet" href="../../../resource/calendar/style/documentation.css" type="text/css" />
+		<link rel="stylesheet" href="../../../resource/calendar/style/jalendar.css" type="text/css" />
+		<script type="text/javascript" src="../../../resource/calendar/js/jquery-1.10.2.min.js"></script><!--jQuery-->
+		<script type="text/javascript" src="../../../resource/calendar/js/jalendar.js"></script>
+		<script type="text/javascript" charset="utf-8"	src="calendar.js"></script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav"> 
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">日程</h1>
+		</header>
+		<div class="mui-content">
+			<div id="myId" class="jalendar">
+			<!--
+            	作者：wuxl
+            	时间：2015-12-03
+            	描述：初始化数据举例
+            -->
+			<div class="added-event" data-date="3/12/2015" data-time="8:45" data-title="测试1"></div>
+        	<div class="added-event" data-date="3/12/2015" data-time="9:00" data-title="测试2"></div>
+        	<div class="added-event" data-date="4/12/2015" data-time="10:00" data-title="测试3"></div>
+        	<div class="added-event" data-date="5/12/2015" data-time="11:00" data-title="测试4"></div>
+		</div>
+		</div>
+	</body>
+	<script>
+//		mui.init({
+//			swipeBack:true //启用右滑关闭功能
+//		});
+		$(document).ready(function(){
+			$('#myId').jalendar({
+		        customDay: '2015/12/03',  // Format: Year/Month/Day
+		        color: '#ed145a', // Unlimited Colors
+		        lang: 'ZH-CN' // Format: English — 'EN', Chinese-'ZH-CN'
+		    });
+		});
+		function goAddEventPage(){
+			var href = "addSchedule.html";
+			_App.util.goPage(href, {
+				pageId:'addSceduleViewId', //viewId可以通过plus.webview.getWebviewById('addSceduleViewId');取到
+				refresh: true   //是否刷新viewId为addSceduleViewId的webview
+			});
+		}
+	</script>
+</html>

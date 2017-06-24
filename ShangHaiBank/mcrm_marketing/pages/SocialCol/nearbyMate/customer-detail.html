@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>客户详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--公共js-->
+		<script src="../../common/AppBooter.js"></script>
+		<script src="customerData.js"></script>
+		<style>
+			.chart {
+				height: 270px;
+				margin: 0px;
+				padding: 0px;
+			} 
+			/*h5 {
+				margin-top: 30px;
+				font-weight: bold;
+			}
+			h5:first-child {
+				margin-top: 15px;
+			}*/
+			.fonts{
+				color: #00AAFF;
+				position: absolute;
+				right: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">客户详情</h1>
+		    <a class="mui-icon mui-icon-map mui-pull-right"></a>
+		</header>
+		<div class="mui-content">
+				<div class="ys-custTitle" id="custNameId"><!--北京中关村某某科技有限公司--></div>
+				<div class="ys-custInfo" id="baseInfoId">
+					<!--<p><b>联系人：</b><span>李成方</span></p>
+					<p><b>联系地址：</b><span>北京市中关村流顺路176号安山大厦4F</span></p>
+					<p><b>联系电话：</b><span>010-99999999</span><span class="mui-icon mui-icon-phone"></span></p>
+					<p><b>主办支行：</b><span>北京中关村支行</span></p>
+					<p><b>主办客户经理：</b><span>陈一峰</span><span class="mui-icon mui-icon-phone"></span></p>-->
+				</div>
+				<div class="ys-custInfo ys-bothNeat" id="yymsId">
+				</div>
+				<div id="fxchartId">
+					<div class="chart" id="pieChart"></div>
+					<div class="chart" id="barChart"></div>
+					<br/>
+					<div style="clear:both;"></div>
+				</div>
+				<div class="ys-custInfo ys-bothNeat" id="yueId">
+					<!--<p><b>授信总额：</b><span>87,640,870.72</span></p>
+					<p><b>贷款余额：</b><span>14,036,478.76</span></p>
+					<p><b>存款余额：</b><span>4,036,478.76</span></p>
+					<p><b>活期存款：</b><span>14,036,478.76</span></p>
+					<p><b>定期存款：</b><span>14,036,478.76</span></p>
+					<p><b>中间业务收入：</b><span>4,036,478.76</span></p>
+					<p><b>营业净收入：</b><span>87,640,870.72</span></p>
+					<p><b>资本成本：</b><span>14,036,478.76</span></p>
+					<p><b>经济利润：</b><span>359,120,003.00</span></p>
+					<p><b>资本回报率：</b><span>172.66%</span></p>
+					<p><b>不良贷款：</b><span>640,000.00</span></p>-->
+				</div>
+				
+		</div>
+	</body>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		var webview_style0 = {
+			popGesture: "close"
+		};
+		
+		
+		var custNo = _App.util.getUrlParamByName("custNo");
+//		if(custNo != '600040439305')
+//			custNo = "600040439305";
+		var cdata_;
+		for(var i = 0; i < customerData.json.data.length; i++){
+			if(custNo == customerData.json.data[i].custNo){
+				cdata_ = customerData.json.data[i];
+				break;
+			}
+		}
+		//客户数据初始化
+		if(cdata_){
+			//客户名称
+			document.getElementById("custNameId").innerHTML = cdata_.name;
+			//客户基本信息 
+			var basInf = '<p><b>注册资本：</b><span>'+cdata_.zhuczb+'</span></p>';
+			basInf += '<p><b>驻场地：</b><span>'+cdata_.belOrgName+'</span></p>';
+			basInf += '<p><b>联系人：</b><span>'+cdata_.lxr+'</span></p>';
+			basInf += '<p><b>联系电话：</b><span>'+cdata_.tel+'</span><span class="mui-icon mui-icon-phone" onClick="toCall(\'telId\')"></span></p>';
+			document.getElementById("baseInfoId").innerHTML = basInf;
+			//营业描述 
+			document.getElementById("yymsId").innerHTML = cdata_.zyyw;
+			//余额等
+			var yueInf = '<p><b>授信总额：</b><span>'+cdata_.sxze+'</span></p>';
+			yueInf += '<p><b>贷款余额：</b><span>'+cdata_.dkye+'</span></p>';
+			yueInf += '<p><b>存款余额：</b><span>'+cdata_.ckye+'</span></p>';
+			yueInf += '<p><b>活期存款：</b><span>'+cdata_.hqck+'</span></p>';
+			yueInf += '<p><b>定期存款：</b><span>'+cdata_.dqck+'</span></p>';
+			yueInf += '<p><b>中间业务收入：</b><span>'+cdata_.zjywsr+'</span></p>';
+			yueInf += '<p><b>营业净收入：</b><span>'+cdata_.yyjsr+'</span></p>';
+			yueInf += '<p><b>资本成本：</b><span>'+cdata_.zbcb+'</span></p>';
+			yueInf += '<p><b>经济利润：</b><span>'+cdata_.jjlr+'</span></p>';
+			yueInf += '<p><b>资本回报率：</b><span>'+cdata_.zbhbl+'</span></p>';
+			yueInf += '<p><b>不良贷款：</b><span>'+cdata_.bldk+'</span></p>';
+			document.getElementById("yueId").innerHTML = yueInf;
+		}
+		
+		function toCall(obj){
+            plus.device.dial('13487678574', false);
+		}
+	</script>
+	<script type="text/javascript" src="../../../resource/echartsp/echarts-all.js"></script>
+	<script type="text/javascript">
+		var startLon;
+		var startLat;
+		var endLon;
+		var endLat;
+		mui.plusReady(function(){
+			startLon = plus.webview.currentWebview().lon;
+			startLat = plus.webview.currentWebview().lat;
+			endLon = plus.webview.currentWebview().custLon;
+			endLat = plus.webview.currentWebview().custLat;
+		});
+		mui.ready(function(){
+			document.getElementById("fxchartId").style.display="block";
+			//调用展示图
+			barChart.setOption(getOption('bar'));
+			pieChart.setOption(getOption('pie'));
+		});
+		
+		mui('.mui-scroll-wrapper').scroll();
+		var goPage = function(url) {
+			_App.util.goPage(url);
+		};
+		
+		var getOption = function(chartType) {
+			var chartOption = chartType == 'pie' ? {
+				title : {
+			        text: '存款分布',
+			        x:'center',
+			      	textStyle:{color:'black',fontWeight:'lighter'}
+			    },
+				tooltip : {
+			        trigger: 'item',
+			        formatter: "{a} <br/>{b} : {c} ({d}%)"
+			    },
+			    legend: {
+			        orient: 'horizontal', // 'vertical'
+			        x: 'center', // 'center' | 'left' | {number},
+			        y: 'bottom', // 'center' | 'bottom' | {number}
+			        backgroundColor: '#ffffff',
+			        borderColor: 'rgba(178,34,34,0.8)',
+			        borderWidth: 1,
+			        padding: 1,    // [5, 10, 15, 20]
+			        itemGap: 5,
+			        textStyle: {color: 'red'},
+			        data: [
+			            '活期存款','定期存款', '保证金存款','协议存款'
+			        ]
+			    },
+			    calculable : true,
+			    series : [
+			        {
+			            name:'存款分布',
+			            type:'pie',
+			            radius : ['50%', '70%'],
+			            itemStyle : {
+			                normal : {
+			                    label : {
+			                        show : false
+			                    },
+			                    labelLine : {
+			                        show : false
+			                    }
+			                },
+			                emphasis : {
+			                    label : {
+			                        show : true,
+			                        position : 'center',
+			                        textStyle : {
+			                            fontSize : '30',
+			                            fontWeight : 'bold'
+			                        }
+			                    }
+			                }
+			            },
+			            data:[
+			                {value:335, name:'活期存款'},
+			                {value:310, name:'定期存款'},
+			                {value:234, name:'保证金存款'},
+			                {value:135, name:'协议存款'}
+			            ]
+			        }
+			    ]
+			} : {
+				title : {
+			        text: '贷款情况',
+			        x:'center',
+			      	textStyle:{color:'black',fontWeight:'lighter'}
+			    },
+				//legend: {},
+				grid: {
+					x: 35,
+					x2: 10,
+					y: 30,
+					y2: 25
+				},
+				toolbox: {
+					show: false,
+					feature: {
+						mark: {
+							show: true
+						},
+						dataView: {
+							show: true,
+							readOnly: false
+						},
+						magicType: {
+							show: true,
+							type: ['line', 'bar']
+						},
+						restore: {
+							show: true
+						},
+						saveAsImage: {
+							show: true
+						}
+					}
+				},
+				calculable: false,
+				xAxis: [{
+					type: 'category',
+					data: ['长期', '短期', '贴现', '其它']
+				}],
+				yAxis: [{
+					type: 'value',
+					splitArea: {
+						show: true
+					}
+				}],
+				series: [{
+					name: '贷款情况',
+					type: chartType,
+					data: [8.0, 14.9, 7.0, 2.2]
+				}]
+			};
+			return chartOption;
+		};
+		var byId = function(id) {
+			return document.getElementById(id);
+		};
+		var barChart = echarts.init(byId('barChart'));
+		var pieChart = echarts.init(byId('pieChart'));
+		mui(".mui-bar-nav").on('tap','a.mui-pull-right',function(){
+//			alert("de");
+//			plus.webview.create("map.html");
+			var btnArray = [{
+				title: "驾车路线"
+			}, {
+				title: "公交路线"
+			}];
+			plus.nativeUI.actionSheet({
+				title: "选择前往方式",
+				cancel: "取消",
+				buttons: btnArray
+			}, function(e) {
+				var index = e.index;
+				if (index == 1) {
+					mui.openWindow({
+						id: 'route-demo-id',
+						url: '../map/route-demo.html',
+						styles: webview_style0,
+						extras:{
+					        startLon : startLon,
+					        startLat : startLat,
+					        endLon : endLon,
+					        endLat : endLat
+					    },
+						show: {
+							aniShow: 'slide-in-right'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+				} else if (index == 2){
+					mui.openWindow({
+						id: 'busRoute-demo-id',
+						url: '../map/busRoute-demo.html',
+						styles: webview_style0,
+						extras:{
+					        startLon : startLon,
+					        startLat : startLat,
+					        endLon : endLon,
+					        endLat : endLat
+					    },
+						show: {
+							aniShow: 'slide-in-right'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+				}
+			});
+//			var detailPage=plus.webview.create("map.html");
+//			var ws=plus.nativeUI.showWaiting();
+//			setTimeout(function(){
+//				ws.close();
+//				detailPage.show();
+//			},1000);
+		});
+	</script>
+</html>

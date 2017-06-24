@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>聊天列表</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../common/AppBooter.js" ></script>
+		<style>
+			.flex-container {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-flex-flow: row wrap;
+				justify-content: space-between;
+				text-align: center;
+			}
+			.mui-content-padded {
+				padding: 10px;
+			}
+			.mui-content-padded a {
+				margin: 3px;
+				width: 50px;
+				height: 50px;
+				display: inline-block;
+				text-align: center;
+				background-color: #fff;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+			}
+			.mui-content-padded a .mui-icon {
+				margin-top: 12px;
+			}
+			.mui-spinner,
+			.mui-spinner-white {
+				margin-top: 12px
+			}
+			.active .mui-spinner-indicator {
+				background: #007AFF;
+			}
+			.mui-content a {
+				color: #8F8F94;
+			}
+			.mui-content a.active {
+				color: #007aff;
+			}
+		</style>
+		<style>
+			.mui-card .mui-control-content {
+				padding: 10px;
+			}
+			.mui-control-content {
+				height: 150px;
+			}
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的聊天</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell mui-media">
+					<a class="mui-navigate-right" href="javascript:goPage('张可有');">
+						<img class="mui-media-object mui-pull-left" src="../../../images/cbd.jpg">
+						<div class="mui-media-body">
+							张可有
+							<p class='mui-ellipsis'>产品的营销方案已定制完成</p>
+						</div>
+					</a>
+					
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a class='mui-navigate-right' href="javascript:goPage('李双');">
+						<img class="mui-media-object mui-pull-left" src="../../../images/yuantiao.jpg">
+						<div class="mui-media-body">
+							李双
+							<p class='mui-ellipsis'>今天去腾讯拜访</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a class="mui-navigate-right" href="javascript:goPage('吴明');">
+						<img class="mui-media-object mui-pull-left" src="../../../images/shuijiao.jpg">
+						<div class="mui-media-body">
+							吴明
+							<p class='mui-ellipsis'>收到，谢谢</p>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript" charset="utf-8">
+			//App配置信息
+			var appConfig = {
+				//是否启用右滑关闭功能
+				swipeBack: false
+			};
+			/**
+			 * 页面初始化
+			 */
+			_App.init(appConfig);
+			var goPage = function(toName) {
+				_App.util.goPage("chatRecord.html?toUserName="+encodeURIComponent(toName),"none");
+			};
+			
+		</script>
+	</body>
+</html>

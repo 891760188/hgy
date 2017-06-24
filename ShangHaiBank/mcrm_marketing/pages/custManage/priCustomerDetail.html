@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>客户详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--公共js-->
+		<script src="../common/AppBooter.js"></script>
+		<script src="nearbyCust/customerData.js"></script>
+		<script type="text/javascript" src="../../../resource/echarts3/echarts.js"></script>
+		<script type="text/javascript" src="../../../resource/echarts3/china.js"></script>
+		<script type="text/javascript" src="../public/commTool/html2canvas.js"></script>
+		<script type="text/javascript" src="../public/commTool/cutScreen.js"></script>
+		<script src="priCustomerDetail.js"></script>
+		<style>
+			.chart {
+				height: 270px;
+				margin: 0px;
+				padding: 0px;
+			} 
+			.fonts{
+				color: #00AAFF;
+				position: absolute;
+				right: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">客户详情</h1>
+		    <a class="mui-pull-right icon-share2 share" id="fxlj" onclick="doShare();" style="margin-top: 13px; margin-right: 10px;"></a>
+		</header>
+		<div class="mui-content">  
+				<div class="ys-custTitle" id="custNameId"><!--北京中关村某某科技有限公司--></div>
+				<div class="ys-custInfo" id="baseInfoId">
+				</div>
+				
+				<!-- 图表 -->
+				<div id="fxchartId" style="margin: 0px;padding: 0px;">
+				</div>
+				<div class="ys-custInfo ys-bothNeat" id="yueId">
+				</div>
+				
+		</div>
+	</body>
+	<script>
+		mui.init({ 
+			swipeBack:true //启用右滑关闭功能
+		});
+		var custNo = _App.util.getUrlParamByName("custNo");
+		if('6000404393015' == custNo || '6000404393016' == custNo){
+			
+		}else{
+			if(custNo != '6000404393016')
+				custNo = "6000404393016";
+		}
+		var cdata_;
+		for(var i = 0; i < customerData.json.data.length; i++){
+			if(custNo == customerData.json.data[i].custNo){
+				cdata_ = customerData.json.data[i];
+				break;
+			}
+		}
+		
+		//客户数据初始化
+		if(cdata_){
+			//客户名称
+			document.getElementById("custNameId").innerHTML = cdata_.name;
+			var scanName = _App.util.getUrlParamByName('name');
+			//客户基本信息 
+			var basInf = '<p><b>客户等级：</b><span>'+cdata_.zhuczb+'</span></p>';
+			basInf += '<p><b>职业：</b><span>'+cdata_.belOrgName+'</span></p>';
+			basInf += '<p><b>联系地址：</b><span>'+cdata_.lxr+'</span></p>';
+			basInf += '<p><b>联系电话：</b><span>'+cdata_.tel+'</span><span class="mui-icon mui-icon-phone" onClick="toCall(\'telId\')"></span></p>';
+			document.getElementById("baseInfoId").innerHTML = basInf;
+		}
+		
+		function toCall(obj){
+            plus.device.dial('13487678574', false);
+		}
+		
+		var goPage = function(url) {
+			_App.util.goPage(url);
+		};
+	</script>
+</html>

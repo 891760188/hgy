@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>日程详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../common/AppBooter.js" ></script>
+		<script type="text/javascript" src="scheduleDetail.js" ></script>
+		<script src="../../public/commTool/html2canvas.js"></script>
+		<script src="../../public/commTool/cutScreen.js"></script>
+		
+	</head>
+	<style type="text/css">
+		.mui-table-btn-flag{}
+		.mui-reply-btn-flag{}
+		.sup_state_0{
+			color:orange;
+		}
+		.mui-sup-btn-flag{}
+		.mui-del-btn-flag{}
+		.mtvcLeft{width: 55%}
+        .mtvcRight{width: 45%;}
+        .user_ico{width:20%;float:left;margin:5px;}
+        .find-button>button{border: none;text-align:center;width: 100%;padding: 0;border-top: 1px solid #f5f5f5;}
+		.bottom-prompt {
+				bottom: 0;
+				width: 100%;
+				padding: 10px;
+				border-radius: 0;
+				height: 62px;
+			}
+			
+			.bottom-prompt>textarea {
+				float: left;
+				width: calc(100% - 80px);
+				border-radius: 3px;
+				border-bottom-right-radius: 0;
+				border-top-right-radius: 0;
+				height: 42px;
+				border: 1px #e6e7e8 solid;
+				padding: 10px 8px 8px 8px;
+				line-height: 20px;
+				overflow: auto;
+				overflow-x: hidden;
+				font-size: 14px;
+			}
+			
+			.bottom-prompt>input[type=button] {
+				float: left;
+				width: 80px;
+				border-bottom-left-radius: 0;
+				border-top-left-radius: 0;
+				height: 42px;
+				border-left: 0;
+				border-color: #e6e7e8;
+				color: #ea5404;
+			}
+			
+	</style>
+	<body>
+		<nav id="tabPanel" class="mui-bar mui-bar-tab">
+			<a id="defaultTab" class="mui-tab-item find-button">
+				<button class="icon-bubble3" id="commonId">评论</button>	
+			</a>
+			<a class="mui-tab-item find-button">
+				<button class="icon-like sup_state_0" data-issup="0" id="suportId">赞(2)</button>				
+			</a>
+			<a class="mui-tab-item find-button">
+				<button class="icon-heart" id="focusId" data-issup="0">关注</button>
+				<div class="mui-scroll"></div>
+			</a>
+			
+		</nav>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title" id="muiTitleId">日程详情</h1>
+		    <a class="mui-pull-right icon-share2 share" id="fxlj" onclick="doShare();" style="margin-top: 13px; margin-right: 10px;"></a>
+		    <!--a class="mui-icon mui-icon-chat mui-pull-right"></a-->
+		</header>
+		<div class="mui-content dark-bg">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					
+					<ul class="mui-table-view mui-table-view-group" id="list1">
+						<li class="mui-table-view-cell toolHover">
+							<div class="mui-table-view-cell-top">							
+								<div class="mtvcLeft">
+									<span class="mlUserPic"><img src="../../../themes/default/images/temp/temp_02.gif" /></span>
+									<span class="mlUserInfo"><b id="userId">张可有</b><i>1分钟前 来自Android</i></span>
+								</div>
+								<div class="mtvcRight minText">日程 - 未开始</div>
+							</div>
+								<span class="cl">&nbsp;</span>
+							<a>
+								<b class="schTitleIco icon-calendar c3"></b>
+								<b class="schTitleImp c1" id="isKey">!!!</b><b id="titleId">关于江东农商拜访日程</b>
+								<p id="contId">江东农商是大客户，需要提供优质关怀服务！</p>
+								<p class="minText icon-users" id="parter">李四、张三参与</p>
+								<p class="minText icon-clock" id="timeShow">今天11:30—今天12:00</p>
+								<p class="minText icon-location" id="addr">泰川科技大厦5楼102室</p>
+							</a>
+							
+						</li>
+					</ul>
+					
+					<div class="mui-table-view-cell-bottom" id="supNames">
+								
+							</div>
+					<div style="display:none;">
+					<ul class="mui-table-view mui-table-view-group">
+						<li class="mui-table-view-cell">
+							<div style="height:1em;">							
+								<div class="mtvcLeft">
+									<button  id="comm_btn">评论</button>		
+								</div>
+								<div class="mtvcRight">
+									<button  id="sup_btn">点赞人员</button>		
+								</div>
+							</div>
+						</li>
+					</ul>
+					</div>
+					
+					<div id="pullrefresh">
+					<ul class="mui-table-view mui-table-view-group" id="comm_list">
+						<!--
+						<li class="mui-table-view-cell">			
+								<div class="mtvcLeft">
+									<span class="mlUserPic"><img src="../../../themes/default/images/temp/temp_02.gif" /></span>
+									<span class="mlUserInfo"><b id="userId">张可有</b>
+									</span>
+								</div>
+								<div class="mtvcRight minText">
+									<i class="minText icon-users" >删除</i> 
+									<i class="minText icon-users" >赞</i> 
+									<i class="minText icon-users" >回复</i> 
+								</div>
+								<p>江东农商是大客户，需要提供优质关怀服务！</p>
+								<p class="minText icon-clock">1分钟前 来自Android</p>
+						</li>
+						
+						-->
+					</ul>
+					<div style="height: 40px;"></div>
+				</div>
+				
+				<div id="supUsers_id" style="display:none;">
+				</div>	
+					
+					
+				</div>
+			</div>
+		</div>
+		<!--<div id="popover2" class="mui-popover bottom-prompt">
+		  <textarea placeholder="评论内容…" id="commContent"></textarea>
+		  
+		</div>-->
+		
+		 <div id="popover2" class="mui-popover bottom-prompt" >
+				<div  id="commTitle"></div>
+				<textarea  id="commonTent" cols="50" rows="5" placeholder="输入评论内容..."></textarea>
+				<input type="button" value="提交" id="commContentButId" onclick="commonSale();"/>
+		 </div>
+	</body>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		mui('.mui-scroll-wrapper').scroll();
+	    initDetail();
+	   //评论
+	   document.getElementById("commonId").addEventListener('tap',function() {
+				showPrompt(this,"");//评论
+		});	
+	   //点赞	
+       document.getElementById("suportId").addEventListener('tap', function() {
+       	    
+       	    var isSup = this.getAttribute("data-issup");
+			if(isSup == "0"){
+				doSuppport(this,SCHEDULE_TYPE,recordId,supBackSch);
+			}else{
+				cancleSupport(this,SCHEDULE_TYPE,recordId,cancleSupBackSch);
+			}
+
+		});		
+	   //关注
+	  document.getElementById("focusId").addEventListener('tap', function() {
+          var isSup = this.getAttribute("data-issup");
+            if(isSup == "0"){
+				doFocus(this,SCHEDULE_TYPE,recordId,focBackSch);
+			}else{
+				cancleFocus(this,SCHEDULE_TYPE,recordId,cancleFocBackSch);
+			}
+
+		});	
+	  //评论列表
+	  document.getElementById("comm_btn").addEventListener('tap', function() {
+          var condition = {};
+		  condition.typeId = SCHEDULE_TYPE;
+		  condition.recordId = recordId;
+          loadCommData(condition);
+          
+          this.style.background = "orange";
+          document.getElementById("sup_btn").style.background = "";
+
+		});	
+	  //点赞列表
+	  document.getElementById("sup_btn").addEventListener('tap', function() {
+          var condition = {};
+		  condition.typeId = SCHEDULE_TYPE;
+		  condition.recordId = recordId;
+		  loadSupData(condition);
+		  
+		  this.style.background = "orange";
+          document.getElementById("comm_btn").style.background = "";
+
+		});	
+	var condition = {};
+		  condition.typeId = SCHEDULE_TYPE;
+		  condition.recordId = recordId;
+//		  loadSupData(condition);
+	var backPage;
+    function plusReady(){
+  	    //初始化当前日期日程数据
+        var condition = {};
+		condition.typeId = "SCHEDULE";
+		condition.recordId = recordId;
+        loadCommData(condition);
+        
+        //返回页面
+        backPage = plus.webview.getWebviewById("calendar_id");
+	}
+	if(window.plus){
+		plusReady();
+	}else{
+		document.addEventListener("plusready",plusReady,false);
+	}
+	function cancelSale() {
+		var obj = mui("#commonTent")[0];
+		obj.value = "";
+		mui('#popover2').popover('toggle');
+	}
+	/**
+	 * 分享
+	 */
+	function doShare(){
+			cutScreen("list1",function(data){
+				plus.storage.removeItem("_shareImgPath_")
+				plus.storage.setItem("_shareImgPath_",data);
+				var url = "../../finding/share/share.html?cwebviewObjId="+currentId+"&bizType=SCH&bizId="+recordId;
+					_App.util.goPage(url, {
+					pageId: 'share_id',
+					refresh: true
+				});
+			});
+		}
+	</script>
+</html>

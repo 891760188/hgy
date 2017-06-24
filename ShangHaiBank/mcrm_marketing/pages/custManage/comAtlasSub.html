@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>ECharts</title>
+		<script type="text/javascript" src="../common/AppBooter.js"></script>
+		<script src="echarts.js"></script>
+		<script src="datas.js"></script>
+		<script src="comAtlasSub.js"></script>
+		<style>
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				border-bottom: 2px solid #4896cd;
+			}
+			
+			.chart {
+				height: 270px;
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			
+			#popver {
+				height: 180px;
+			}
+			
+			.toolsBar {
+				position: relative;
+				height: 70px;
+				background-color: #f2f2f2;
+				padding: 15px;
+				border-bottom: 1px solid #e8e8e8;
+			}
+			
+			.toolsBar .tbLeft {
+				float: left;
+				white-space: nowrap;
+			}
+			
+			.toolsBar .tbRight {
+				float: right;
+			}
+			
+			.myPopver {
+				position: absolute;
+				top: 0px;
+				width: 100%;
+				height: 200px;
+				border-radius: 0;
+			}
+			
+			.leftButon {
+				height: 30px;
+				width: 50%;
+				float: left;
+				text-align: center;
+				line-height: 30px;
+				border-right: 1px solid #cacaca;
+			}
+			
+			.rightButton {
+				height: 30px;
+				width: 50%;
+				float: right;
+				text-align: center;
+				line-height: 30px;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+		<div id="main1" style="width:100%;"></div>
+		<div id="myPopver" class="mui-popover myPopver">
+			<div class="ys-custInfo" id="baseInfoId">
+				<p style="text-align: center; font-size: 16px;" id="custName">北京天琪科技集团股份有限公司</p>
+				<p><b>注册资本：</b><span>550000000.00</span></p>
+				<p><b>驻场地：</b><span>能源矿产事业部广西分部</span></p>
+				<p><b>联系人：</b><span>张全友</span></p>
+				<p><b>联系电话：</b><span>13909089876</span></p>
+			</div>
+			<div>
+				<div class="leftButon" id="goAtlas">
+					<a>图谱</a>
+				</div>
+				<div class="rightButton"  id="goInfo">
+					<a>详情</a>
+				</div>
+			</div>
+		</div>
+		<script src="datas.js"></script>
+	</body>
+
+</html>

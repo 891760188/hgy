@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>日志详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../common/AppBooter.js" ></script>
+		<!--<script src="../../public/commTool/AppCommentReply.js"></script>-->
+		<script src="../../public/commTool/AppFocus.js"></script>
+		<script src="../../public/commTool/AppSuport.js"></script>
+		<script src="../../public/commTool/antCharacterTool.js"></script>
+		<script src="../../public/commTool/AppShare.js"></script>
+	</head>
+	<style type="text/css">
+		.mui-table-btn-flag{}
+		.sup_state_0{
+			color:orange;
+		}
+		.mui-sup-btn-flag{}
+		.mui-del-btn-flag{}
+		.mtvcLeft{width: 65%}
+        .mtvcRight{width: 35%;}
+        .user_ico{width:20%;float:left;margin:5px;}
+        /*14-评论 sta*/
+		.bottom-prompt{bottom: 0;width: 100%;padding: 10px;border-radius: 0;height: 62px;}
+		.bottom-prompt>textarea{float: left;width:calc(100% - 80px);border-radius: 3px; border-bottom-right-radius: 0;border-top-right-radius:0 ;height: 42px;border:1px #aaa solid;padding:10px 8px 8px 8px;line-height: 20px;overflow: auto;overflow-x: hidden;font-size: 14px;}
+		.bottom-prompt>div>i{font-weight: normal;padding-right: 2px;color: #666;-webkit-user-modify: read-write;}
+		.bottom-prompt>input[type=button]{float: left;width: 80px;border-bottom-left-radius: 0;border-top-left-radius:0 ;height: 42px;border-left: 0;border-color: #aaa;color: #ea5404;}
+		
+		.bottom-log-tab button{font-size: 14px;padding: 5px;}
+		.bottom-log-tab button:before{margin-right: 3px;}
+		/*14-评论 end*/
+		.bottom-log-tab button{border: none;height: 50px;width:100%;}
+		.bottom-log-tab button:active{background-color: #F0F8FE;}
+	</style>
+	<body>
+		
+		<nav id="tabPanel" class="mui-bar mui-bar-tab bottom-log-tab">
+			<a class="mui-tab-item"><button id="shares" class="icon-share2">分享</button></a>
+			<a id="commonAId" class="mui-tab-item"><button class="icon-bubble3" id="commonId">评论(0)</button></a>
+			<a class="mui-tab-item"><button class="icon-like icon-line-131" data-issup="0" id="suportId">赞(0)</button></a>
+			<a class="mui-tab-item"><button class="icon-heart" id="focusId" data-issup="0">关注</button></a>			
+			<!--<div class="mui-table-view-cell-bt">
+				<button class="icon-share2" id="shares" data-sor="" data-con="">分享</button>
+				<button class="icon-bubble3" data-val="" id="commonId">评论</button>
+				<button class="icon-like sup_state_" data-issup="" id="suportId">赞</button>
+				<button class="icon-heart" data-issup="" id="focusId">关注</button>
+			</div>-->
+		</nav>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title" id="muiTitleId">日志详情</h1>
+		    <a class="mui-icon mui-icon-chat mui-pull-right" style="display: none;"></a>
+		    <a class="mui-icon icon-calendar mui-pull-right" style="margin-right:6px;display: none;"></a>
+		</header>
+		<div class="mui-content dark-bg">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					
+					<ul class="mui-table-view mui-table-view-group">
+						<li class="mui-table-view-cell">
+							<div class="mui-table-view-cell-top">							
+								<div class="mtvcLeft">
+									<span class="mlUserPic"><img src="../../../themes/default/images/temp/pic_07.png" /></span>
+									<span class="mlUserInfo"><b id="userId"></b><i id="logDate"></i></span>
+								</div>
+								<div class="mtvcRight minText" id="isViewed">日志 - 未点评</div>
+								<span class="cl">&nbsp;</span>
+							</div>
+							
+							<div id="logContent" style="word-break: break-all;word-wrap: break-word;">
+								
+							</div>
+							   								<!--<p>今日工作</p>
+								<p class="darkText">1、 济南钢贸公司尽职调查; </p>
+								<p class="darkText">2、 编写京创公司三版贷款产品营销方案 ; </p>
+								<p class="darkText">3、 汇报情况 ; </p>
+								<p>明日计划</p>
+								<p class="darkText">1、 南头科技公司贷后检查；</p>
+								<p class="darkText">2、 根据营销方案与客户达成落地，并提交成果 ; </p>-->
+							
+							<div class="mui-table-view-cell-bottom" id="commentDivId">
+								<!--<h1 class="icon-circle-right">以下为直属领导的点评：</h1>
+								<p class="darkText"><span class="c1">张三：</span>已收到，加油！</p>
+								<p>11月27日 19:22，&nbsp;&nbsp;<b class="c3">点评</b>&nbsp;&nbsp;，来自Iphone</p>
+								<p class="darkText"><span class="c1">李四：</span>给我也发一份，谢谢！</p>
+								<p>11月27日 19:37，&nbsp;&nbsp;<b class="c3">点评</b>&nbsp;&nbsp;，来自Android</p>-->
+							</div>
+							
+						</li>
+					</ul>
+									 
+				</div>
+			</div>
+		</div>
+		
+		<div id="popover" class="mui-popover bottom-prompt">
+		  <textarea placeholder="评论内容…" id="commContent"></textarea>
+		  <input type="button" value="提交" id="commContentButId" onclick="commentSave();"/>
+		</div>
+	</body>
+	<script type="text/javascript" src="logDetail.js" ></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		mui('.mui-scroll-wrapper').scroll();
+	</script>
+	
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>新建请假申请</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../common/AppBooter.js" ></script>
+		<script type="text/javascript" src="addApply.js" ></script>
+		<style>
+			.mui-input-row>label{
+				width: 40%;
+			}
+			.mui-input-row label ~ input, .mui-input-row label ~ select{
+				width: 60%;
+				margin-top: 4px;
+			}
+			#picture li>a{
+				color: #007aff;
+			}
+		</style>
+	</head>
+	<body>
+		<!--<nav id="tabPanel" class="mui-bar mui-bar-tab">
+			<a id="defaultTab" class="mui-tab-item mui-active" href="">
+				<span class="mui-icon mui-icon-camera"><span class="mui-badge">18</span></span>				
+			</a>
+			<a class="mui-tab-item"  href="">
+				<span class="mui-icon mui-icon-mic"></span>				
+			</a>
+			<a class="mui-tab-item" href="more.html">
+				<span class="mui-icon mui-icon-image"></span>				
+			</a>
+			<a class="mui-tab-item" href="more.html">
+				<span class="mui-icon mui-icon-location"></span>				
+			</a>
+			<a class="mui-tab-item" href="more.html">
+				<span class="mui-icon ">@</span>
+			</a>
+		</nav>-->
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title" id="muiTitleId">新建请假申请</h1>
+		    <!--<a id="senLogId" class=".mui-action-back mui-btn mui-btn-blue mui-btn-link mui-pull-right">完成</a>-->
+		    
+		    <a id="senLogId" href="#picture" class=".mui-action-back mui-icon mui-icon-more mui-pull-right"></a>
+		</header>
+		<div class="mui-content dark-bg">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+				 <form class="mui-input-group" style="background-color: white;">
+					
+					<div class="mui-input-row">
+						<label><span class="mui-icon mui-icon-paperclip"></span>开始时间:</label>
+						<input id="startTime" type="date">
+					</div>
+					<div class="mui-input-row">
+						<label><span class="mui-icon mui-icon-paperclip"></span>结束时间:</label>
+						<input id="endTime" type="date">
+					</div>
+					<li class="mui-table-view-cell" style="height:50em;">
+                       	<textarea id="applyReason" rows="50" type="text" class="mui-input-clear borderCss" placeholder="事由："></textarea>
+					</li>
+				 </form>
+				</div>
+			</div>			
+		</div>
+		<div id="picture" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#" onclick="saveApply();">发起审批</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#picture"><b>取消</b></a>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>

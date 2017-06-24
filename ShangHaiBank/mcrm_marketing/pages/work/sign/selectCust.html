@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>客户放大镜</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../../common/AppBooter.js"></script>
+		<style>
+			#pullrefresh {
+				margin-top: 41px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="mss1" class="mui-slider mui-search-slider">
+			<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				<a class="mui-control-item icon-search" href="#item1mobile">搜索</a>
+				<a class="mui-control-item" href="#item2mobile"><span class="mtIcoDro icon-play3">筛选条件</span></a>
+			</div>
+			<div class="mui-slider-group">
+				<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+					<div class="mboSearch">
+						<input type="text" id="searchContent" class="txtSearch" placeholder="输入关键字查找客户…" />
+						<span class="mui-icon mui-icon-search" onclick="searchData()"></span>
+					</div>
+				</div>
+				<div id="item2mobile" class="mui-slider-item mui-control-content mui-active ">
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<label>客户类型</label>
+							<select id="custType">
+								<option value="个人">个人</option>
+								<option value="企业">企业</option>
+								<option value="全部" selected>全部</option>
+							</select>
+						</div>
+						<div class="mui-input-row">
+							<label>距离</label>
+							<select id="distance">
+								<option value="1">1公里</option>
+								<option value="2">2公里</option>
+								<option value="3" selected>3公里</option>
+								<option value="5">5公里</option>
+								<option value="10">10公里</option>
+							</select>
+						</div>
+						<div class="mui-search-slider-bt">
+							<button type="button" class="mui-btn" onclick="restore();">清空</button>
+							<button id='cut_searchBt' type="button" class="mui-btn" onclick="searchData();">确定</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="mui-content">
+			<div id="pullrefresh" class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view" id="ulId">
+
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script>
+			var condition; //查询条件
+			var custType = document.getElementById("custType"); //客户类型
+			var distance = document.getElementById("distance"); //搜索范围
+			var searchContent = document.getElementById("searchContent"); //客户名称模糊查询
+			var backPage;
+			var parentViewId; //父页面的值
+			var closePage;
+			var appConfig = {
+				//是否启用右滑关闭功能
+				swipeBack: false,
+				//分页配置
+				pageInfoConfig: {
+					url: basePath + 'mobileNearCustAction!selectDistance.json?conditions=' + JSON.stringify(condition), //查询URL
+					pageSize: 6, //分页大小
+					scrollerId: 'pullrefresh', //mui滚动区域div的ID
+					ulId: 'ulId', //ul的ID
+					getCondition: function() { //获取查询条件方法
+						return "a=1&b=2"; //查询条件
+					},
+					success: function(response) { //成功回调方法
+						var data = response.json.data;
+						var table = document.getElementById('ulId');
+						for(var i = 0; i < data.length; i++) {
+							var li = document.createElement('li');
+							var distance = Math.round(data[i].DISTANCE * 100) / 100; //保留两位小数
+							li.className = 'mui-table-view-cell';
+							li.innerHTML = '<a class="ys-list-cell mui-navigate-right" href="' + data[i].CUST_ID + '">' +
+								'<span class="ys-lcLeft"><b>' + data[i].CUST_NAME + '</b>（' + data[i].F_VALUE + '）</span>' +
+								'<span class="ys-lcRMin">' + distance + '公里</span>' +
+								'<span><i class="mui-icon mui-icon-location"></i>地址：' + data[i].LOCATION + '</span>' +
+								'<span clas class="ys-lcLeft1"s="ys-lcLeft1"><i class="mui-icon mui-icon-person"></i>主办客户经理：' + data[i].MGR_NAME + '</span><br/>' +
+								'<span class="ys-lcLeft1"><i class="mui-icon mui-icon-star"></i>客户状态：' + data[i].STAT + '</span>'
+								//								+'<span class="ys-lcRMin">'+data[i].F_VALUE+'</span>'
+								+
+								'<span class="ys-lcRight" style="display:none;">' + data[i].LONGITUDE + '</span>' +
+								'<span class="ys-lcRight" style="display:none;">' + data[i].LATITUDE + '</span>' +
+								'</a>';
+							table.appendChild(li);
+						}
+					},
+					error: function() { //失败回调方法
+						alert('error!');
+					}
+				},
+				//ui加载完成调用
+				uiReady: function() {},
+				//设备资源加载完成调用
+				deviceReady: function() {}
+			};
+			mui.plusReady(function() {
+				parentViewId = decodeURIComponent(_App.util.getUrlParamByName('pageViewId')); //父页面
+				backPage = plus.webview.getWebviewById(parentViewId);
+				closePage = plus.webview.getWebviewById("customers.html");
+				geo();
+			});
+			//符合默认条件的初始查询
+			function geo() {
+				var wt = plus.nativeUI.showWaiting();
+				plus.geolocation.getCurrentPosition(function(p) {
+					if(!p.addresses) {
+						mui.alert('定位失败，请检查相关设备!', '提示');
+					} else {
+						condition = {
+							lon: p.coords.longitude,
+							lat: p.coords.latitude,
+							custType: custType.value,
+							distance: distance.value,
+							searchContent: searchContent.value
+						};
+						//加载数据
+						appConfig.pageInfoConfig.url = basePath + 'mobileNearCustAction!selectDistance.json?conditions=' + JSON.stringify(condition);
+						_App.init(appConfig);
+						var pageQuery = _App.scroller;
+						if(pageQuery) {
+							pageQuery.loadData(true); //flag :true 下拉;false 上拉
+							wt.close();
+						}
+					}
+				}, function(e) {
+					wt.close();
+					mui.alert("Geolocation error: " + e.message);
+				}
+//				, {
+//					provider: 'baidu'
+//				}
+				);
+			};
+
+			mui('#ulId').on('tap', 'a', function() {
+				var custId = this.getAttribute('href');
+				var custName = this.children[0].children[0].innerHTML;
+				if(backPage != null) {
+					mui.fire(backPage, 'customer', {
+						custId: custId,
+						custName: custName
+					});
+				}
+				closePage.close();
+			});
+
+			/*客户筛选 UI逻辑  sta*/
+			var _mask = mui.createMask(hideSearchSlider);
+			//展开所有筛选
+			mui('.mui-search-slider').on('tap', 'a.mui-control-item', function() {
+				var _controlItem = this;
+				if(_controlItem.classList.contains('mui-active')) {
+					setTimeout(function() {
+						_controlItem.classList.remove('mui-active');
+					}, '100');
+					hideSearchSlider();
+					_mask.close();
+				} else {
+					document.querySelector(".mui-slider-group").classList.add('show');
+					document.querySelector('#mss1').classList.remove('mui-tm-hasShow');
+					_mask.show();
+				}
+			});
+
+			//关闭所有筛选
+			function hideSearchSlider() {
+				document.querySelector(".mui-slider-group").classList.remove('show');
+				var _mci = document.getElementsByClassName("mui-control-item");
+				for(var i = 0; i < _mci.length; i++) {
+					_mci[i].classList.remove('mui-active');
+				}
+				//document.querySelector(".mui-backdrop").style.display='none';
+			};
+
+			//筛选条件恢复默认
+			function restore() {
+				custType[2].selected = true;
+				distance[2].selected = true;
+			}
+
+			function searchData() {
+				hideSearchSlider();
+				_mask.close();
+				geo();
+			}
+		</script>
+	</body>
+
+</html>

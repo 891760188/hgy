@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>分享</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<script type="text/javascript" src="./common.js"></script>
+		<script src="../../common/AppBooter.js"></script>
+		<script type="text/javascript">
+			var shares = null,
+				bhref = false;
+			var Intent = null,
+				File = null,
+				Uri = null,
+				main = null;
+			var imgUrl = null,
+				wc = null,
+				bitmap = null;
+			var topHeight = _androidSUBHeight;
+			mui.init({
+				subpages: [{
+					url: 'shareCapture.html',
+					id: 'shareCapture.html',
+					styles: {
+						top: topHeight,
+						bottom: '35px'
+					}
+				}]
+			});
+			// H5 plus事件处理
+			function plusReady() {
+				updateSerivces();
+				if(plus.os.name == "Android") {
+					Intent = plus.android.importClass("android.content.Intent");
+					File = plus.android.importClass("java.io.File");
+					Uri = plus.android.importClass("android.net.Uri");
+					main = plus.android.runtimeMainActivity();
+				}
+			}
+			if(window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+			/**
+			 * 更新分享服务
+			 */
+			function updateSerivces() {
+				plus.share.getServices(function(s) {
+					shares = {};
+					for(var i in s) {
+						var t = s[i];
+						shares[t.id] = t;
+					}
+				}, function(e) {
+					outSet("获取分享服务列表失败：" + e.message);
+				});
+			}
+
+			//存储截取的图片
+			function saveBitmap() {
+				bitmap.save("_doc/a.jpg", {
+					overwrite: true
+				}, function(i) {
+					console.log('保存图片成功：' + JSON.stringify(i));
+					imgUrl ="file://" + i.target;
+				}, function(e) {
+					console.log('保存图片失败：' + JSON.stringify(e));
+				});
+			}
+
+			// 销毁Bitmap图片
+			function clearBitmap() {
+				bitmap.clear();
+			}
+			/**
+			 * 分享操作
+			 * @param {String} id
+			 */
+			function shareAction(id, ex) {
+				var s = null;
+				outSet("分享操作：");
+				if(!id || !(s = shares[id])) {
+					outLine("无效的分享服务！");
+					return;
+				}
+				if(s.authenticated) {
+					outLine("---已授权---");
+					shareMessage(s, ex);
+				} else {
+					outLine("---未授权---");
+					s.authorize(function() {
+						shareMessage(s, ex);
+					}, function(e) {
+						outLine("认证授权失败：" + e.code + " - " + e.message);
+					});
+				}
+			}
+			/**
+			 * 发送分享消息
+			 * @param {plus.share.ShareService} s
+			 */
+			function shareMessage(s, ex) {
+				var msg = {
+					extra: {
+						scene: ex
+					}
+				};
+				//				msg.pictures = ["_www/images/bg01.png"];
+				msg.pictures = [imgUrl];
+				outLine(JSON.stringify(msg));
+				s.send(msg, function() {
+					outLine("分享到\"" + s.description + "\"成功！ ");
+				}, function(e) {
+					outLine("分享到\"" + s.description + "\"失败: " + e.code + " - " + e.message);
+				});
+			}
+			// 打开分享
+			function shareShow() {
+				wc = plus.webview.getWebviewById("shareCapture.html");
+				bitmap = new plus.nativeObj.Bitmap("test");
+
+				// 将webview内容绘制到Bitmap对象中
+				wc.draw(bitmap, function() {
+					console.log('绘制图片成功');
+				}, function(e) {
+					console.log('绘制图片失败：' + JSON.stringify(e));
+				});
+				saveBitmap();
+				bhref = false;
+				var ids = [{
+						id: "weixin",
+						ex: "WXSceneSession"
+					}, {
+						id: "weixin",
+						ex: "WXSceneTimeline"
+					}],
+					bts = [{
+						title: "发送给微信好友"
+					}, {
+						title: "分享到微信朋友圈"
+					}];
+				if(plus.os.name == "iOS") {
+					ids.push({
+						id: "qq"
+					});
+					bts.push({
+						title: "分享到QQ"
+					});
+				}
+				plus.nativeUI.actionSheet({
+						cancel: "取消",
+						buttons: bts
+					},
+					function(e) {
+						var i = e.index;
+						if(i > 0) {
+							shareAction(ids[i - 1].id, ids[i - 1].ex);
+						}
+					}
+				);
+			}
+		</script>
+		<style type="text/css">
+			p {
+				margin: 10px;
+				line-height: 25px;
+			}
+			
+			#sharecontent {
+				height: 150px;
+				margin: 20px;
+				margin: 0;
+			}
+			
+			p>button.mui-btn {
+				width: 100%;
+				background-color: #ea5404;
+				border: none;
+				color: #fff;
+				padding: 10px;
+			}
+			
+			p.img {
+				text-align: center;
+			}
+			
+			#pic {
+				width: 150px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="back(true);"></a>
+			<h1 class="mui-title">个人名片分享</h1>
+		</header>
+		<nav class="mui-bar mui-bar-tab">
+			<p><button type="button" class="mui-btn danger" onclick="shareShow()">分享</button></p>
+		</nav>
+		<script type="text/javascript">
+			mui('.mui-scroll-wrapper').scroll();
+		</script>
+	</body>
+
+</html>

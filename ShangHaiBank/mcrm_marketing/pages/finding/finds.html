@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../common/AppBooter.js" ></script>
+		
+	</head>
+	<style>
+		.headLeft{
+			float: left;
+		    margin-right: -10px;
+		    margin-left: -10px;
+		    padding-right: 10px;
+		    padding-left: 10px;
+		}
+		.headSearch{
+			width: calc(100% - 100px);
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav mui-bar-white">
+			<a class="mui-icon icon-line-71 headLeft" onclick="goBarCode();"></a>
+			<div class="headSearch">
+				<input type="text" id="keySearch" class="txtSearch" placeholder="请输入关键字…" onclick="go2hdsearch();" readonly="true" />
+				<i class="icon-line-17"></i>
+				<span class="icon-line-22"></span>
+			</div>
+
+			<a href="#" class="icon-line-129" onclick="go2signfun();"></a>
+			<a href="#" class="mui-icon icon-line-21" onclick="gochat();"><i class="mui-circle mui-badge mui-badge-red" >7</i></a>
+
+		</header>
+		
+	</body>
+	<style>
+		.mui-action-back+.headSearch {
+			width: calc(100% - 100px);
+		}
+			
+		.headSearch+a:before {
+			line-height: 40px;
+		}
+		
+	</style>
+	<script>
+		var topHeight =  _androidSUBHeight;
+		mui.init({
+			subpages:[{
+			    url:'newfind.html',
+			    id:'newfind.html',
+			    styles:{
+			    top: topHeight,
+			    bottom:'0px'
+			    }
+			}],
+		});	
+		
+		
+		var goMessage = function(){
+			_App.util.goPage('../my/contacts/colleagues.html?subTab=1','none');
+		}
+		function go2hdsearch(){
+			mui.openWindow({
+				url: "../homePage/search.html",
+				id: "search-viewId",
+				extras: {},
+				createNew:false,
+				show:{
+			      autoShow: true,//页面loaded事件发生后自动显示，默认为true
+			      aniShow: "slide-in-right"//页面显示动画，默认为”slide-in-right“；
+			    },
+				waiting:{
+			      autoShow: false,//自动显示等待框，默认为true
+			      title: '正在载入...'//等待对话框上显示的提示内容
+			    }
+			});
+		}
+		function goBarCode(){
+			_App.util.goPage('../barcode/barcode.html', {pageId: '../barcode/barcode.html', refresh: false});
+		}
+		//** 顶部签到图标
+		function go2Sign(){
+			var url = "../work/sign/signCounts.html";
+			_App.util.goPage(url,{
+				pageId:"signCounts_Id",
+				refresh:true
+			});
+		}
+		function go2signfun(){
+			var url = "../work/sign/signCounts.html";
+			_App.util.goPage(url, {
+				pageId: 'signCounts_id',
+				refresh: true
+			});
+		}
+		
+		function gochat(){
+			var url = "../my/contacts/colleagues.html";
+			_App.util.goPage(url, {
+				pageId: 'colleagues_id',
+				refresh: true
+			});
+		}
+	</script>
+</html>

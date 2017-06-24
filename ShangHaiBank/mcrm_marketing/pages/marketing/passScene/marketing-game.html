@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>Test</title>
+		<script type="text/javascript" src="../../common/AppBooter.js"></script>
+		<script src="marketing-game.js"></script>
+		<style>
+		.idx-Box{margin-top: 0;}
+		.an-min-wrapper{height: 100%;}
+		.marketing-box h1{font-size: 14px;min-height: 50px;line-height: 50px;}
+		.marketing-box .marketing-imgs{width: 100%;background-color: #fff;padding:10px;}
+		.marketing-box .marketing-imgs .marketing-img{width: 100%;}
+		.marketing-box .marketing-imgs .marketing-img img{width: 50%;float: left;padding: 0 5px;margin-bottom: 10px;}
+		.marketing-top{width: 100%;height: 60px;background-color: #fff;border-bottom: 1px solid #e6e7e8;padding-top:10px ;}
+		.marketing-top .marketing-px span{font-size:12px;line-height: 40px;float: left;min-height: 40px;padding-left: 10px;display: block;}
+		.marketing-top .marketing-px img {padding-left: 20px;height: 40px;float: left;}
+		.marketing-top .marketing-px span b, .marketing-top span i{font-weight: normal; line-height: 20px; font-size: 12px;font-style: normal;float: left;padding-left: 10px;}
+		.marketing-top span i{clear: left;}
+		.marketing-top .marketing-px span, .marketing-top .marketing-px span b{color:#666;}
+		.marketing-right i{float: right;padding-right: 20px;font-size: 12px; font-style: normal;line-height: 30px;height: 30px;}
+		.marketing-box{overflow: hidden;}
+		.marketing-top:active{background-color: #F0F8FE;}
+		.marketing-right i, .marketing-top span i{color: #999;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a href="#" class="mui-icon  icon-line-71" style="position: relative;float:left;display: block;color:darkgrey;" onclick="go2barcode();"></a>
+			<div class="headSearch">
+				<input type="text" id="keySearch" class="txtSearch" placeholder="搜索..." readonly="true" onclick="go2hdsearch();"/>
+				<i class="icon-line-17"></i>
+				<span class="icon-line-22"></span>
+			</div>
+			<a href="#" class="icon-line-129" onclick="go2signCounts();"></a>
+			<a href="#" class="mui-icon icon-line-21" onclick="go2ChatList();"><i class="mui-circle mui-badge mui-badge-red" >7</i></a>
+		</header>
+		<div class="mui-content dark-bg">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+			<div class="mui-scroll">
+						<div class="marketing-box idx-Box">
+							<h1>我正在玩</h1>
+							<div class="marketing-imgs">
+								<div class="marketing-img" onclick="go2scene('1','1');"><img src="../../../images/1.png"></div>
+							</div>
+						</div>
+						<div class="marketing-box idx-Box">
+							<h1>他们正在玩</h1>
+							<div class="marketing-imgs">
+							
+									<div class="marketing-img" onclick="go2scene('1','4');"><img src="../../../images/2.png"></div>
+									<div class="marketing-img" onclick="go2scene('4','2');"><img src="../../../images/3.png"></div>
+									<div class="marketing-img" onclick="go2scene('3','3');"><img src="../../../images/4.png"></div>
+									<div class="marketing-img" onclick="go2scene('1','6');"><img src="../../../images/5.png"></div>
+								
+						</div>
+						</div>
+						<div class="marketing-box idx-Box">
+							<h1>我还可以玩</h1>
+							<div class="marketing-imgs">
+								<div class="marketing-img" onclick="go2scene('3','11');"><img src="../../../images/6.png"></div>
+								<div class="marketing-img" onclick="go2scene('1','5');"><img src="../../../images/7.png"></div>
+								<div class="marketing-img" onclick="go2scene('4','9');"><img src="../../../images/8.png"></div>
+								<div class="marketing-img" onclick="go2scene('1','7');"><img src="../../../images/9.png"></div>
+							</div>
+						</div>
+			<div class="marketing-pm">
+					<div class="marketing-top">
+						<div class="marketing-px">
+						<span>#1</span>
+							<img src="" id="slftImgId"/>
+							<span><b>张晶丽</b><i>总分：1502</i></span>
+							<div class="marketing-right"><i>815</i></div>
+						</div>	
+					</div>
+					<div class="marketing-top">
+						<div class="marketing-px">
+						<span>#2</span>
+							<img src="../../../images/t1.png"/>
+							<span><b>王华</b><i>总分：1462</i></span>
+							<div class="marketing-right"><i>715</i></div>
+						</div>	
+					</div>
+					<div class="marketing-top">
+						<div class="marketing-px">
+						<span>#3</span>
+							<img src="../../../images/t2.png"/>
+							<span><b>李白白</b><i>总分：1312</i></span>
+							<div class="marketing-right"><i>703</i></div>
+						</div>	
+					</div>
+					<div class="marketing-top">
+						<div class="marketing-px">
+						<span>#4</span>
+							<img src="../../../images/t3.png"/>
+							<span><b>张珊珊</b><i>总分：1212</i></span>
+							<div class="marketing-right"><i>703</i></div>
+						</div>	
+					</div>
+					<div class="marketing-top">
+						<div class="marketing-px">
+						<span>#5</span>
+							<img src="../../../images/t4.png"/>
+							<span><b>唐涛</b><i>总分：1112</i></span>
+							<div class="marketing-right"><i>703</i></div>
+						</div>	
+					</div>
+					<div class="marketing-top">
+						<div class="marketing-px">
+						<span>#6</span>
+							<img src="../../../images/t2.png"/>
+							<span><b>王晓大</b><i>总分：1012</i></span>
+							<div class="marketing-right"><i>703</i></div>
+						</div>	
+					</div>
+					<div class="marketing-top">
+						<div class="marketing-px">
+						<span>#7</span>
+							<img src="../../../images/t3.png"/>
+							<span><b>石牧</b><i>总分：912</i></span>
+							<div class="marketing-right"><i>703</i></div>
+						</div>	
+					</div>
+					<div class="marketing-top">
+						<div class="marketing-px">
+						<span>#8</span>
+							<img src="../../../images/t4.png"/>
+							<span><b>欧欧</b><i>总分：812</i></span>
+							<div class="marketing-right"><i>703</i></div>
+						</div>	
+					</div>
+					<div class="marketing-top">
+						<div class="marketing-px">
+						<span>#9</span>
+							<img src="../../../images/t3.png"/>
+							<span><b>杨洋</b><i>总分：712</i></span>
+							<div class="marketing-right"><i>703</i></div>
+						</div>	
+					</div>
+					<div class="marketing-top">
+						<div class="marketing-px">
+						<span>#10</span>
+							<img src="../../../images/t2.png"/>
+							<span><b>李爱国</b><i>总分：612</i></span>
+							<div class="marketing-right"><i>703</i></div>
+						</div>	
+					</div>
+				</div>
+			</div>	
+		</div>
+		</div>
+	</body>
+	<script>
+		mui('.mui-scroll-wrapper').scroll();
+	</script>
+
+</html>

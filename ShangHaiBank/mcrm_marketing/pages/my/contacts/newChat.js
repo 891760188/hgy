@@ -1,0 +1,17 @@
+var record = [];
+var chatRoomId;
+var chatRoomName;
+var createRoomPeo;
+var loginName;
+var bindMsgList;
+var start=0;
+var limit=10;
+var sc_;
+var backPage;
+var dtask = null; 
+var chatType;
+var im_detail;
+var nameImage='../../../themes/default/images/temp/pic_07.png';
+var myImage='../../../themes/default/images/temp/temp_04.gif';
+var llength=0;
+var iteCount = 0;

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>Test</title>
+		<script type="text/javascript" src="../../../common/AppBooter.js"></script>
+		<script src="getNodeDetail.js"></script>
+	</head>
+	<style>
+		#popover>button {
+			width: 80px;
+			float: left;
+			margin-left: 30px;
+			margin-top: 60px;
+			background-color: #ff713c;
+			;
+			border-radius: 5px;
+			color: #fff;
+		}
+		
+		#popover>span {
+			font-size: 24px;
+			color: #D3D3D3;
+			position: fixed;
+			right: 65px;
+		}
+		
+		.gxtg {
+			width: 100%;
+			height: 120%;
+			margin-top: -68px;
+			display: block;
+			opacity: 0.1;
+		}
+		
+		.tgPng {
+			float: right;
+			width: 30px;
+			margin-top: 7px;
+			display: none;
+		}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-action-back mui-icon-left-nav mui-pull-left"></a>
+			
+			<div class="tgPng" id="finishId"><img src="../tg.png" id="finishId" style="width: 100%;" ></img></div>
+			<div class="tgPng" id="nextPass"><img src="../tg.png"  style="width: 100%;" ></img></div>
+			<div class="tgPng" id="nextPass2"><img src="../tg.png" style="width: 100%;" ></img></div>
+			<!--<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" id="finishId" style="display: none;color: #666;">过关</a>-->
+			<!--<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" id="nextPass" style="display: none;color: #666;">继续闯关</a>
+			<a class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" id="nextPass2" style="display: none;color: #666;">继续闯关</a>-->
+			<h1 class="mui-title">1客户查看</h1>
+		</header>
+		<div class="mui-content dark-bg">
+			<div class="an-state" id="anStateDivId" style="display: none;"></div>
+			<div class="mui-scroll-wrapper mui-nofootscroll an-min-wrapper">
+				<div class="mui-scroll">
+					<div class="an-Box" id="stepDiv">
+						<img id="anBg" src="../../../../themes/common/images/game/pic_05_2.jpg" style="width: 100%;" />
+						<div class="an-node ing" style="left: 58%;top: 83%;" onclick="">1</div>
+						<div class="an-node " style="left: 45%;top: 69%;" onclick="">2</div>
+						<div class="an-node" style="left: 50%;top: 60%;" onclick="">3</div>
+					</div>
+				</div>
+			</div>
+			<div class="mui-scroll-wrapper an-form-wrapper">
+				<div class="mui-scroll" id="divId">
+
+				</div>
+			</div>
+		</div>
+		<!--<div id="popover" class="mui-popover">-->
+		<!--<span class="icon-cancel-circle"></span>
+			<div style="margin:0px auto;;color: #ff713c;text-align: center;line-height: 90px;font-size:18px">恭喜你，通过此关卡！</div>
+			<button>分享</button>
+			<button id="nextLevel">下一关</button>-->
+
+		<!--</div>-->
+		<div class="myShade" style="opacity: 0.5;width: 100%;height: 100%;background-color:black;z-index: 99;position: absolute;top: 0px;display: none;"></div>
+		<div class="popDiv" style="display: none;">
+			<img id="ballon" src="../1.png" style="width: 90%;z-index: 100;position: absolute;top: 100px;left: 5%;" />
+			<div style="position: absolute;left: 84px;top:380px;z-index: 100;width: 85px;"><img src="../b.png" style="width: 100%;" class="share" onclick="doShare()" /></div>
+			<div id="nextLevel" style="position: absolute;right: 84px;z-index: 100;top: 380px;width: 85px;"><img src="../l.png" style="width: 100%;" /></div>
+		</div>
+	</body>
+	<script src="NodeOneDetail.js"></script>
+	<script src="../myShade.js"></script>
+	<script src="../../../public/commTool/AppShare.js"></script>
+	<script>
+		var _h = document.getElementById('anBg').clientHeight - document.getElementsByClassName('an-min-wrapper')[0].clientHeight;
+		mui('.an-min-wrapper').scroll({
+			startY: -(_h - 50)
+		}); //
+		mui('.an-form-wrapper').scroll();
+		document.querySelector('.myShade').addEventListener('tap', function() {
+			closeShade();
+			mui.back();
+		});
+		document.querySelector('#ballon').addEventListener('tap', function() {
+			closeShade();
+			mui.back();
+		})
+	</script>
+
+</html>

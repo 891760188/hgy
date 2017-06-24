@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>ECahrt 示例</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<script src="../../common/AppBooter.js"></script>
+		<!--App自定义的css-->
+		<style>
+			.progress {
+				padding: 0px;
+				background: rgba(0, 0, 0, 0.25);
+				border-radius: 6px;
+				-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+				box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+			}
+			
+			.progress-bar {
+				position: relative;
+				height: 16px;
+				border-radius: 4px;
+				-webkit-transition: 0.4s linear;
+				-moz-transition: 0.4s linear;
+				-o-transition: 0.4s linear;
+				transition: 0.4s linear;
+				-webkit-transition-property: width, background-color;
+				-moz-transition-property: width, background-color;
+				-o-transition-property: width, background-color;
+				transition-property: width, background-color;
+				-webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+				box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+			}
+			
+			.progress-bar:before,
+			.progress-bar:after {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+			}
+			
+			.progress-bar:before {
+				bottom: 0;
+				background: url("../img/stripes.png") 0 0 repeat;
+				border-radius: 4px 4px 0 0;
+			}
+			
+			.progress-bar:after {
+				z-index: 2;
+				bottom: 45%;
+				border-radius: 4px;
+				background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+				background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+				background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+				background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">签到统计</h1>
+		</header>
+		<div class="mui-content" style="margin-top: 30px;">
+						<div class="mui-slider-item">
+						<div class="mui-card">
+							<ul class="mui-table-view mui-unfold">
+								<li class="mui-table-view-cell mui-collapse mui-active">
+									<a class="mui-navigate-right">普通客户</a>
+									<div class="mui-collapse-content">
+										<p>本月访问普通客户完成情况:
+											<label id="label" class="mui-pull-right">85%</label>
+										</p>
+										<div class="progress">
+											<div class="progress-bar"></div>
+										</div>
+										<!--<button id="buttons" type="button" class="mui-btn mui-btn-blue mui-pull-right" style="margin-top: 10px;">改动数值</button>-->
+									</div>
+
+								</li>
+								<li class="mui-table-view-cell mui-collapse mui-active">
+									<a class="mui-navigate-right">白金客户</a>
+									<div class="mui-collapse-content">
+										<p>本月访问白金客户完成情况:
+											<label id="label" class="mui-pull-right">90%</label>
+										</p>
+										<div class="progress">
+											<div class="progress-bar"></div>
+										</div>
+										<!--<button id="buttons" type="button" class="mui-btn mui-btn-blue mui-pull-right" style="margin-top: 10px;">改动数值</button>-->
+									</div>
+
+								</li>
+								<li class="mui-table-view-cell mui-collapse mui-active">
+									<a class="mui-navigate-right">钻石客户</a>
+									<div class="mui-collapse-content">
+										<p>本月访问钻石客户完成情况:
+											<label id="label" class="mui-pull-right">100%</label>
+										</p>
+										<div class="progress">
+											<div class="progress-bar"></div>
+										</div>
+										<!--<button id="buttons" type="button" class="mui-btn mui-btn-blue mui-pull-right" style="margin-top: 10px;">改动数值</button>-->
+									</div>
+								</li>
+								<li class="mui-table-view-cell mui-collapse mui-active">
+									<a class="mui-navigate-right">vip客户</a>
+									<div class="mui-collapse-content">
+										<p>本月访问vip客户完成情况:
+											<label id="label" class="mui-pull-right">100%</label>
+										</p>
+										<div class="progress">
+											<div class="progress-bar"></div>
+										</div>
+										<!--<button id="buttons" type="button" class="mui-btn mui-btn-blue mui-pull-right" style="margin-top: 10px;">改动数值</button>-->
+									</div>
+
+								</li>
+							</ul>
+						</div>
+					</div>
+		</div>
+		<script>
+		var s = document.querySelectorAll('.progress >.progress-bar');
+		var ids = document.querySelectorAll('#label');
+			mui.plusReady(function(){
+				for (var i = 0; i < s.length; i++) {
+					s[i].style.width = ids[i].innerHTML;
+					s[i].style.backgroundColor = '#18b30d';
+				}
+			});
+			mui('.mui-table-view.mui-unfold').on('tap', '.mui-table-view-cell.mui-collapse', function() {
+				if (this.classList.contains('mui-active')) {
+					this.classList.remove('mui-active');
+				} else {
+					this.classList.add('mui-active');
+				}
+			});
+		</script>
+	</body>
+</html>

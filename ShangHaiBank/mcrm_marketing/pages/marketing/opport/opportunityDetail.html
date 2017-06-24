@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>商机详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--公共js-->
+		<script src="../../common/AppBooter.js"></script>
+		<script src="opportunityDetail.js"></script>
+		<script type="text/javascript" src="../../public/commTool/html2canvas.js"></script>
+		<script type="text/javascript" src="../../public/commTool/cutScreen.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">商机详情</h1>
+			<a href="#picture" class="mui-pull-right icon-share2" style="margin-top: 13px; margin-right: 20px;"></a>	
+			<a onClick="addFootMark();" class="mui-icon mui-icon-plus mui-pull-right"></a>
+			
+			
+			
+
+		</header>
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" href="#mcc-custView">
+				<span class="mui-icon mui-icon-list"></span>
+				<span class="mui-tab-label">商机详情</span>
+			</a>
+			<a class="mui-tab-item" href="#mcc-custFootmark">
+				<span class="mui-icon mui-icon-map"></span>
+				<span class="mui-tab-label">营销足迹</span>
+			</a>
+		</nav>
+		<div class="mui-content" style="margin-top: 20px;">
+			<div id="mcc-custView" class="mui-control-content mui-active">
+				<div class="ys-custTitle">商机基本信息
+					<button id="setImptBt" type="button" class="mui-btn icon-flag">设为重点</button>
+				</div>
+				<div class="ys-custInfo">
+					<p><b>客户名称：</b><span>北京进出口有限公司</span></p>
+					<p><b>所属行业：</b><span>IT企业</span></p>
+					<p><b>规模：</b><span>1200万</span></p>
+					<p><b>状态：</b><span>已落地</span></p>
+					<p><b>产品名称：</b><span>流动资金贷款</span></p>
+					<p><b>产品经理：</b><span>方成平</span><span class="mui-icon mui-icon-chatbubble" onClick="toChat2('方成平');return false;"></span></p>
+					<p><b>产品经理电话：</b><span>010-99999999</span><span class="mui-icon mui-icon-phone" onClick="hrefClick();"><a href="tel:010-99999999" id="telId"></a></span></p>
+					<!--
+                          	发送短信：sms:010-3456786  已作废
+                          -->
+					<!--p><b>营销方案：</b><span> 出口企业融资营销方案</span></p-->
+					<p><b>主办机构：</b><span>北京中关村支行</span></p>
+					<p><b>主办客户经理：</b><span>陈一峰</span><span class="mui-icon mui-icon-chatbubble" onClick="toChat2('陈一峰');return false;"></span></p>
+					<p><b>主办客户经理电话：</b><span>010-99999999</span><span class="mui-icon mui-icon-phone" onClick="hrefClick();"><a href="tel:010-99999999" id="telId"></a></span></p>
+					<p><b>商机描述：</b><span>商机描述</span></p>
+				</div>
+				<div class="ys-custTitle" id="salePlanTitle" style="display: none;">营销方案信息</div>
+				<div class="ys-custInfo ys-bothNeat" id="salePlanCon" style="display: none;">
+					<h5 class="mui-content-padded">基本信息</h5>
+					<div class="ys-custInfo mui-card">
+						<p><b>方案名称：</b><span>出口企业融资营销方案</span></p>
+					</div>
+					<h5 class="mui-content-padded">产品营销流程</h5>
+					<div class="ys-custInfo mui-card">
+						<span class="ys-step-node" onClick="marketDetail();">锁定客户</span>
+						<i class="icon-arrow-right2"></i>
+						<span class="ys-step-node" onClick="marketDetail();">接触推销</span>
+						<i class="icon-arrow-right2"></i>
+						<span class="ys-step-node" onClick="marketDetail();">反馈</span>
+						<i class="icon-arrow-right2"></i>
+						<span class="ys-step-node" onClick="marketDetail();">铺垫下次营销</span>
+					</div>
+					<h5 class="mui-content-padded">产品定价描述</h5>
+					<div class="ys-custInfo mui-card">
+						<p><b>1基准利率：</b><span>10%</span></p>
+						<p><b>2上下浮动：</b><span>1%</span></p>
+						<p><b>3手续费率：</b><span>0.5%</span></p>
+						<p><b>4其他：</b><span>1000万以上手续费可减免</span></p>
+
+					</div>
+					<h5 class="mui-content-padded">产品营销注意事项</h5>
+					<div class="ys-custInfo mui-card">
+						<p><b>1：</b><span>点击某条商机可以看到客户具体信息</span></p>
+						<p><b>2：</b><span>产品定价准确性</span></p>
+
+					</div>
+					<h5 class="mui-content-padded">营销话术</h5>
+					<div class="ys-custInfo mui-card">
+						<p><b>1：</b><span>融资需求必须使用某产品</span></p>
+						<p><b>2：</b><span>产品定价准确性</span></p>
+
+					</div>
+
+				</div>
+
+				<div class="ys-custTitle" id="doPlanTitle" style="display: none;">营销落地信息</div>
+				<div class="ys-custInfo" id="doPlanCon" style="display: none;">
+					<p><b>确认落地：</b><span>已落地</span></p>
+					<p><b>落地规模：</b><span>3000万</span></p>
+					<p><b>落地产品：</b><span>基础授信，基础结算及中间业务</span></p>
+					<p><b>落地描述：</b><span>根据与客户的沟通，商机已落地</span></p>
+
+				</div>
+			</div>
+			<div id="mcc-custFootmark" class="mui-control-content">
+				<div class="ys-cfInfo">
+					<div class="ys-cfiDate">15日
+						<br/>07月</div>
+					<div class="ys-cfiCon" id="divConId1">
+						<div class="ys-cfiArr"></div>
+						<div class="ys-cfiQue">随着上海公司生产线迁入，客户的生产线已达12条，其中10条为生产所用，2条为新品试验所用。</div>
+						<div class="ys-cfiAbu"><b>提到：</b><span>王总、</span><span>邓总、</span><span>张成程</span>
+							<a name="hrefCommon" onClick="replyFun();" class="mui-icon mui-icon-chatbubble" style="float:right;"></a>
+						</div>
+						<div class="ys-cfiAns"><b>王总：</b><span>与风险管理部沟通，跟踪进度。</span></div>
+						<div class="ys-cfiAns"><b>张成程：</b><span>近期可能会持续跟进。</span></div>
+					</div>
+				</div>
+				<div class="ys-cfInfo">
+					<div class="ys-cfiDate">13日
+						<br/>07月</div>
+					<div class="ys-cfiCon" id="divConId2">
+						<div class="ys-cfiArr"></div>
+						<div class="ys-cfiQue">客户嫌我行价格高，有什么组合产品吗？</div>
+						<div class="ys-cfiAbu"><b>提到：</b><span>张总、</span><span>李历义</span>
+							<a name="hrefCommon" onClick="replyFun();" class="mui-icon mui-icon-chatbubble" style="float:right;"></a>
+						</div>
+						<div class="ys-cfiAns"><b>张总：</b><span>我列举了几种组合情况，已发送到您邮。</span></div>
+						<div class="ys-cfiAns"><b>李历义：</b><span>这种情况咱们需要根据客户的实际需求，以及客户的真实内心想法来定夺。</span></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="popover" class="mui-popover" style="width:90%;height:50%;">
+
+			<div>
+				<textarea id="commonCon" cols="50" rows="10" placeholder="输入回复，不超过300字"></textarea>
+
+			</div>
+
+			<div style="text-align: center;margin-top:1em;height:30%;">
+				<button type="button" class="mui-btn mui-btn-danger" onclick="commonTxt();">发表</button>
+				<button type="button" class="mui-btn mui-btn-danger" onclick="cancel();">取消</button>
+			</div>
+		</div>
+
+		<div id="popover2" class="mui-popover" style="width:99%;height:70%;">
+			<div class="mui-card">
+				<textarea id="commonTent" cols="50" rows="3" placeholder="输入营销拜访内容，不超过500字"></textarea>
+			</div>
+			<div class="mui-card">
+				<div class="mui-input-row">
+					<label>拜访时间：</label>
+					<input id="visitDate" type="date" class="mui-input-clear" placeholder="拜访时间">
+				</div>
+			</div>
+			<div class="mui-card" style="height:8em; ">
+				<div id="item2" class="mui-control-content mui-active">
+					<button type="button" class="mui-btn mui-btn-danger" onclick="chooseAdviser();">选择提到的人</button>
+					<h5 class="mui-content-padded"></h5>
+					<ul class="mui-table-view">
+
+						<li class="mui-table-view-cell mui-media content" id="marketChooseId">
+
+						</li>
+					</ul>
+
+				</div>
+
+				</form>
+
+			</div>
+
+			<div style="text-align: center;margin-top:1em;height:30%;">
+				<button type="button" class="mui-btn mui-btn-danger" onclick="commonSale();">提交</button>
+				<button type="button" class="mui-btn mui-btn-danger" onclick="cancelSale();">取消</button>
+			</div>
+		</div>
+		<div id="picture" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#" onclick="doShare(1);">营销协同</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#" onclick="doShare(2);">客户转借</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#picture"><b>取消</b></a>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script>
+		var divId = "divConId1";
+		var count = 3;
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		mui('.mui-scroll-wrapper').scroll();
+		mui(".mui-table-view").on('tap', '.content', function() {
+			//获取id
+			var id = this.getAttribute("id");
+			//传值给详情页面，通知加载新数据
+			mui.fire(detail, 'getDetail', {
+				id: id
+			});
+			//打开新闻详情
+			mui.openWindow({
+				id: 'detail',
+				url: 'detail.html'
+			});
+		})
+			//添加营销方案制定自定义事件监听
+		window.addEventListener('paramBackEvent2__', function(event) {
+			//获得事件参数
+			var name = event.detail.name;
+			var con = document.getElementById('marketChooseId'); //var con = mui("#marketChooseId")[0];document.querySelector('input[name="color"]:checked');
+			var html = con.innerHTML;
+			html = html + '<a onclick="toChat(' + name + ');">';
+			html = html + '<img class="mui-media-object mui-pull-left" src="../../images/shuijiao.jpg">';
+			html = html + '<div class="mui-media-body" ><div name="chooseNames">' + name + '</div>';
+			html = html + '<p class="mui-ellipsis">电话：13408765674 </p>'
+			html = html + '</div>'
+			html = html + '</a>'
+			con.innerHTML = html;
+		});
+
+		function commonSale() {
+			var obj = mui("#commonTent")[0]
+			var con = obj.value;
+			obj.value = "";
+			var vDate = mui("#visitDate")[0].value;
+			var date = new Date(vDate);
+			var dayStr = date.getDay();
+			var monthStr = date.getMonth() + 1;
+			var personCall = "";
+			var divCon = mui("#mcc-custFootmark")[0];
+			mui("div[name='chooseNames']").each(function() {
+				//若当前input为空，则alert提醒
+				var txt = this.innerText
+				if (txt) {
+					personCall = personCall + '<span>' + txt + '、</span>';
+				}
+			});
+			
+			var html = divCon.innerHTML;
+			html = html + '<div class="ys-cfInfo">'
+			html = html + '<div class="ys-cfiDate">' + dayStr + '日<br/>' + monthStr + '月</div>';
+			html = html + '<div class="ys-cfiCon" id="divConId' + count + '">';
+			html = html + '<div class="ys-cfiArr"></div>';
+			html = html + '<div class="ys-cfiQue">' + con + '</div>';
+			html = html + '<div class="ys-cfiAbu"><b>提到：</b>' + personCall + '<a href="#popover" name="hrefCommon" onClick="changeDivId(\'divConId' + count + '\');" class="mui-icon mui-icon-chatbubble" style="float:right;"></a></div>';
+			html = html + '</div>';
+			html = html + '</div>';
+			divCon.innerHTML = html;
+			mui('#popover2').popover('toggle');
+			count = count + 1;
+			divId = "divConId3";
+		}
+
+		
+	</script>
+
+</html>

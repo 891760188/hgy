@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>金融顾问</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../../common/AppBooter.js"></script>
+		<script src="financialAdviser.js"></script>
+		<link href="../../../resource/mui/css/mui.indexedlist.css" rel="stylesheet" />
+	</head>
+	
+	<body>
+		<style>
+			html,
+			body {
+				height: 100%;
+				overflow: hidden;
+			}			
+		</style>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">金融顾问</h1>
+			<button onclick="backFn();" type="button" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" style="color: #666;">完成</button>
+		</header>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item" href="#item1mobile">按机构</a>
+					<a class="mui-control-item" href="#item2mobile">常用</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="mboSearch">
+									<input type="text" class="txtSearch" placeholder="输入关键字查找同事…"/>
+									<span class="mui-icon mui-icon-search"></span>
+								</div>
+								<div id="colAcd" class="ys-accordion">
+									<div class="ys-accContent">
+										<div class="ys-accNode"><span>总行</span></div>
+										<div class="ys-accContent">
+											<div class="ys-accNode"  data-fn="selectBack('李宗建');"><div class="ys-anContent"><b><img src="../../../themes/default/images/temp/temp_01.gif" alt="" /></b>李宗建<i>总行部门领导</i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'李宗建');"></span></div></div>
+										</div>
+										<div class="ys-accNode /*ys-accnOpen*/"><span>分行</span></div>
+										<div class="ys-accContent">
+											<div class="ys-accNode"  data-fn="selectBack('王兑章');"><div class="ys-anContent"><b><img src="../../../themes/default/images/temp/temp_01.gif" alt="" /></b>王兑章<i>分行团队长</i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'王兑章');"></span></div></div>
+											<div class="ys-accNode" data-fn="selectBack('张晶丽');"><div class="ys-anContent"><b><img src="../../../themes/default/images/temp/temp_02.gif" alt="" /></b>张晶丽<i>分行客户经理</i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'张晶丽');"></span></div></div>
+											<div class="ys-accNode" data-fn="selectBack('蔡金力');"><div class="ys-anContent"><b><img src="../../../themes/default/images/temp/temp_03.gif" alt="" /></b>蔡金力<i>分行产品经理</i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'蔡金力');"></span></div></div>
+										</div>
+										<div class="ys-accNode"><span>能源矿产事业部</span></div>
+										<div class="ys-accContent">
+											<div class="ys-accNode"  data-fn="selectBack('张可有');"><div class="ys-anContent"><b><img src="../../../themes/default/images/temp/temp_01.gif" alt="" /></b>张可有<i>事业部团队长</i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'张可有');"></span></div></div>
+											<div class="ys-accNode" data-fn="selectBack('李双');"><div class="ys-anContent"><b><img src="../../../themes/default/images/temp/temp_02.gif" alt="" /></b>李双<i>事业客户经理</i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'李双');"></span></div></div>
+											<div class="ys-accNode" data-fn="selectBack('吴明');"><div class="ys-anContent"><b><img src="../../../themes/default/images/temp/temp_03.gif" alt="" /></b>吴明<i>事业产品经理</i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'吴明');"></span></div></div>
+										    <a href="tel:13800138000" id="telId"></a>
+										</div>
+									</div>
+								</div>									
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="mboSearch">
+									<input type="text" class="txtSearch" placeholder="输入关键字查找同事…"/>
+									<span class="mui-icon mui-icon-search"></span>
+								</div>
+								<div class="ys-accordion">
+									<div class="ys-accContent">
+										<div class="ys-accNode"  data-fn="selectBack('李宗建');"><div class="ys-anContent"><b><img src="../../../themes/default/images/temp/temp_01.gif" alt="" /></b>李宗建<i>总行部门领导</i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'李宗建');"></span></div></div>
+										<div class="ys-accNode"  data-fn="selectBack('王兑章');"><div class="ys-anContent"><b><img src="../../../themes/default/images/temp/temp_01.gif" alt="" /></b>王兑章<i>分行团队长</i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'王兑章');"></span></div></div>
+										<div class="ys-accNode" data-fn="selectBack('张晶丽');"><div class="ys-anContent"><b><img src="../../../themes/default/images/temp/temp_02.gif" alt="" /></b>张晶丽<i>分行客户经理</i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'张晶丽');"></span></div></div>
+										<div class="ys-accNode" data-fn="selectBack('蔡金力');"><div class="ys-anContent"><b><img src="../../../themes/default/images/temp/temp_03.gif" alt="" /></b>蔡金力<i>分行产品经理</i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'蔡金力');"></span></div></div>
+										<div class="ys-accNode"  data-fn="selectBack('张可有');"><div class="ys-anContent"><b><img src="../../../themes/default/images/temp/temp_01.gif" alt="" /></b>张可有<i>事业部团队长</i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'张可有');"></span></div></div>
+										<div class="ys-accNode" data-fn="selectBack('李双');"><div class="ys-anContent"><b><img src="../../../themes/default/images/temp/temp_02.gif" alt="" /></b>李双<i>事业客户经理</i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'李双');"></span></div></div>
+										<div class="ys-accNode" data-fn="selectBack('吴明');"><div class="ys-anContent"><b><img src="../../../themes/default/images/temp/temp_03.gif" alt="" /></b>吴明<i>事业产品经理</i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'吴明');"></span></div></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+			</div>
+		</div>
+		
+		<script>
+			mui.init({
+				swipeBack: false
+			});
+			(function($) {
+				//自适应高度
+				var _header = document.querySelector('header.mui-bar');
+				var _slider = document.querySelector('div.mui-slider-indicator');
+				var _h = (document.body.offsetHeight - _header.offsetHeight-_slider.offsetHeight) + 'px';
+				document.getElementById("item1mobile").style.height=_h;
+				document.getElementById("item2mobile").style.height=_h;
+				//Accordion
+				YSUI.Accordion("colAcd");
+				//scroll
+				$('.mui-scroll-wrapper').scroll();
+			})(mui);
+			
+			
+			mui('#item1mobile').on('tap','.ys-accNode',function(){
+				eval(this.getAttribute('data-fn'));
+			});
+			mui('#item1mobile').on('tap','.mui-icon',function(){
+				eval(this.getAttribute('data-fn'));
+				return false;			
+			});		
+			mui('#item2mobile').on('tap','.ys-accNode',function(){
+				eval(this.getAttribute('data-fn'));
+				return false;			
+			});
+			mui('#item2mobile').on('tap','.mui-icon',function(){
+				eval(this.getAttribute('data-fn'));
+				return false;			
+			});	
+			
+		</script> 
+
+	</body>
+
+</html>

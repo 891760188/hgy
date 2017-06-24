@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>商机列表</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../common/AppBooter.js"></script>
+		<!--<script type="text/javascript" src="../../../../frame/MK-App-Scroll-Patch.js" ></script>-->
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">商机列表</h1>
+		</header>
+	</body>
+	<script>
+		mui.init(); 
+		var id = _App.util.getUrlParamByName('id');
+		mui.plusReady(function() {
+			var ws=plus.nativeUI.showWaiting();
+			var main = plus.webview.currentWebview();
+			var content = plus.webview.create('mktBusOpportDetail.html', 'content', {
+				top: '68px',
+				bottom: '0px'
+			});
+			main.append(content);
+			content.addEventListener('loaded', function() {
+				//mui.toast("加载完毕"); //运行到这里会控制台会显示plus is not defined
+				content.evalJS(('getData("' + id + '")'));
+				ws.close();
+			});
+		});
+	</script>
+
+</html>

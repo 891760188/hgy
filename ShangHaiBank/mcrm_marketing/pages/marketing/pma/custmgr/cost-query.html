@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>我的费用</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../../common/AppBooter.js" ></script>
+		<style>
+			.chart {
+				height: 380px;
+				margin: 0px;
+				padding: 0px;
+			} 
+			th{
+				background-color: #007AFF;
+			}
+			td{
+				text-align: center;
+				background-color: #efeff4;
+			}
+			tr{
+				height: 30px;
+			}
+			i{
+				font-size: 20px;
+			}
+			/*h5 {
+				margin-top: 30px;
+				font-weight: bold;
+			}
+			h5:first-child {
+				margin-top: 15px;
+			}*/
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <!--<a class="mui-icon mui-icon-right-nav mui-pull-right"></a>-->
+		    <h1 class="mui-title">我的费用</h1>
+		</header>
+		<div class="mui-content">
+					<div class="ys-custTitle">当月机构可使用费用：<i>7,856.00元</i></div>
+					<div id="fxchartId">
+						<div class="chart" id="barChart"></div>
+						<br/><br/>
+						<div style="clear:both;"></div>
+					</div>
+		</div>
+    		<script type="text/javascript" src="../../../../../resource/mui/js/echarts-all.js"></script>
+		<script type="text/javascript">
+			//App配置信息
+			var appConfig = {
+				//是否启用右滑关闭功能
+				swipeBack: false
+			};
+			/**
+			 * 页面初始化
+			 */
+			_App.init(appConfig);
+			mui.ready(function(){
+				document.getElementById("fxchartId").style.display="block";
+				//调用展示图
+				barChart.setOption(getOption('bar'));
+			});
+			
+			var goPage = function(url) {
+				_App.util.goPage(url);
+			};
+			var change=function(num){
+				return (num.toFixed(2) + '').replace(/\d{1,3}(?=(\d{3})+(\.\d*)?$)/g, '$&,');
+			}
+			var getOption = function(chartType) {
+				var chartOption = {
+					title : {
+				        text: '',
+				        x:'center',
+				      	textStyle:{color:'black',fontWeight:'lighter'}
+				    },
+				    tooltip : {
+				        trigger: 'axis',
+				        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+				            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+				        }
+				    },
+					legend: {
+				        orient: 'horizontal', // 'vertical'
+				        x: 'center', // 'center' | 'left' | {number},
+				        y: 'bottom', // 'center' | 'bottom' | {number}
+				        backgroundColor: '#ffffff',
+				        borderColor: 'rgba(178,34,34,0.8)',
+				        borderWidth: 1,
+				        padding: 1,    // [5, 10, 15, 20]
+				        itemGap: 5,
+				        textStyle: {color: 'red'},
+				        data: [
+				            '当月计入','当月计出'
+				        ]
+				    },
+					grid: {
+						x: 45,
+						x2: 10,
+						y: 30,
+						y2: 45
+					},
+					toolbox: {
+						show: false,
+						feature: {
+							mark: {
+								show: true
+							},
+							dataView: {
+								show: true,
+								readOnly: false
+							},
+							magicType: {
+								show: true,
+								type: ['line', 'bar']
+							},
+							restore: {
+								show: true
+							},
+							saveAsImage: {
+								show: true
+							}
+						}
+					},
+					calculable: false,
+					xAxis: [{
+						type: 'category',
+						data: ['1月', '2月', '3月', '4月', '5月', '6月']
+					}],
+					yAxis: [{
+						type: 'value',
+						name:'金额（元）',
+						splitArea: {
+							show: true
+						}
+					}],
+					series: [{
+						name: '当月计入',
+						barWidth:'40',
+						type: chartType,
+						itemStyle: {normal:{color:'#ff713c',}},
+						data: [10000.00, 14000.00, 15000.00, 18000.00, 20000.00, 20000.00]
+					},{
+						name: '当月计出',
+						type: 'line',
+						itemStyle: {normal:{color:'#007aff'}},
+						data: [8765.00, 12000.00, 12422.00, 13563.00, 10234.00, 12144.00]
+					}]
+				};
+				return chartOption;
+			};
+			
+			var barChart = echarts.init(document.getElementById('barChart'));
+		</script>
+	</body>
+</html>

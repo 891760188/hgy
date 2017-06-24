@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../../common/AppBooter.js" ></script>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">机构绩效</h1>
+		</header>
+		<div class="mui-content dark-bg">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					<div class="gridMenu">
+						<a class="icon-file-text2 bc3" href="./item-query.html"><span>机构指标</span></a>
+						<a class="icon-list-numbered bc1" href="./result-rank.html"><span>机构排名</span></a>
+						<a class="icon-list-numbered bc2" href="./employees-rank.html"><span>员工排名</span></a>
+						<a class="icon-coin-dollar bc1" href="./bonus-query.html"><span>奖金查询</span></a>
+						<a class="icon-files-empty bc4" href="./cost-query.html"><span>机构费用</span></a>
+						<a class="icon-calculator bc2" href="./cost-guess.html"><span>奖金测算</span></a>
+						<a class="icon-file-text2 bc4"><span>更多…</span></a>
+						<a class="icon-file-text2"></a>
+					</div>
+			        <div class="ys-custTitle">通知</div>
+					<ul class="mui-table-view mui-table-view-group" id="list1">
+						<li class="mui-table-view-cell toolHover"><a class="mui-navigate-right" onclick="goNotice();">业绩达标通知</a></li>
+						<li class="mui-table-view-cell toolHover"><a class="mui-navigate-right" onclick="goNotice();">您有一笔业绩转移需要审批</a></li>
+						<li class="mui-table-view-cell toolHover"><a class="mui-navigate-right" onclick="goNotice();">您的业绩预约已成功，匹配账号为***</a></li>
+						<li class="mui-table-view-cell toolHover"><a class="mui-navigate-right" onclick="goNotice();">您有一封评介问卷需要填写</a></li>					
+					</ul>			
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		_App.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		mui('.mui-scroll-wrapper').scroll();
+		//事件绑定
+		mui('.gridMenu').on('tap','a',function(){
+			if(this.children[0].innerHTML!="更多…"){
+				var url=this.getAttribute('href');
+				_App.util.goPage(url);
+			}else{
+				mui.alert('待开发...');
+			}
+		});
+		function goNotice(){
+			mui.alert('待开发...');
+		}
+	</script>
+</html>

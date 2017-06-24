@@ -1,0 +1,52 @@
+body{background: #fff;}
+div,ul,li,form{margin: 0;padding: 0;list-style: none;}
+*,input, select, textarea{font-family: Arial,"Microsoft YaHei","微软雅黑","宋体";font-size: 14px;color: #666;}
+.mui-segmented-control .mui-control-item{color: #314793;}
+.mui-segmented-control .mui-control-item.mui-active,.mui-table-view-cell.mui-active,.mui-table-view-cell>a:not(.mui-btn).mui-active, .mui-table-view-cell.mui-active .sh-selected{background-color: #546ec8;}
+.mui-segmented-control .mui-control-item{border-left:1px solid #546ec8;}
+.mui-bar-tab .mui-tab-item.mui-active{ color:#314793 !important;}
+.color1{color: #D8232C !important;}
+.color2{color: #000 !important;}
+.iconColor{color: #f05a02 !important;}
+.mui-table-view-cell:after{background-color: #ddd;}
+.mui-table-view:before{background-color: #ddd;}
+/*index sta*/
+.userDiv{height: 30px;line-height: 30px;color:#666;background-color: #e6e7e8;}
+.userDiv span:first-child{width: 30%;}
+.userDiv span:nth-child(2){width: 15%;}
+.userDiv span:last-child{width: 55%;text-align: right !important;padding-right: 15px;}
+.userDiv span i{font-style: normal;padding-right: 5px;}
+.mui-content{padding-top: 44px;background: none;}
+.sh-selected{padding: 0;line-height: 44px;height: 44px;}
+.userDiv span, .sh-target>li>.sh-selected>span{width:33.3%;text-align: center;float:left; text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}
+.sh-target>li>.sh-selected>span:first-child{width: 30%;}
+.sh-target>li>.sh-selected>span:nth-child(2){width: 30%;}
+.myChartBox{display: block;}
+.hide{display: none;}
+/*index end*/
+
+/*经营报表 sta*/
+.mui-table-view-cell.mui-collapse .mui-collapse-content{padding: 0 15px;}
+.sh-reportForm li a span, .sh-reportForm li ul li a span{color: #D8232C;font-size: 18px;display: inline-block;padding-right: 5px;}
+/*详情 sta*/
+.sh-tittle{height: 30px;line-height: 30px;font-size: 14px;color: #000;background-color: #e6e7e8;padding-left: 15px;}
+
+/*.table-bordered{border-collapse:collapse;}*/
+.sh-reportTable table thead tr, .sh-reportTable table tbody tr { border-bottom: 1px solid #ccc; }
+.sh-reportTable table thead tr td, .sh-reportTable table tbody tr td { border-right: 1px solid #ccc; text-align: center; padding: 6px 0; color: #666; }
+.sh-reportTable table tbody tr td a{color: #666;}
+.sh-reportTable table thead tr td:last-child { border-right: none;} 
+.sh-reportTable table tbody tr:nth-child(odd) { background: #e6e7e8;}
+.mui-popover .mui-popover-arrow.mui-bottom:after{top: -30px;}
+/*#sh-reScrollContent{margin-top: 44px; }*/
+.sh-noBorderTb{border-top:none !important;border-bottom: none !important;}
+/*详情 end*/
+/*经营报表 end*/
+
+
+
+
+/*底部tab sta*/
+.mui-bar-tab .mui-tab-item{border-right:1px solid #e6e7e8;}
+.mui-bar-tab .mui-tab-item.mui-active{color: #314793 !important;}
+/*底部tab end*/

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>产品选择</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--公共js-->
+		<script src="../common/AppBooter.js"></script>
+		<script src="productChoose.js"></script>
+		<style>
+			html,
+			body {
+				height: 100%;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">产品选择</h1>
+		    <button onclick="backFn();" type="button" class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" style="color: #666;">完成</button>
+		</header>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider">
+				<div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted dark-bg">
+					<a class="mui-control-item mui-active" href="#msiByOrg">按分类</a>
+					<a class="mui-control-item" href="#msiOften">常用</a>
+				</div>
+				<div class="mui-slider-progress-bar mui-col-xs-6"></div>
+				<div class="mui-slider-group">
+					<div id="msiByOrg" class="mui-slider-item mui-control-content mui-active">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="mboSearch">
+									<input type="text" class="txtSearch" placeholder="输入关键字查找产品…"/>
+									<span class="mui-icon mui-icon-search"></span>
+								</div>
+								<div id="colAcd" class="ys-accordion">
+									<div class="ys-accContent">
+										
+										<div class="ys-accNode /*ys-accnOpen*/"><span>公司目录(有数据)</span></div>
+										<div class="ys-accContent">
+											<div class="ys-accNode"><span>基础产品</span></div>
+											<div class="ys-accContent">
+											   <div class="ys-accNode"  data-fn="selectBack('基础授信');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>基础授信<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'基础授信');"></span></div></div>
+											   <div class="ys-accNode"  data-fn="selectBack('基础负债');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>基础负债<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'基础负债');"></span></div></div>
+											   <div class="ys-accNode"  data-fn="selectBack('基础结算及中间业务');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>基础结算及中间业务<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'基础结算及中间业务');"></span></div></div>
+											   
+											</div>
+											<div class="ys-accNode"><span>网络金融产品</span></div>
+											<div class="ys-accContent">
+												<div class="ys-accNode"  data-fn="selectBack('网链平安');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>网链平安<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'网链平安');"/></div></div>
+												<div class="ys-accNode"  data-fn="selectBack('电子政务、商务');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>电子政务、商务<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'电子政务、商务');"/></div></div>
+												<div class="ys-accNode"  data-fn="selectBack('现金管理');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>现金管理<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'现金管理');"/></div></div>
+												<div class="ys-accNode"  data-fn="selectBack('财富管理');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>财富管理<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'财富管理');"/></div></div>
+												<div class="ys-accNode"  data-fn="selectBack('公司电子渠道');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>公司电子渠道<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'公司电子渠道');"/></div></div>
+												
+											</div>
+											<div class="ys-accNode"><span>国内贸易融资产品</span></div>
+											<div class="ys-accContent">
+												<div class="ys-accNode"  data-fn="selectBack('预付类');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>预付类<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'预付类');"/></div></div>
+												<div class="ys-accNode"  data-fn="selectBack('存货类');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>存货类<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'存货类');"/></div></div>
+												<div class="ys-accNode"  data-fn="selectBack('应收类');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>应收类<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'应收类');"/></div></div>
+											    <div class="ys-accNode"  data-fn="selectBack('其他国内融资类');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>其他国内融资类<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'其他国内融资类');"/></div></div>
+											</div>
+											<div class="ys-accNode"><span>国际业务产品</span></div>
+											<div class="ys-accContent">
+												
+												<div class="ys-accNode"  data-fn="selectBack('国际融资');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>国际融资<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'国际融资');"/></div></div>
+												<div class="ys-accNode"  data-fn="selectBack('国际结算');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>国际结算<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'国际结算');"/></div></div>
+												<div class="ys-accNode"  data-fn="selectBack('外汇交易');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>基础外汇融资<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'基础外汇融资');"/></div></div>
+											</div>
+											<div class="ys-accNode"><span>离岸业务产品</span></div>
+											<div class="ys-accContent">
+												<div class="ys-accNode"  data-fn="selectBack('离岸授信类');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>离岸授信类<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'离岸授信类');"/></div></div>
+												<div class="ys-accNode"  data-fn="selectBack('离岸存款类');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>离岸存款类<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'离岸存款类');"/></div></div>
+												<div class="ys-accNode"  data-fn="selectBack('离岸结算及其他');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>离岸结算及其他<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'离岸结算及其他');"/></div></div>
+												<div class="ys-accNode"  data-fn="selectBack('离岸外汇交易业务');"><div class="ys-anContent"><b><img src="../../images/cirico06.png" alt="" /></b>离岸外汇交易业务<i></i><span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'离岸外汇交易业务');"/></div></div>
+											</div>
+										</div>
+										<div class="ys-accNode"><span>交叉销售目录</span></div>
+										<div class="ys-accNode"><span>综合金融目录</span></div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="msiOften" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div class="mboSearch">
+									<input type="text" class="txtSearch" placeholder="输入关键字查找产品…"/>
+									<span class="mui-icon mui-icon-search"></span>
+								</div>
+								<div class="ys-accordion" id="prod2">
+									<div class="ys-accContent">
+										
+										<div class="ys-accNode"><div class="ys-anContent" data-fn="selectBack('基础授信');"><b><img src="../../images/cirico06.png" alt="" /></b>基础授信<span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'基础授信');"/></div></div>
+		                                <div class="ys-accNode"><div class="ys-anContent" data-fn="selectBack('现金管');"><b><img src="../../images/cirico06.png" alt="" /></b>现金管<span class="mui-icon icon-radio-unchecked" data-fn="selectedNode(this,'现金管');"/></div></div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});			
+		(function($) {
+				//自适应高度
+				var _header = document.querySelector('header.mui-bar');
+				var _slider = document.querySelector('div.mui-slider-indicator');
+				var _h = (document.body.offsetHeight - _header.offsetHeight-_slider.offsetHeight) + 'px';
+				document.getElementById("msiByOrg").style.height=_h;
+				document.getElementById("msiOften").style.height=_h;
+				//Accordion
+				YSUI.Accordion("colAcd");
+				//scroll
+				$('.mui-scroll-wrapper').scroll();
+		})(mui);
+		
+		mui('#colAcd').on('tap','.ys-accNode',function(){
+			eval(this.getAttribute('data-fn'));
+		});
+		mui('#prod2').on('tap','.ys-anContent',function(){
+			eval(this.getAttribute('data-fn'));
+		});
+//		mui('#colAcd').on('tap','.mui-icon-phone',function(){
+//			eval(this.getAttribute('data-fn'));
+//			return false;			
+//		});
+		
+		mui('#colAcd').on('tap','.mui-icon',function(){
+			eval(this.getAttribute('data-fn'));
+			return false;			
+		});
+		mui('#prod2').on('tap','.mui-icon',function(){
+			eval(this.getAttribute('data-fn'));
+			return false;			
+		});
+		
+	</script>
+</html>

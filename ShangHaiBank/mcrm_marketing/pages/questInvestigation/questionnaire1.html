@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>问卷调查</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../common/AppBooter.js" ></script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">客户经理满意度问卷</h1>
+		</header>
+		<div class="mui-content">
+			<div id="pullrefresh" class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					<div class="formMark">
+						<p>您好，欢迎您参加本次本行客户经理调研。</p>
+						<p>本次研究希望了解您作为客户经理，在日常工作中碰到的一些问题和对银行的一些评价和建议，以帮助本行更好的改进内部流程，提升大家的工作效率。</p>
+						<p>本次调查为不记名方式。调查结果仅供研究分析使用，不作为考评客户经理个人能力或工作业绩的依据，也不会涉及到您的个人隐私，您给出的评价将完全保密。感谢您的支持与配合！</p>
+					</div>
+					<div class="ys-custTitle">第一部分、基本情况</div>
+					<div class="radList">
+						<div class="radlCell">
+							<div class="radlcTitle">1、请选择您所在的分行或事业部？</div>
+							<div class="radlcRow rrIptText">
+								<select>
+									<option>请选择</option>
+									<option>总行</option><option>北京分行</option><option>上海分行</option>		
+								</select>
+								<!--<input id="szsyb" type="text" class="mui-input-clear" placeholder="请选择…" disabled="disabled"/>								
+								<span class="mui-icon mui-ipt-ico mui-icon-search"></span>-->
+							</div>
+						</div>
+						<div class="radlCell">
+							<div class="radlcTitle">2.您的性别？</div>
+							<div class="radlcRow"><input id="aaaa-2" type="radio" name="test2" value="1"><label for="aaaa-2">A.男</label></div>
+							<div class="radlcRow"><input id="bbbb-2" type="radio" name="test2" value="1"><label for="bbbb-2">B.女</label></div>
+						</div>
+						<div class="radlCell">
+							<div class="radlcTitle">3.您的最高学历？</div>
+							<div class="radlcRow"><input id="aaaa-3" type="radio" name="test3" value="1"><label for="aaaa-3">A.博士（含在职）/博士后</label></div>
+							<div class="radlcRow"><input id="bbbb-3" type="radio" name="test3" value="1"><label for="bbbb-3">B.硕士（含在职）</label></div>
+							<div class="radlcRow"><input id="cccc-3" type="radio" name="test3" value="1"><label for="cccc-3">C.本科</label></div>
+							<div class="radlcRow"><input id="dddd-3" type="radio" name="test3" value="1"><label for="dddd-3">D.专科及以下</label></div>
+						</div>
+						<div class="radlCell">
+							<div class="radlcTitle">4.您的周岁年龄？</div>
+							<div class="radlcRow rrIptText"><input type="text" class="mui-input-clear" placeholder="请输入…" /></div>
+						</div>
+						<div class="radlCell">
+							<div class="radlcTitle">5.您在本行担任客户经理已经多少年？</div>
+							<div class="radlcRow rrIptText"><input type="text" class="mui-input-clear" placeholder="请输入…" /></div>
+						</div>
+						<div class="radlCell">
+							<div class="radlcTitle">6.您是否有本行其他岗位的工作经历？</div>
+							<div class="radlcRow"><input id="q6-1" type="radio" name="test12" value="1"><label for="q6-1">A.有</label></div>
+							<div class="radlcRow"><input id="q6-2" type="radio" name="test12" value="1"><label for="q6-2">B.没有</label></div>
+						</div>
+						<div class="radlCell">
+							<div class="radlcTitle">7.您是有其他银行的工作经历？</div>
+							<div class="radlcRow"><input id="q7-1" type="radio" name="test22" value="1"><label for="q7-1">A.有</label></div>
+							<div class="radlcRow"><input id="q7-2" type="radio" name="test22" value="1"><label for="q7-2">B.没有</label></div>
+						</div>
+						<div class="radlCell">
+							<div class="radlcTitle">8.您目前负责的客户数量是多少个？</div>
+							<div class="radlcRow rrIptText"><input type="text" class="mui-input-clear" placeholder="请输入…" /></div>
+						</div>						
+						<div class="radlCell">
+							<div class="radlcTitle">9.您都负责哪些类型的客户？</div>
+							<div class="radlcRow"><input type="checkbox" name="ck1"><label for="ck1">A.授信客户</label></div>
+							<div class="radlcRow"><input type="checkbox" name="ck2"><label for="ck2">B.非授信客户</label></div>
+							<div class="radlcRow"><input type="checkbox" name="ck3"><label for="ck3">C.总行层级战略客户</label></div>
+							<div class="radlcRow"><input type="checkbox" name="ck4"><label for="ck4">C.分行层级战略客户</label></div>
+						</div>						
+						<div class="radlCell">
+							<div class="radlcTitle">10.您负责的客户目前在本行的存款合计约多少万元？</div>
+							<div class="radlcRow rrIptText"><input type="text" class="mui-input-clear" placeholder="请输入…" /></div>
+						</div>	
+						<div class="radlCell">
+							<div class="radlcTitle">11.您负责的客户目前在本行的贷款余额约多少万元？</div>
+							<div class="radlcRow rrIptText"><input type="text" class="mui-input-clear" placeholder="请输入…" /></div>
+						</div>
+					</div>
+					<div class="ys-custTitle">第二部分、满意度评价</div>
+					<div class="radList">
+						<div class="radlCell">
+							<div class="radlcTitle">12.根据您在本行的工作经历，综合考虑各方面因素，您对目前工作的满意程度如何？ 10分表示“非常满意”，1分表示“非常不满意”，您可以用1-10分中的任何一个分数来表达您的看法。</div>
+							<div class="radlcRow rrIptText">
+								<select>
+									<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+								</select>
+							</div>
+						</div>
+						<div class="radlCell">
+							<div class="radlcTitle">13.请问您对客户经理这个工作岗位评价如何？对以下具体方面的评价如何？请用1-10分描述您的满意程度。</div>
+							<div class="radlCell">
+								<div class="radlcTitle">13.0 工作岗位满意度</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">13.1 客户经理工作职责的清晰度</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>							
+							<div class="radlCell">
+								<div class="radlcTitle">13.2 客户经理的工作使您的技能充分发挥</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">13.3 您在客户经理岗位上的积极主动会得到鼓励</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">13.4 客户经理岗位是重要的</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">13.5 您的工作充满机会和前景</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="radlCell">
+							<div class="radlcTitle">14.请问您对业务审批流程评价如何？对以下具体方面的评价如何？请用1-10分描述您的满意程度。</div>
+							<div class="radlCell">
+								<div class="radlcTitle">14.0 业务审批流程满意度</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">14.1 业务审批流程设置合理，审批效率高</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>							
+							<div class="radlCell">
+								<div class="radlcTitle">14.2 业务审批流程清晰</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">14.3 审批要求标准化，无需重复补充材料</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">14.4 内部沟通顺畅，建议和意见能得到及时反馈</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+						</div>	
+						<div class="radlCell">
+							<div class="radlcTitle">15.请问您对您的直接主管评价如何？对以下具体方面的评价如何？请用1-10分描述您的满意程度。</div>
+							<div class="radlCell">
+								<div class="radlcTitle">15.0 直接主管满意度</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">15.1 您经常有机会反映工作中遇到的问题和困难</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>							
+							<div class="radlCell">
+								<div class="radlcTitle">15.2 能够及时对员工反映的意见和问题做出反馈</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">15.3 努力培养下属员工的技能</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">15.4 有效地组织和分配本部门的工作</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">15.5 及时传达银行的政策</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">15.6 在出现问题时能做出正确的决策</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">15.7 为部门设立了清楚的发展目标</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+						</div>	
+						<div class="radlCell">
+							<div class="radlcTitle">16.请问您对与行内其他部门或集团内其他子公司的协作评价如何？对以下具体方面的评价呢？请用1-10分描述您的满意程度。</div>
+							<div class="radlCell">
+								<div class="radlcTitle">16.0 协作总体满意度</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">16.1 分行内部不同部门协作的工作态度和工作质量</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>							
+							<div class="radlCell">
+								<div class="radlcTitle">16.2 分行和事业部协作时的工作态度和工作质量</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">16.3 总分支行协作时的工作态度和工作质量</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">16.4 集团内子公司协作时的工作态度和工作质量</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+						</div>	
+						<div class="radlCell">
+							<div class="radlcTitle">17.请问您在工作中，对从行里获得的支持评价如何？对以下具体方面的评价呢？请用1-10分描述您的满意程度。</div>
+							<div class="radlCell">
+								<div class="radlcTitle">17.0 支持总体满意度</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">17.1 良好的工作环境</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>							
+							<div class="radlCell">
+								<div class="radlcTitle">17.2 必要的IT设施支持</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">17.3 有效的决策程序</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">17.4 完成您的任务所需的足够人手</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+						</div>	
+						<div class="radlCell">
+							<div class="radlcTitle">18.请问您对针对客户经理的考核和奖惩评价如何？对以下具体方面的评价呢？请用1-10分描述您的满意程度。</div>
+							<div class="radlCell">
+								<div class="radlcTitle">18.0 考核和奖惩满意度</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">18.1 考核和奖惩标准是明确的</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>							
+							<div class="radlCell">
+								<div class="radlcTitle">18.2 考核和奖惩标准是合理的</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">18.3 考核和奖惩政策执行具有连续性</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">18.4 根据业务灵活调整考核和奖惩标准</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">18.5 通过考核和奖惩引导重点业务的发展</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">18.6 行员等级考核与团队绩效考核的合理性</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+						</div>	
+						<div class="radlCell">
+							<div class="radlcTitle">19.请问您负责的客户中在最近三年有无出现过不良？</div>
+							<div class="radlcRow"><input id="q19-1" type="radio" name="test22" value="1"><label for="q19-1">A.出现过</label></div>
+							<div class="radlcRow"><input id="q19-2" type="radio" name="test22" value="1"><label for="q19-2">B.没有出现过</label></div>
+						</div>
+						<div class="radlCell">
+							<div class="radlcTitle">20.对于出现不良后的奖惩政策您感觉是否合理？</div>
+							<div class="radlCell">
+								<div class="radlcTitle">20.0 总体合理性</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">20.1 不良的责任归属</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>							
+							<div class="radlCell">
+								<div class="radlcTitle">20.2 出现不良之后的扣款措施</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+						</div>	
+						<div class="radlCell">
+							<div class="radlcTitle">21.请问您对下列说法的同意程度如何？</div>
+							<div class="radlCell">
+								<div class="radlcTitle">21.0 尽职免责，不良不应由客户经理承担或单独承担</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">21.1 宁可少做业务，也比出现不良要好</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>							
+						</div>	
+						<div class="radlCell">
+							<div class="radlcTitle">22.请问您对针对客户经理的培训评价如何？对以下具体方面的评价呢？请用1-10分描述您的满意程度。</div>
+							<div class="radlCell">
+								<div class="radlcTitle">22.0 培训整体满意度</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">22.1 培训内容实用，包括理论培训和实际案例等</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>							
+							<div class="radlCell">
+								<div class="radlcTitle">22.2 培训人员有实际业务经验，了解市场</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">22.3 可以及时获取到各种产品资料</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">22.4 有足够的机会参加培训</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">22.5 培训设备齐全，如视频会议等</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">22.6 培训效果，不仅提升对于产品的熟悉度，同时增强销售能力</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">22.7 有机会和其他分行交流，学习他们在特色行业、特色产品上的经验</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+						</div>	
+						<div class="radlCell">
+							<div class="radlcTitle">23.请问您对目前获得的薪酬福利评价如何？请用1-10分描述您的满意程度。</div>
+							<div class="radlCell">
+								<div class="radlcTitle">23.0 薪酬福利整体满意度</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">23.1 和其它银行相比，本行的薪资福利具有竞争力</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>							
+							<div class="radlCell">
+								<div class="radlcTitle">23.2 可以实时查询自己的奖金</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">23.3 实际拿到的奖金与自己估算的金额基本一致</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+						</div>	
+						<div class="radlCell">
+							<div class="radlcTitle">24.您认为您目前的薪酬福利在当地的同业中处于什么水平？</div>
+							<div class="radlcRow"><input id="q24-1" type="radio" name="q24-1" value="1"><label for="q24-1">A.上游</label></div>
+							<div class="radlcRow"><input id="q24-2" type="radio" name="q24-2" value="1"><label for="q24-2">B.中游</label></div>
+							<div class="radlcRow"><input id="q24-3" type="radio" name="q24-3" value="1"><label for="q24-3">C.下游</label></div>
+							<div class="radlcRow"><input id="q24-4" type="radio" name="q24-4" value="1"><label for="q24-4">D.不好说</label></div>
+						</div>
+						<div class="radlCell">
+							<div class="radlcTitle">25.请问您对您在本行的职业发展评价如何？对以下具体方面的评价呢？请用1-10分描述您的满意程度。</div>
+							<div class="radlCell">
+								<div class="radlcTitle">25.0 职业发展整体满意度</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">25.1 您的直接主管会定期与您讨论有关您职业发展的问题</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>							
+							<div class="radlCell">
+								<div class="radlcTitle">25.2 本行内部的晋升机会是公平的</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">25.3 本行内部的晋升机会是充裕的</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+						</div>	
+						<div class="radlCell">
+							<div class="radlcTitle">26.请问您对目前业务方面的政策及规章制度的评价如何？对以下具体方面的评价呢？请用1-10分描述您的满意程度。</div>
+							<div class="radlCell">
+								<div class="radlcTitle">26.0 业务方面的政策及规章制度满意度</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">26.1 各类政策充分考虑地域和分行的差异性</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>							
+							<div class="radlCell">
+								<div class="radlcTitle">26.2 业务政策充分考虑客户的差异性，有助于拓展业务，如给予老客户/战略客户一些专属政策和优惠等</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">26.3 政策创新及时，适应市场变化</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">26.4 政策（费率、风控等）稳定延续，不会突然调整导致客户流失</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">26.5 政策变动有一定的缓冲期，并及时有承接性产品推出</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+						</div>	
+						<div class="radlCell">
+							<div class="radlcTitle">27.请问您对下面说法的同意程度如何？</div>
+							<div class="radlCell">
+								<div class="radlcTitle">27.0 本行具有明确的战略发展目标和方向</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">27.1 本行的产品和服务在市场上非常有竞争力</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>							
+							<div class="radlCell">
+								<div class="radlcTitle">27.2 我对本行未来的发展充满信心</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">27.3 我很愿意为本行的发展投入超出常规的努力</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">27.4 在本行工作使我有很强的归属感</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">27.5 如果有机会，我会推荐他人来本行工作</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+						</div>	
+						<div class="radlCell">
+							<div class="radlcTitle">28.请问您目前工作中，感觉压力大吗？您可以用1-10分中的任何一个分数来表达您的看法。</div>
+							<div class="radlCell">
+								<div class="radlcTitle">28.0 压力程度</div>
+								<div class="radlcRow rrIptText">
+									<select>
+										<option>请选择</option>
+									<option>10分</option><option>9分</option><option>8分</option>								
+									<option>7分</option><option>6分</option><option>5分</option>								
+									<option>4分</option><option>3分</option><option>2分</option><option>1分</option>									
+									<option>不清楚</option>
+									</select>
+								</div>
+							</div>
+						</div>	
+						<div class="radlCell">
+							<div class="radlcTitle">29.您在工作中面临的压力主要来源于哪里？</div>
+							<div class="radlcRow"><input type="checkbox" name="q291" value="1"><label for="q291">A.工作职责分工不明确</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q292" value="1"><label for="q292">B.缺乏有效的技能培训</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q293" value="1"><label for="q293">C.缺乏有效的考核和激励机制</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q294" value="1"><label for="q294">D.上下级沟通不畅通</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q295" value="1"><label for="q295">E.缺乏上级有效的支持</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q296" value="1"><label for="q296">F.银行内部不能有效合作</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q297" value="1"><label for="q297">G.集团内部不能有效协作</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q298" value="1"><label for="q298">H.缺乏有效的、可操作的规章制度和流程</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q299" value="1"><label for="q299">I.业务方面的政策和规章制度缺乏一贯性</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q2910" value="1"><label for="q2910">J.产品缺乏创新，难以吸引客户</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q2911" value="1"><label for="q2911">K.外部竞争激烈，业务拓展困难</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q2912" value="1"><label for="q2912">L.审批效率低，业务拓展困难</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q2913" value="1"><label for="q2913">M.不良率提高，工作风险大</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q2914" value="1"><label for="q2914">N.业绩任务考核</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q2915" value="1"><label for="q2915">O.人际关系复杂</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q2916" value="1"><label for="q2916">P.系统设备落后</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q2917" value="1"><label for="q2917">Q.其他，请注明</label></div>
+							<div class="radlcRow rrIptText"><input type="text" class="mui-input-clear" placeholder="请输入…" /></div>
+						</div>
+						<div class="radlCell">
+							<div class="radlcTitle">30.在业务拓展方面，您遇到的主要困难有哪些？（最多勾选三项）</div>
+							<div class="radlcRow"><input type="checkbox" name="q301" value="1"><label for="q301">A.项目开发难度大</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q302" value="1"><label for="q302">B.内部政策、资金等支持跟不上</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q303" value="1"><label for="q303">C.内部沟通协作不到位</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q304" value="1"><label for="q304">D.业务层面操作流程复杂</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q305" value="1"><label for="q305">E.风险管理难度加大</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q306" value="1"><label for="q306">F.审批效率低</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q307" value="1"><label for="q307">G.其他，请注明</label></div>
+							<div class="radlcRow rrIptText"><input type="text" class="mui-input-clear" placeholder="请输入…" /></div>
+						</div>
+						<div class="radlCell">
+							<div class="radlcTitle">31.请问您用于营销获客、内部作业、贷后管理、客户维护（经营提升/二次开发）、其他工作的时间大致是如何分配的？请在下表填上相应的百分比。【所有选项合计须等于100％】</div>
+							<div class="radlCell">
+								<div class="radlcTitle">31.0 营销获客(%)</div>
+								<div class="radlcRow rrIptText"><input id="q311" type="text" class="mui-input-clear" placeholder="请输入…" /></div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">31.1 内部作业(%)</div>
+								<div class="radlcRow rrIptText"><input id="q312" type="text" class="mui-input-clear" placeholder="请输入…" /></div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">31.2 贷后管理(%)</div>
+								<div class="radlcRow rrIptText"><input id="q313" type="text" class="mui-input-clear" placeholder="请输入…" /></div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">31.3 客户维护(%)</div>
+								<div class="radlcRow rrIptText"><input id="q314" type="text" class="mui-input-clear" placeholder="请输入…" /></div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">31.4 其他工作(%)</div>
+								<div class="radlcRow rrIptText"><input id="q315" type="text" class="mui-input-clear" placeholder="请输入…" /></div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">31.5 合计</div>
+								<div class="radlcRow rrIptText"><input id="q316" type="text" class="mui-input-clear" placeholder="" value="100" readonly="readonly"/></div>
+							</div>
+						</div>	
+						<div class="radlCell">
+							<div class="radlcTitle">32.请问以下哪方面如果维持现状，您将考虑选择离开本行？</div>
+							<div class="radlcRow"><input type="checkbox" name="q321" value="1"><label for="q321">A.工作岗位</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q322" value="1"><label for="q322">B.审批和业务处理流程</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q323" value="1"><label for="q323">C.直接主管</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q324" value="1"><label for="q324">D.协作</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q325" value="1"><label for="q325">E.获得的支持</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q326" value="1"><label for="q326">F.考核与奖惩</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q327" value="1"><label for="q327">G.培训</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q328" value="1"><label for="q328">H.薪酬福利</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q329" value="1"><label for="q329">I.职业发展</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q3210" value="1"><label for="q3210">J.业务方面的政策及规章制度</label></div>
+							<div class="radlcRow"><input type="checkbox" name="q3211" value="1"><label for="q3211">K.其他，请注明</label></div>
+							<div class="radlcRow rrIptText"><input type="text" class="mui-input-clear" placeholder="请输入…" /></div>
+						</div>
+						<div class="radlCell">
+							<div class="radlcTitle">33.针对以下方面，您还有哪些建议、意见和期望？如果没有，请填写“无”。</div>
+							<div class="radlCell">
+								<div class="radlcTitle">33.0 工作岗位</div>
+								<div class="radlcRow rrIptText"><textarea  placeholder="请输入…"></textarea></div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">33.1 评审和业务处理流程</div>
+								<div class="radlcRow rrIptText"><textarea  placeholder="请输入…"></textarea></div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">33.2 直接主管</div>
+								<div class="radlcRow rrIptText"><textarea  placeholder="请输入…"></textarea></div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">33.3 协作</div>
+								<div class="radlcRow rrIptText"><textarea  placeholder="请输入…"></textarea></div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">33.4 获得的支持</div>
+								<div class="radlcRow rrIptText"><textarea  placeholder="请输入…"></textarea></div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">33.5 考核与奖惩</div>
+								<div class="radlcRow rrIptText"><textarea  placeholder="请输入…"></textarea></div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">33.6 培训</div>
+								<div class="radlcRow rrIptText"><textarea  placeholder="请输入…"></textarea></div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">33.7 薪酬福利</div>
+								<div class="radlcRow rrIptText"><textarea  placeholder="请输入…"></textarea></div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">33.8 职业发展</div>
+								<div class="radlcRow rrIptText"><textarea  placeholder="请输入…"></textarea></div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">33.9 业务方面的政策及规章制度</div>
+								<div class="radlcRow rrIptText"><textarea  placeholder="请输入…"></textarea></div>
+							</div>
+							<div class="radlCell">
+								<div class="radlcTitle">33.10 其他方面</div>
+								<div class="radlcRow rrIptText"><textarea  placeholder="请输入…"></textarea></div>
+							</div>
+						</div>	
+						<div class="radlCell">
+							<div class="radlcTitle">34.为了您更好地开展工作，您希望总分行、事业部给予您哪些支撑和协助？</div>
+							<div class="radlcRow rrIptText"><textarea  placeholder="请输入…"></textarea></div>
+						</div>	
+					</div>
+					<div class="mui-button-row">
+						<button type="button" class="mui-btn mui-btn-danger" onclick="cancel();">提 交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		mui('.mui-scroll-wrapper').scroll();
+		
+		function cancel(){
+			mui.back();
+		}
+		var goPage = function(url) {
+			var urlId = plus.webview.currentWebview().id;
+			plus.storage.setItem("urlId_",urlId);
+			_App.util.goPage(url);
+		};
+		
+		window.addEventListener('chooseAreaEvent__',function(event){
+			 //获得事件参数
+			  var areaName = event.detail.name;
+			  document.getElementById("szsyb").value = areaName;
+		});
+	</script>
+</html>

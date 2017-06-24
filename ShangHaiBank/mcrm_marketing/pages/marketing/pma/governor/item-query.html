@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>机构指标</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../../../common/AppBooter.js"></script>
+		<style>
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			
+			.mui-segmented-control.mui-scroll-wrapper .mui-scroll {
+				height: 38px;
+			}
+			
+			.mui-fullscreen .mui-segmented-control~.mui-slider-group {
+				top: 38px;
+			}
+		</style>
+		<style>
+			.progress {
+				padding: 0px;
+				background: rgba(0, 0, 0, 0.25);
+				border-radius: 6px;
+				-webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+				box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+			}
+			
+			.progress-bar {
+				position: relative;
+				height: 16px;
+				border-radius: 4px;
+				-webkit-transition: 0.4s linear;
+				-moz-transition: 0.4s linear;
+				-o-transition: 0.4s linear;
+				transition: 0.4s linear;
+				-webkit-transition-property: width, background-color;
+				-moz-transition-property: width, background-color;
+				-o-transition-property: width, background-color;
+				transition-property: width, background-color;
+				-webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+				box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+			}
+			
+			.progress-bar:before,
+			.progress-bar:after {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+			}
+			
+			.progress-bar:before {
+				bottom: 0;
+				background: url("../img/stripes.png") 0 0 repeat;
+				border-radius: 4px 4px 0 0;
+				background-color: #F99900;
+			}
+			
+			.progress-bar:after {
+				z-index: 2;
+				bottom: 45%;
+				border-radius: 4px;
+				background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+				background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+				background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+				background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">机构指标</h1>
+		</header>
+		<div class="mui-content">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted dark-bg">
+					<a class="mui-control-item mui-active" href="#item1mobile">
+							对公条线
+						</a>
+					<a class="mui-control-item" href="#item2mobile">
+							零售条线
+						</a>
+					<a class="mui-control-item" href="#item3mobile">
+							资金条线
+						</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+				<div id="sliderSegmentedControls" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll">
+						<a class="mui-control-item mui-active">1月</a>
+						<a class="mui-control-item">2月</a>
+						<a class="mui-control-item">3月</a>
+						<a class="mui-control-item">4月</a>
+						<a class="mui-control-item">5月</a>
+						<a class="mui-control-item">6月</a>
+						<a class="mui-control-item">7月</a>
+						<a class="mui-control-item">8月</a>
+						<a class="mui-control-item">9月</a>
+						<a class="mui-control-item">10月</a>
+						<a class="mui-control-item">11月</a>
+						<a class="mui-control-item">12月</a>
+					</div>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-12"></div>
+				<div class="mui-slider-group" style="margin-top: 35px;">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<ul class="mui-table-view mui-unfold">
+							<li class="mui-table-view-cell">
+
+								<div class="mui-collapse-content">
+									<p>对公存款:49,900.99
+										<label id="label" class="mui-pull-right">85%</label>
+									</p>
+									<div class="progress">
+										<div class="progress-bar"></div>
+									</div>
+								</div>
+
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-collapse-content">
+									<p>营收:4,535.45
+										<label id="label" class="mui-pull-right">43%</label>
+									</p>
+									<div class="progress">
+										<div class="progress-bar"></div>
+									</div>
+								</div>
+
+							</li>
+							<li class="mui-table-view-cell">
+								<!--<a class="mui-navigate-right">钻石客户</a>-->
+								<div class="mui-collapse-content">
+									<p>有效户新增:456
+										<label id="label" class="mui-pull-right">55%</label>
+									</p>
+									<div class="progress">
+										<div class="progress-bar"></div>
+									</div>
+								</div>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-collapse-content">
+									<p>对公理财:34,789.00
+										<label id="label" class="mui-pull-right">98%</label>
+									</p>
+									<div class="progress">
+										<div class="progress-bar"></div>
+									</div>
+								</div>
+
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-collapse-content">
+									<p>贷款:49,789.00
+										<label id="label" class="mui-pull-right">80%</label>
+									</p>
+									<div class="progress">
+										<div class="progress-bar"></div>
+									</div>
+								</div>
+
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-collapse-content">
+									<p>不良额:789.00
+										<label id="label" class="mui-pull-right">18%</label>
+									</p>
+									<div class="progress">
+										<div class="progress-bar"></div>
+									</div>
+								</div>
+
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-collapse-content">
+									<p>不良率:18%
+										<label id="label" class="mui-pull-right">18%</label>
+									</p>
+									<div class="progress">
+										<div class="progress-bar"></div>
+									</div>
+								</div>
+
+							</li>
+						</ul>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-loading" style="margin:50%;">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-loading" style="margin:50%;">
+							<div class="mui-spinner">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			mui.init({
+				swipeBack: false //启用右滑关闭功能
+			});
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true //是否显示滚动条
+			});
+			var s = document.querySelectorAll('.progress >.progress-bar');
+			var ids = document.querySelectorAll('#label');
+			mui.plusReady(function() {
+				for (var i = 0; i < s.length; i++) {
+					s[i].style.width = ids[i].innerHTML;
+					s[i].style.backgroundColor = '#18b30d';
+				}
+			});
+			mui('.mui-table-view.mui-unfold').on('tap', '.mui-table-view-cell.mui-collapse', function() {
+				if (this.classList.contains('mui-active')) {
+					this.classList.remove('mui-active');
+				} else {
+					this.classList.add('mui-active');
+				}
+			});
+			var item1 = document.getElementById('item1mobile');
+			var item2 = document.getElementById('item2mobile');
+			var item3 = document.getElementById('item3mobile');
+			var controls = item1;
+			var control = document.querySelectorAll('.mui-control-item.mui-active')[1];
+			document.querySelector('.mui-slider').addEventListener('slide', function(e) {
+				if (e.detail.slideNumber === 0) {
+					setTimeout(function() {
+						control.classList.add('mui-active');
+						controls = item1;
+						datas = ['对公存款:49,900.99', '营收:4,535.45', '有效户新增:456', '对公理财:34,789.00', '贷款:49,789.00', '不良额:789.00', '不良率:18%']
+						getDatas(controls, control, datas);
+					}, 0);
+				} else if (e.detail.slideNumber === 1) {
+					setTimeout(function() {
+						control.classList.add('mui-active');
+						controls = item2;
+						datas = ['储蓄:455.43', '个贷:34', '不良率:2.4', '不良额:35', '理财:34,600', '创利:356'];
+						getDatas(controls, control, datas);
+					}, 0);
+				} else if (e.detail.slideNumber === 2) {
+					setTimeout(function() {
+						control.classList.add('mui-active');
+						controls = item3;
+						datas = ['对公存款:49,900.99', '营收:4,535.45', '有效户新增:456', '对公理财:34,789.00', '贷款:49,789.00', '不良额:789.00', '不良率:18%']
+						getDatas(controls, control, datas);
+					}, 0);
+				}
+			});
+			var wt;
+			mui('#sliderSegmentedControls').on('tap', 'a', function() {
+				wt=plus.nativeUI.showWaiting();
+				if (!this.querySelector('.mui-active')) {
+					setTimeout(function() {
+						control = document.querySelectorAll('.mui-control-item.mui-active')[1];
+						getDatas(controls, control, datas);
+					}, 0);
+				}
+			});
+			var datas = ['对公存款:49,900.99', '营收:4,535.45', '有效户新增:456', '对公理财:34,789.00', '贷款:49,789.00', '不良额:789.00', '不良率:18%'];
+
+			function getDatas(controls, control, data) {
+				setTimeout(function() {
+					var ul = document.createElement('ul');
+					ul.className = 'mui-table-view mui-unfold';
+					for (var i = 0; i < data.length; i++) {
+						ul.innerHTML = ul.innerHTML + '<li class="mui-table-view-cell">' + '<div class="mui-collapse-content">' + '<p>' + data[i] + '<label id="label" class="mui-pull-right">' + parseInt(Math.random() * 100) + '%</label>' + '</p>' + '<div class="progress">' + '<div class="progress-bar"></div>' + '</div>' + '</div>' + '</li>';
+					}
+					controls.innerHTML = ul.innerHTML;
+					var s1 = document.querySelectorAll('.progress >.progress-bar');
+					var ids1 = document.querySelectorAll('#label');
+					for (var i = 0; i < s1.length; i++) {
+						s1[i].style.width = ids1[i].innerHTML;
+						s1[i].style.backgroundColor = '#18b30d';
+					}
+					if(wt){
+						wt.close();
+					}
+				}, 1000);
+			}
+		</script>
+	</body>
+
+</html>

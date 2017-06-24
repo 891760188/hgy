@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>考勤时间</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=PwtEGYwzpanIhIoeNQj9N4Xb"></script>
+		<script src="../../common/AppBooter.js"></script>
+		<link rel="stylesheet" type="text/css" href="../../../resource/mui/css/mui.picker.min.css" />
+		<script src="../../../resource/mui/js/mui.picker.min.js"></script>
+		<!--App自定义的css-->
+		<style>
+			div b {
+				font-weight: normal;
+			}
+			
+			div i {
+				font-style: normal;
+			}
+			
+			.mui-table-view-cell>a>i {
+				margin-left: 60px;
+			}
+			
+			.sure {
+				float: right;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav"></a>
+			<h1 class="mui-title">考勤时间</h1>
+			<a class="mui-pull-right" style="margin-top: 13px;margin-right: 2px;" onclick="doSure();">确定</a>
+		</header>
+		<div class="mui-content dark-bg">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					<div class="time-content">
+						<ul class="mui-table-view mui-table-view-group" id="list1">
+							<li class="mui-table-view-cell toolHover" data-options='{"type":"time"}'>
+								<a>
+									<span>上班</span>
+									<i id="onTime">09:00</i>
+								</a>
+							</li>
+							<li class="mui-table-view-cell <li class="mui-table-view-cell toolHover">" data-options='{"type":"time"}'>
+								<a>
+									<span>下班</span>
+									<i id="offTime">18:00</i>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			mui.plusReady(function() {
+				/**
+				 *时间选择 
+				 */
+				mui(".time-content").on('tap', '.mui-table-view-cell', function() {
+					var optionsJson = this.getAttribute('data-options') || '{}';
+					var options = JSON.parse(optionsJson);
+					var picker = new mui.DtPicker(options);
+					var time = this.querySelector('i');
+					picker.show(function(rs) {
+						time.innerHTML = rs.text;
+						picker.dispose();
+					});
+				});
+				
+			});
+			function doSure(){
+					mui.back();
+				}
+		</script>
+	</body>
+
+</html>

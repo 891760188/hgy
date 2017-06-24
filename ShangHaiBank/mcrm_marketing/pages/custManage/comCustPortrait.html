@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>客户画像</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../common/AppBooter.js"></script>
+		<script type="text/javascript" src="comCustPortrait.js"></script>
+		<script type="text/javascript" src="../public/commTool/html2canvas.js"></script>
+		<script type="text/javascript" src="../public/commTool/cutScreen.js"></script>
+		
+		<!--<script type="text/javascript" src="comCustView.js"></script>-->
+	</head>
+	<style>
+		.circleTag>.ct-cir{
+			border: 1px #999 solid;
+		}
+		.circleTag{
+			background-color:#fff;
+		    border-top: 1px #fff solid;			
+		}
+		.moreTags>h1 {
+		    border-top: 1px #f5f5f5 solid;
+		    border-bottom: 1px #f5f5f5 solid;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">客户画像</h1>
+			<a class="mui-pull-right icon-share2 share" id="fxlj" onclick="doShare();" style="margin-top: 13px; margin-right: 10px;"></a>
+		</header>
+		<div class="mui-content dark-bg" >
+			<div class="mui-scroll-wrapper mui-nofootscroll" style="background-color: #fff;">
+				<div class="mui-scroll">
+					<!--centerImgUrl：图片url地址，相对当前前面文件路径-->
+					<div id="circleTag" class="circleTag" centerImgUrl="../../images/cbd.jpg"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		mui('.mui-scroll-wrapper').scroll();
+		/*标签组件调用
+		 * YSUI.CircleTag(id,data)
+		 * id:渲染标签的容器id
+		 * data:标签数据。text,显示的文字，建议控制在4个字符内；bc，背景颜色样式，css已提供bc1至bc7供选择。
+		 * 圆圈上最多显示前12个标签，前一半的标签显示在外圈，后一半标签显示在内圈，多余标签将以列表方式呈现，数据格式如下
+		*/
+		var tagData={data:[{text:'结算户',bc:'bc3'},{text:'融资融券',bc:'bc3'},{text:'集团客户',bc:'bc2'},
+		{text:'城投平台',bc:'bc5'},{text:'负债高企',bc:'bc4'},{text:'联保联贷',bc:'bc3'},
+		{text:'来料加工',bc:'bc7'},{text:'集中垄断',bc:'bc7'},{text:'军品许可',bc:'bc5'}
+		,{text:'报关异常',bc:'bc2'},{text:'信用调降',bc:'bc4'},{text:'夹层融资',bc:'bc2'}
+		,{text:'SPV',bc:'bc2'},{text:'跨境交易',bc:'bc4'},{text:'股份代持',bc:'bc1'},
+		{text:'贷款展期',bc:'bc3'},{text:'太阳能',bc:'bc1'},{text:'团险',bc:'bc7'},{text:'银团贷款',bc:'bc2'},{text:'绿色授信',bc:'bc2'}]};
+		YSUI.CircleTag('circleTag',tagData);
+		var type="1";
+		mui('.ct-tags').on('tap','.ct-tag',function(){
+			_App.util.goPage('dataResources.html?type='+type,{
+				pageId:'dataResources.html', //viewId可以通过plus.webview.getWebviewById('view001');取到
+				refresh: true 
+			});
+		});
+		mui('.moreTags').on('tap','div',function(){
+			_App.util.goPage('dataResources.html?type='+type,{
+				pageId:'dataResources.html', //viewId可以通过plus.webview.getWebviewById('view001');取到
+				refresh: true 
+			});
+		});
+	</script>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>问卷调查</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../common/AppBooter.js"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">问卷调查</h1>
+		</header>
+		<div class="mui-content dark-bg">
+			<div id="pullrefresh" class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					<ul class="ulClass mui-table-view  mui-table-view-group" id="list1">
+						<li class="mui-table-view-cell toolHover">
+							<a class="mui-navigate-right" onclick="goQuestDetial();">
+								任务名称：客户经理满意度问卷
+								<p class='mui-ellipsis'>问卷名称：客户经理满意度问卷</p>
+								<p class='mui-ellipsis'>发布时间：2015-04-07 11:58:00</p>
+								<p class='mui-ellipsis'>提交时间：2015-04-07 15:30:30</p>
+								<p class='mui-ellipsis'>问卷状态：未做过</p>
+							</a>
+						</li>
+					</ul>
+					<ul class="ulClass mui-table-view  mui-table-view-group" id="list1">
+						<li class="mui-table-view-cell toolHover" >
+							<a class="mui-navigate-right" onclick="goQuestDetial();">
+								任务名称：客户经理能力综合评测表
+								<p class='mui-ellipsis'>问卷名称：客户经理能力综合评测表</p>
+								<p class='mui-ellipsis'>发布时间：2015-04-02 11:58:00</p>
+								<p class='mui-ellipsis'>提交时间：2015-04-03 15:30:30</p>
+								<p class='mui-ellipsis'>问卷状态：未做过</p>
+							</a>
+						</li>
+					</ul>
+					<ul class="ulClass mui-table-view  mui-table-view-group" id="list1">
+						<li class="mui-table-view-cell toolHover" >
+							<a class="mui-navigate-right" onclick="goQuestDetial();">
+								任务名称：客户经理销售偏好调查
+								<p class='mui-ellipsis'>问卷名称：客户经理销售偏好调查</p>
+								<p class='mui-ellipsis'>发布时间：2015-04-07 11:58:00</p>
+								<p class='mui-ellipsis'>提交时间：2015-04-07 15:30:30</p>
+								<p class='mui-ellipsis'>问卷状态：已做过</p>
+							</a>
+						</li>
+					</ul>
+					<!--<ul class="ulClass mui-table-view  mui-table-view-group" id="list1">
+						<li class="mui-table-view-cell toolHover" >
+							<a class="mui-navigate-right" onclick="goQuestDetial();">
+								任务名称：风险评测调查
+								<p class='mui-ellipsis'>问卷名称：风险承受能力调查问卷</p>
+								<p class='mui-ellipsis'>发布时间：2015-04-07 11:58:00</p>
+								<p class='mui-ellipsis'>提交时间：2015-04-07 15:30:30</p>
+								<p class='mui-ellipsis'>问卷状态：已做过</p>
+							</a>
+						</li>
+					</ul>-->
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		mui('.mui-scroll-wrapper').scroll();
+		var goPage = function(url) {
+			_App.util.goPage(url);
+		};
+		function goQuestDetial() {
+			_App.util.goPage('questionnaire1.html', {
+				pageId:"questionnaire1_Id",
+				refresh:true
+			});
+		}
+	</script>
+
+</html>

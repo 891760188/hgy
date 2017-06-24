@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>LOGIN</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!-- 公共资源引用-->
+		<script src="./pages/common/AppBooter.js"></script>
+		<script type="text/javascript" src="../frame/MK-App-Version.js"></script>
+		<script type="text/javascript" src="../frame/MK-App-OS.js"></script>
+		<script src="index.js"></script>
+	</head>
+
+	<body class="loginBody">
+		<div class="mui-content">
+			<div class="loginContnet">
+				<h1>登录/LOGIN</h1>
+				<p><i class="icon-user"></i><input id="userName" type="text" placeholder="zhangjingli" class="mui-input-clear" value="zhangjingli" /></p>
+				<p><i class="icon-key"></i><input id="userPassword" type="password" placeholder="密码" class="mui-input-clear" value="123456"/></p>
+				<p><button id="btLogin" type="button" class="mui-btn">登　录</button></p>
+				<!--<p></p>-->
+				<!--<p><button id="btReg" type="button" class="mui-btn mui-btn-link">新用户注册</button></p>-->
+				<p><button id="btLockLogin" type="button" class="mui-btn mui-btn-link">手势登录</button><button id="btError" type="button" class="mui-btn mui-btn-link">登录遇到问题？</button></p>
+			</div>
+		</div>
+		<script type="text/javascript">
+			mui('.mui-scroll-wrapper').scroll();
+
+			(function($, doc) {
+				doc.querySelector("#btLockLogin").addEventListener('tap', function() {
+					var locks = plus.storage.getItem("locks");
+					if(locks == null) {
+						mui.alert("您还没有设置手势登录!");
+						return;
+					}
+					mui.openWindow({
+						url: 'lockLogin.html',
+						pageId: 'lockLogin'
+					});
+				});
+				doc.querySelector("#btLogin").addEventListener('tap', function() {
+					var deviceId = !window.plus ? "webkit" : _App.os.android ? "android" : _App.os.iphone ? "iphone" : "ipad";
+					var ws = plus.nativeUI.showWaiting();
+					var userName = document.getElementById("userName").placeholder; //document.getElementById("userName").value;
+					var userName_ = document.getElementById("userName").value;
+					var userPassword = document.getElementById("userPassword").value;
+					//					userName = "admin";
+					//					userName_ = "admin";
+					//					alert(userName_);
+					//					alert(userPassword);
+					//					var userPassword = "1234"; //document.getElementById('userPassword').value;
+					var version = plus.os.version;
+					var clientId = userName + plus.device.uuid;
+					if(userName && userPassword) {
+						var user = {
+							j_username: userName,
+							j_password: userPassword,
+							deviceId: deviceId
+						};
+						$.ajax({
+							type: "POST",
+							url: basePath + 'j_spring_security_check',
+							data: user,
+							cache: false,
+							dataType: "json",
+							success: function(response) {
+								if(response.status == "00") {
+									//									if(_App.sessionUser.deviceId()!=clientId){
+									//										var btnArray = ['否', '是']; 
+									//										mui.confirm('用户首次在该设备上登录，需要进行验证', '设备验证', btnArray, function(e) {
+									//											if (e.index == 1) {
+									//												_App.util.goPage("./pages/system/confirm.html?loginName="+userName, 'slide-in-right');
+									//											}
+									//										});
+									//										ws.close();
+									//										return false;
+									//									}
+									//									$.ajax({
+									//										type: "POST",
+									//										url: basePath + 'mobileLoginCountAction!refreshLoginTime.json',
+									//										data: {
+									//											deviceId: deviceId,
+									//											version: version,
+									//											clientId: clientId
+									//										},
+									//										cache: false,
+									//										dataType: "json",
+									//										success: function(response) {
+									//											console.log("更新设备登录信息成功!");
+									//										},
+									//										error: function(a, b, c) {
+									//											mui.alert("网络连接出错或服务端未开启!");
+									//										}
+									//									});
+									var user = {};
+									user.userId = response.datas.userId; //用户id
+									user.userName = response.datas.userName; //用户名称
+									user.unitId = response.datas.unitId; //机构id
+									//					   				user.system=deviceId;//运行终端
+									user.userPic = response.datas.temp1; //用户头像
+									_App.sessionInit(user);
+									console.log(_App.sessionUser.userId() + "--" + _App.sessionUser.unitId() + "--" + _App.sessionUser.userName() + "--" + _App.sessionUser.userPic());
+									plus.storage.setItem("userName", userName_);
+									plus.storage.setItem("accountName", userName);
+//									plus.storage.setItem("roleId", roleId);
+									plus.storage.setItem("account", userName + "_" + userPassword);
+									//						//plus.storage.setItem("newAddOpportunity","");
+									//						//用于商机排名角色分类	
+//									plus.storage.setItem("roleType_", roleId);
+									plus.storage.setItem("_system", plus.os.name) //手机系统
+									plus.storage.setItem("_userPic", response.datas.temp1);
+									ws.close();
+									_App.util.goPage("pages/homePage/home-page.html", 'slide-in-right');
+								} else {
+									mui.alert(response.errors);
+									ws.close();
+								}
+
+							},
+							error: function(a, b, c) {
+								ws.close();
+								mui.alert("网络连接出错或服务端未开启!");
+							}
+						});
+					} else {
+						ws.close();
+						mui.alert('请填写用户名和密码！', '提示');
+						return false;
+					}
+				});
+//				doc.querySelector("#btReg").addEventListener('tap', function() {
+//					mui.alert('待开发！', '提示');
+//					//					mui.openWindow({
+//					//						    url: 'pages/system/register.html',
+//					//						    id: 'register'
+//					//						});
+//				});
+				doc.querySelector("#btError").addEventListener('tap', function() {
+					mui.alert('请通过电子邮件（XXXX@cc.com）联系系统管理员！', '提示');
+				});
+			}(mui, document));
+
+			//处理逻辑：1秒内，连续两次按返回键，则退出应用；
+			var first = null;
+			mui.back = function() {
+				//首次按键，提示‘再按一次退出应用’
+				if(!first) {
+					first = new Date().getTime();
+					mui.toast('再按一次退出应用');
+					setTimeout(function() {
+						first = null;
+					}, 1000);
+				} else {
+					if(new Date().getTime() - first < 1000) {
+						plus.runtime.quit();
+					}
+				}
+			};
+			//退出事件，退出时清除登录页之外所有webview
+			document.addEventListener('logoutEvt', function() {
+				//mui.alert('logoutEvt');
+				var wvs = plus.webview.all();
+				var indexview = plus.webview.getLaunchWebview();
+				for(var i = 0; i < wvs.length; i++) {
+					//console.log("webview"+i+": "+wvs[i].getURL());
+					if(wvs[i] != indexview) {
+						plus.webview.close(wvs[i]);
+					}
+				}
+				if(plus.nativeUI){
+					plus.nativeUI.closeWaiting();
+				}
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>新增营销活动</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" src="../../common/AppBooter.js"></script>
+		<script src="../../../../resource/mui/js/mui.picker.min.js"></script>
+		<link rel="stylesheet" href="../../../../resource/mui/css/mui.picker.min.css" />
+		<style>
+			font{
+				color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">修改营销活动</h1>
+		</header>
+		<div class="mui-content dark-bg">
+			<div class="mui-scroll-wrapper mui-nofootscroll">
+				<div class="mui-scroll">
+					<form class="mui-input-group">
+						<div class="mui-input-row">
+							<label>营销活动名称<font>*</font>:</label>
+							<input id="actName" type="text" placeholder="输入营销活动名称">
+						</div>
+						<div class="mui-input-row">
+							<label>营销渠道:</label>
+							<select id="mkChannel">
+								<option value="0">==请选择==</option>
+								<option value="1">柜面</option>
+								<option value="2">CC</option>
+								<option value="3">短信</option>
+								<option value="4">邮件</option>
+								<option value="5">微信</option>
+								<option value="6">电话</option>
+							</select>
+						</div>
+						<div class="mui-input-row">
+							<label>营销活动类型<font>*</font>:</label>
+							<select id="mkType">
+								<option value="0">==请选择==</option>
+								<option value="1">风险产品类营销</option>
+								<option value="10">事件类营销</option>
+								<option value="2">理财产品类营销</option>
+								<option value="3">增值服务类营销</option>
+								<option value="4">存款产品类营销</option>
+								<option value="5">贷款产品类营销</option>
+								<option value="6">代理产品类营销</option>
+								<option value="7">国债产品类营销</option>
+								<option value="8">信用卡产品营销</option>
+								<option value="9">基金类产品营销</option>
+							</select>
+						</div>
+						<div class="mui-input-row">
+							<label>营销活动状态:</label>
+							<select id="mkState">
+								<option value="0">==请选择==</option>
+								<option value="1">暂存</option>
+								<option value="2">已提交</option>
+								<option value="3">执行中</option>
+								<option value="4">正常关闭</option>
+								<option value="5">到期关闭</option>
+								<option value="6">已退回</option>
+							</select>
+						</div>
+						<div class="mui-input-row">
+							<label>营销方式<font>*</font>:</label>
+							<select id="mkMode">
+								<option value="0">==请选择==</option>
+								<option value="1">市场开拓计划</option>
+								<option value="2">市场、产品推介活动</option>
+								<option value="3">客户联谊活动</option>
+							</select>
+						</div>
+						<div class="mui-input-row">
+							<label>费用预算<font>*</font>:</label>
+							<input id="cost" type="text" placeholder="输入费用预算">
+						</div>
+						<div class="mui-input-row">
+							<label>计划开始时间<font>*</font>:</label>
+							<input id="sign_select1" name="checkbox" type="text" placeholder="自定义结束时间" readonly="readonly">
+						</div>
+						<div class="mui-input-row">
+							<label>计划结束时间<font>*</font>:</label>
+							<input id="sign_select2" name="checkbox" type="text" placeholder="自定义结束时间" readonly="readonly">
+						</div>
+						<div class="mui-input-row">
+							<label>活动地点<font>*</font>:</label>
+							<textarea id="address" type="text" class="mui-input-clear" style="height:50em;" placeholder="输入活动地点"></textarea>
+						</div>
+						<div class="mui-input-row">
+							<label>营销活动内容<font>*</font>:</label>
+							<textarea id="actContent" type="text" class="mui-input-clear" style="height:50em;" placeholder="输入营销活动内容"></textarea>
+						</div>
+						<div class="mui-input-row" style="height: 60px;">
+							<label>涉及客户群描述<font>*</font>:</label>
+							<textarea id="custDes" type="text" class="mui-input-clear" style="height:50em;" placeholder="输入涉及客户群描述"></textarea>
+						</div>
+						<div class="mui-input-row" style="height: 60px;">
+							<label>涉及执行人描述<font>*</font>:</label>
+							<textarea id="managerDes" type="text" class="mui-input-clear" style="height:50em;" placeholder="输入涉及执行人描述"></textarea>
+						</div>
+						<div class="mui-input-row">
+							<label>涉及产品描述:</label>
+							<textarea id="proDes" type="text" class="mui-input-clear" style="height:50em;" placeholder="输入涉及产品描述"></textarea>
+						</div>
+						<div class="mui-input-row">
+							<label>营销活动目的:</label>
+							<textarea id="actAim" type="text" class="mui-input-clear" style="height:50em;" placeholder="输入营销活动目的"></textarea>
+						</div>
+						<div class="mui-input-row">
+							<label>备注:</label>
+							<textarea id="remark" type="text" class="mui-input-clear" style="height:50em;" placeholder="备注"></textarea>
+						</div>
+					</form>
+					<form class="mui-input-group">
+						<div class="mui-button-row">
+							<button type="button" class="mui-btn mui-btn-primary" onclick="quit()">取消</button>&nbsp;&nbsp;
+							<button type="button" class="mui-btn mui-btn-danger" onclick="modifyMarket();">确认</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		mui('.mui-scroll-wrapper').scroll();
+		var backPage;		
+		var id;
+		var actName;
+		var mkChannel;
+		var mkState;
+		var mkType;
+		var mkMode;
+		var cost;
+		var sign_select1;
+		var sign_select2;
+		var address;
+		var actContent;
+		var custDes;
+		var managerDes;
+		var proDes;
+		var actAim;
+		var remark;
+		var sign_select1=document.getElementById('sign_select1');//开始时间
+		var sign_select2=document.getElementById('sign_select2');//结束时间
+		sign_select1.addEventListener('tap',function(){
+			var optionsJson = '{"type":"date"}';
+				var options = JSON.parse(optionsJson);
+				var picker = new mui.DtPicker(options);
+				picker.show(function(rs) {
+					if(sign_select2.value>rs.text || sign_select2.value==""){
+						sign_select1.value = rs.text;
+					}else{
+						mui.alert('开始日期要小于结束日期!','提示');
+					}
+					picker.dispose();
+				});
+		});
+		sign_select2.addEventListener('tap',function(){
+			var optionsJson = '{"type":"date"}';
+				var options = JSON.parse(optionsJson);
+				var picker = new mui.DtPicker(options);
+				picker.show(function(rs) {
+					if(rs.text>sign_select1.value || sign_select1.value==""){
+						sign_select2.value = rs.text;
+					}else{
+						mui.alert('结束日期要大于开始日期!','提示');
+					}
+					picker.dispose();
+				});
+		});
+		mui.plusReady(function(){
+			backPage = plus.webview.getWebviewById("mktActivityDetail.html");
+			id = plus.webview.currentWebview().ids;
+			actName = plus.webview.currentWebview().actName;
+			document.getElementById("actName").value = actName;
+			mkChannel = plus.webview.currentWebview().mkChannel;
+			document.getElementById("mkChannel").value = mkChannel;
+			mkState = plus.webview.currentWebview().mkState;
+			document.getElementById("mkState").value = mkState;
+			mkType = plus.webview.currentWebview().mkType;
+			document.getElementById("mkType").value = mkType;
+			mkMode = plus.webview.currentWebview().mkMode;
+			document.getElementById("mkMode").value = mkMode;
+			cost = plus.webview.currentWebview().cost;
+			document.getElementById("cost").value = cost;
+			sign_select1 = plus.webview.currentWebview().sign_select1;
+			document.getElementById("sign_select1").value = sign_select1;
+			sign_select2 = plus.webview.currentWebview().sign_select2;
+			document.getElementById("sign_select2").value = sign_select2;
+			address = plus.webview.currentWebview().address;
+			document.getElementById("address").value = address;
+			actContent = plus.webview.currentWebview().actContent;
+			document.getElementById("actContent").value = actContent;
+			custDes = plus.webview.currentWebview().custDes;
+			document.getElementById("custDes").value = custDes;
+			managerDes = plus.webview.currentWebview().managerDes;
+			document.getElementById("managerDes").value = managerDes;
+			proDes = plus.webview.currentWebview().proDes;
+			document.getElementById("proDes").value = proDes;
+			actAim = plus.webview.currentWebview().actAim;
+			document.getElementById("actAim").value = actAim;
+			remark = plus.webview.currentWebview().remark;
+			document.getElementById("remark").value = remark;
+		});
+		//修改
+		function modifyMarket(){
+			var st = st=plus.nativeUI.showWaiting("正在保存...");
+			actName = document.getElementById("actName").value;
+			mkChannel = document.getElementById("mkChannel").value;
+			mkState = document.getElementById("mkState").value;
+			mkType = document.getElementById("mkType").value;
+			mkMode = document.getElementById("mkMode").value;
+			cost = document.getElementById("cost").value;
+			sign_select1 = document.getElementById("sign_select1").value;
+			sign_select2 = document.getElementById("sign_select2").value;
+			address = document.getElementById("address").value;
+			actContent = document.getElementById("actContent").value;
+			custDes = document.getElementById("custDes").value;
+			managerDes = document.getElementById("managerDes").value;
+			proDes = document.getElementById("proDes").value;
+			actAim = document.getElementById("actAim").value;
+			remark = document.getElementById("remark").value;
+			var dataTmp = {};
+			dataTmp.id = id;
+			dataTmp.actName = encodeURI(actName);
+			dataTmp.mkChannel = mkChannel;
+			dataTmp.mkState = mkState;
+			dataTmp.mkType = mkType;
+			dataTmp.mkMode = mkMode;
+			dataTmp.cost = cost;
+			dataTmp.sign_select1 = sign_select1;
+			dataTmp.sign_select2 = sign_select2;
+			dataTmp.address = encodeURI(address);
+			dataTmp.actContent = encodeURI(actContent);
+			dataTmp.custDes = encodeURI(custDes);
+			dataTmp.managerDes = encodeURI(managerDes);
+			dataTmp.proDes = encodeURI(proDes);
+			dataTmp.actAim = encodeURI(actAim);
+			dataTmp.remark = encodeURI(remark);
+			if(mkType=="" || actName=="" || mkMode=="" || cost=="" || sign_select1=="" || sign_select2=="" || address=="" || actContent=="" || custDes=="" || managerDes==""){
+				alert("请检查您的输入项！")
+			}else{
+				_App.ajax({
+					type : "POST",
+					url : basePath+'marketActivityAction!saveActivity.json',
+					cache: false, 
+					data:dataTmp,
+					dataType: "json", 
+					success : function(response){
+						st.close();
+						if(backPage != null){
+						  	mui.fire(backPage,'backEvent__',{
+							    id:id
+							});	
+					    }
+						plus.webview.currentWebview().close("mktActivityModify.html");
+						
+					},
+					error:function(){
+						plus.nativeUI.closeWaiting();
+						mui.alert('保存失败！');
+					}
+				});
+			}
+		}
+		
+		//退出
+		function quit(){
+			plus.webview.currentWebview().close("addmktActivity.html");
+		}		
+	</script>
+</html>
