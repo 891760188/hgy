@@ -40,7 +40,7 @@
 			<div class="bd-content">
 				<table class="bd-content-left" >
 					<tr>
-						<td class="bd-content-left-td">
+						<td valign="top" class="bd-content-left-td">
 							<ul class="bd-content-left-ul">
 								<li class="bd-content-center-td-li-title">
 									<a href="">我的账户</a>
@@ -70,172 +70,267 @@
 								<div class="bd-content-lis">
 									<div class="bd-content-lis-top">
 										<input type="button" name="" id="" value="理财师名称：" />
-										<input  name="" id="" value="" />
+										<input type="text"  name="" id="" value="" />
 										<input type="button" name="" id="" value="所属公司：" />
-										<input  name="" id="" value="" />
+										<input type="text"  name="" id="" value="" />
 									</div>
-									<div class="">
+									<div class="bd-content-lis-top">
 										<input type="button" name="" id="" value="区域选择：" />
-										<input  name="" id="" value="" />
-										<input type="button" name="" id="" value="省" />
-										<input  name="" id="" value="" />
-										<input type="button" name="" id="" value="市" />
-										<input  name="" id="" value="" />
-										<input type="button" name="" id="" value="区" />
+										<select name="">
+											<option value='' disabled selected style='display:none;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--请选择--</option>  
+											<option value="">福建</option>
+											<option value="">广东</option>
+										</select>
+										<input style="" class="padding-left-right-15" type="button" name="" id="" value="省" />
+										<select name="">
+											<option value='' disabled selected style='display:none;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--请选择--</option>   
+											<option value="">莆田</option>
+											<option value="">厦门</option>
+										</select>
+										<input class="padding-left-right-15" type="button" name="" id="" value="市" />
 									</div>
-									<div class="">
+									<div class="bd-content-lis-top2">
 										<input type="button" name="" id="" value="查询" />
 										<input type="button" name="" id="" value="重置" />
 									</div>
-									<h4>理财师列表</h4>
-									<div id="">
-										<div class="">
-											<label>筛选条件</label>
+									<h4 class="lcs-list-title">理财师列表</h4>
+									<div class="bd-content-lis-canter">
+										<div class="bd-content-lis-canter-1">
 											<select name="">
-												<option value=""></option>
+												<option value="">筛选条件</option>
 											</select>
-											<input type="" name="" id="" value="" />
+											<input type="text" name="" id="" value="" />
 											<input type="button" name="" id="" value="高级筛选" />
 										</div>
-										<table border="" cellspacing="" cellpadding="">
+										<table class="bd-lcs-list-table" border="" cellspacing="" cellpadding="">
 											<tr>
 												<td>
-													<img src="img/gj_logo.png" />
-													<label>投资顾问编号</label>
-													<input type="" name="" id="" value="TZGW01" />
-													<br />
-													<label>姓名</label>
-													<input type="" name="" id="" value="张天天" />
-													<label>年龄</label>
-													<input type="" name="" id="" value="31岁" />
-													<br />
-													<label>从业资格证编号</label>
-													<input type="" name="" id="" value="TZGW01" />
-													<br />
-													<label>所属公司</label>
-													<input type="" name="" id="" value="天天服务金融公司" />
-													<br />
-													<label>所在城市</label>
-													<input type="" name="" id="" value="上海" />
+													<img src="img/lcs-people.png" />
+													<div class="">
+														<input type="button" name="" id="" value="投资顾问编号：" />
+														<input type="button" name="" id="TZGW01" value="1" />
+														<br />
+														<input type="button" name="" id="" value="姓名：" />
+														<input type="button" name="" id="" value="张天天" />
+														<br />
+													    <input type="button" name="" id="" value="年龄：" />
+														<input type="button" name="" id="" value="31岁" />
+														<br />
+														 <input type="button" name="" id="" value="从业资格证编号：" />
+														<input type="button" name="" id="" value="TZGW01" />
+														<br />
+														<input type="button" name="" id="" value="所属公司：" />
+														<input type="button" name="" id="" value="天天服务金融公司" />
+														<br />
+														<input type="button" name="" id="" value="所在城市：" />
+														<input type="button" name="" id="" value="上海" />
+													</div>
 												</td>
 												<td>
-													<img src="img/gj_logo.png" />
-													<label>投资顾问编号</label>
-													<input type="" name="" id="" value="TZGW01" />
-													<br />
-													<label>姓名</label>
-													<input type="" name="" id="" value="张天天" />
-													<label>年龄</label>
-													<input type="" name="" id="" value="31岁" />
-													<br />
-													<label>从业资格证编号</label>
-													<input type="" name="" id="" value="TZGW01" />
-													<br />
-													<label>所属公司</label>
-													<input type="" name="" id="" value="天天服务金融公司" />
-													<br />
-													<label>所在城市</label>
-													<input type="" name="" id="" value="上海" />
+													<img src="img/lcs-people.png" />
+													<div class="">
+														<input type="button" name="" id="" value="投资顾问编号：" />
+														<input type="button" name="" id="TZGW01" value="1" />
+														<br />
+														<input type="button" name="" id="" value="姓名：" />
+														<input type="button" name="" id="" value="张天天" />
+														<br />
+													    <input type="button" name="" id="" value="年龄：" />
+														<input type="button" name="" id="" value="31岁" />
+														<br />
+														 <input type="button" name="" id="" value="从业资格证编号：" />
+														<input type="button" name="" id="" value="TZGW01" />
+														<br />
+														<input type="button" name="" id="" value="所属公司：" />
+														<input type="button" name="" id="" value="天天服务金融公司" />
+														<br />
+														<input type="button" name="" id="" value="所在城市：" />
+														<input type="button" name="" id="" value="上海" />
+													</div>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<img src="img/gj_logo.png" />
-													<label>投资顾问编号</label>
-													<input type="" name="" id="" value="TZGW01" />
-													<br />
-													<label>姓名</label>
-													<input type="" name="" id="" value="张天天" />
-													<label>年龄</label>
-													<input type="" name="" id="" value="31岁" />
-													<br />
-													<label>从业资格证编号</label>
-													<input type="" name="" id="" value="TZGW01" />
-													<br />
-													<label>所属公司</label>
-													<input type="" name="" id="" value="天天服务金融公司" />
-													<br />
-													<label>所在城市</label>
-													<input type="" name="" id="" value="上海" />
+													<img src="img/lcs-people.png" />
+													<div class="">
+														<input type="button" name="" id="" value="投资顾问编号：" />
+														<input type="button" name="" id="TZGW01" value="1" />
+														<br />
+														<input type="button" name="" id="" value="姓名：" />
+														<input type="button" name="" id="" value="张天天" />
+														<br />
+													    <input type="button" name="" id="" value="年龄：" />
+														<input type="button" name="" id="" value="31岁" />
+														<br />
+														 <input type="button" name="" id="" value="从业资格证编号：" />
+														<input type="button" name="" id="" value="TZGW01" />
+														<br />
+														<input type="button" name="" id="" value="所属公司：" />
+														<input type="button" name="" id="" value="天天服务金融公司" />
+														<br />
+														<input type="button" name="" id="" value="所在城市：" />
+														<input type="button" name="" id="" value="上海" />
+													</div>
 												</td>
 												<td>
-													<img src="img/gj_logo.png" />
-													<label>投资顾问编号</label>
-													<input type="" name="" id="" value="TZGW01" />
-													<br />
-													<label>姓名</label>
-													<input type="" name="" id="" value="张天天" />
-													<label>年龄</label>
-													<input type="" name="" id="" value="31岁" />
-													<br />
-													<label>从业资格证编号</label>
-													<input type="" name="" id="" value="TZGW01" />
-													<br />
-													<label>所属公司</label>
-													<input type="" name="" id="" value="天天服务金融公司" />
-													<br />
-													<label>所在城市</label>
-													<input type="" name="" id="" value="上海" />
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<img src="img/gj_logo.png" />
-													<label>投资顾问编号</label>
-													<input type="" name="" id="" value="TZGW01" />
-													<br />
-													<label>姓名</label>
-													<input type="" name="" id="" value="张天天" />
-													<label>年龄</label>
-													<input type="" name="" id="" value="31岁" />
-													<br />
-													<label>从业资格证编号</label>
-													<input type="" name="" id="" value="TZGW01" />
-													<br />
-													<label>所属公司</label>
-													<input type="" name="" id="" value="天天服务金融公司" />
-													<br />
-													<label>所在城市</label>
-													<input type="" name="" id="" value="上海" />
-												</td>
-												<td>
-													<img src="img/gj_logo.png" />
-													<label>投资顾问编号</label>
-													<input type="" name="" id="" value="TZGW01" />
-													<br />
-													<label>姓名</label>
-													<input type="" name="" id="" value="张天天" />
-													<label>年龄</label>
-													<input type="" name="" id="" value="31岁" />
-													<br />
-													<label>从业资格证编号</label>
-													<input type="" name="" id="" value="TZGW01" />
-													<br />
-													<label>所属公司</label>
-													<input type="" name="" id="" value="天天服务金融公司" />
-													<br />
-													<label>所在城市</label>
-													<input type="" name="" id="" value="上海" />
+													<img src="img/lcs-people.png" />
+													<div class="">
+														<input type="button" name="" id="" value="投资顾问编号：" />
+														<input type="button" name="" id="TZGW01" value="1" />
+														<br />
+														<input type="button" name="" id="" value="姓名：" />
+														<input type="button" name="" id="" value="张天天" />
+														<br />
+													    <input type="button" name="" id="" value="年龄：" />
+														<input type="button" name="" id="" value="31岁" />
+														<br />
+														 <input type="button" name="" id="" value="从业资格证编号：" />
+														<input type="button" name="" id="" value="TZGW01" />
+														<br />
+														<input type="button" name="" id="" value="所属公司：" />
+														<input type="button" name="" id="" value="天天服务金融公司" />
+														<br />
+														<input type="button" name="" id="" value="所在城市：" />
+														<input type="button" name="" id="" value="上海" />
+													</div>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<!--<div class="fenyeDiv">
-														<a href="#">|<</a>
-														<a href="#" class="upDown">上一页</a>
-														<a href="#">1</a>
-														<a href="#" class="active">2</a>
-														<a href="#">3</a>
-														<a href="#">4</a>
-														<a href="#">5</a>
-														<input class="whiteBack" type="button" value="..." />
-														<a href="#" class="upDown">下一页</a>
-														<a href="#">>|</a>
-														<input type="button" class="whiteBack" value="跳转到" />
-														<input  value="" class="shuru" />
-														<input type="button" class="whiteBack" value="页" />
-														<a href="#" class="upDown">确定</a>
-													</div>-->
+													<img src="img/lcs-people.png" />
+													<div class="">
+														<input type="button" name="" id="" value="投资顾问编号：" />
+														<input type="button" name="" id="TZGW01" value="1" />
+														<br />
+														<input type="button" name="" id="" value="姓名：" />
+														<input type="button" name="" id="" value="张天天" />
+														<br />
+													    <input type="button" name="" id="" value="年龄：" />
+														<input type="button" name="" id="" value="31岁" />
+														<br />
+														 <input type="button" name="" id="" value="从业资格证编号：" />
+														<input type="button" name="" id="" value="TZGW01" />
+														<br />
+														<input type="button" name="" id="" value="所属公司：" />
+														<input type="button" name="" id="" value="天天服务金融公司" />
+														<br />
+														<input type="button" name="" id="" value="所在城市：" />
+														<input type="button" name="" id="" value="上海" />
+													</div>
+												</td>
+												<td>
+													<img src="img/lcs-people.png" />
+													<div class="">
+														<input type="button" name="" id="" value="投资顾问编号：" />
+														<input type="button" name="" id="TZGW01" value="1" />
+														<br />
+														<input type="button" name="" id="" value="姓名：" />
+														<input type="button" name="" id="" value="张天天" />
+														<br />
+													    <input type="button" name="" id="" value="年龄：" />
+														<input type="button" name="" id="" value="31岁" />
+														<br />
+														 <input type="button" name="" id="" value="从业资格证编号：" />
+														<input type="button" name="" id="" value="TZGW01" />
+														<br />
+														<input type="button" name="" id="" value="所属公司：" />
+														<input type="button" name="" id="" value="天天服务金融公司" />
+														<br />
+														<input type="button" name="" id="" value="所在城市：" />
+														<input type="button" name="" id="" value="上海" />
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<img src="img/lcs-people.png" />
+													<div class="">
+														<input type="button" name="" id="" value="投资顾问编号：" />
+														<input type="button" name="" id="TZGW01" value="1" />
+														<br />
+														<input type="button" name="" id="" value="姓名：" />
+														<input type="button" name="" id="" value="张天天" />
+														<br />
+													    <input type="button" name="" id="" value="年龄：" />
+														<input type="button" name="" id="" value="31岁" />
+														<br />
+														 <input type="button" name="" id="" value="从业资格证编号：" />
+														<input type="button" name="" id="" value="TZGW01" />
+														<br />
+														<input type="button" name="" id="" value="所属公司：" />
+														<input type="button" name="" id="" value="天天服务金融公司" />
+														<br />
+														<input type="button" name="" id="" value="所在城市：" />
+														<input type="button" name="" id="" value="上海" />
+													</div>
+												</td>
+												<td>
+													<img src="img/lcs-people.png" />
+													<div class="">
+														<input type="button" name="" id="" value="投资顾问编号：" />
+														<input type="button" name="" id="TZGW01" value="1" />
+														<br />
+														<input type="button" name="" id="" value="姓名：" />
+														<input type="button" name="" id="" value="张天天" />
+														<br />
+													    <input type="button" name="" id="" value="年龄：" />
+														<input type="button" name="" id="" value="31岁" />
+														<br />
+														 <input type="button" name="" id="" value="从业资格证编号：" />
+														<input type="button" name="" id="" value="TZGW01" />
+														<br />
+														<input type="button" name="" id="" value="所属公司：" />
+														<input type="button" name="" id="" value="天天服务金融公司" />
+														<br />
+														<input type="button" name="" id="" value="所在城市：" />
+														<input type="button" name="" id="" value="上海" />
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<img src="img/lcs-people.png" />
+													<div class="">
+														<input type="button" name="" id="" value="投资顾问编号：" />
+														<input type="button" name="" id="TZGW01" value="1" />
+														<br />
+														<input type="button" name="" id="" value="姓名：" />
+														<input type="button" name="" id="" value="张天天" />
+														<br />
+													    <input type="button" name="" id="" value="年龄：" />
+														<input type="button" name="" id="" value="31岁" />
+														<br />
+														 <input type="button" name="" id="" value="从业资格证编号：" />
+														<input type="button" name="" id="" value="TZGW01" />
+														<br />
+														<input type="button" name="" id="" value="所属公司：" />
+														<input type="button" name="" id="" value="天天服务金融公司" />
+														<br />
+														<input type="button" name="" id="" value="所在城市：" />
+														<input type="button" name="" id="" value="上海" />
+													</div>
+												</td>
+												<td>
+													<img src="img/lcs-people.png" />
+													<div class="">
+														<input type="button" name="" id="" value="投资顾问编号：" />
+														<input type="button" name="" id="TZGW01" value="1" />
+														<br />
+														<input type="button" name="" id="" value="姓名：" />
+														<input type="button" name="" id="" value="张天天" />
+														<br />
+													    <input type="button" name="" id="" value="年龄：" />
+														<input type="button" name="" id="" value="31岁" />
+														<br />
+														 <input type="button" name="" id="" value="从业资格证编号：" />
+														<input type="button" name="" id="" value="TZGW01" />
+														<br />
+														<input type="button" name="" id="" value="所属公司：" />
+														<input type="button" name="" id="" value="天天服务金融公司" />
+														<br />
+														<input type="button" name="" id="" value="所在城市：" />
+														<input type="button" name="" id="" value="上海" />
+													</div>
 												</td>
 											</tr>
 										</table>

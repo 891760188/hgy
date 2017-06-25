@@ -289,6 +289,7 @@ footer .footer-out .footer-buttom div{
 	line-height: 50px;
 	text-align: center;
 	padding: 0px 15px;
+	valign:top;
 }
 .bd-content-center-td{
 		width: 15px;
@@ -340,4 +341,113 @@ footer .footer-out .footer-buttom div{
 .bd-content-lis-top{
 	line-height: 50px;
 	height: 50px;
+}
+.bd-content-lis-top input[type="button"]{
+  color: rgb( 66, 66, 66 );
+  background-color: #fff;
+  padding-left: 30px;
+}
+.bd-content-lis-top input[type="text"]{
+  border: 1px solid #e6e6e6;
+}
+.bd-content-lis-top select{
+  border: 1px solid #e6e6e6;
+  width: 170px;
+  text-align: center;
+  -moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	color: #949494;
+}
+.bd-content-lis-top select option{
+  text-align: center;
+}
+.padding-left-right-15{
+	padding-left: 15px!important;
+	padding-right: 15px!important;
+}
+.bd-content-lis-top2{
+	line-height: 56px;
+	height: 56px;
+	text-align: center;
+}
+.bd-content-lis-top2 input{
+	background-color: #cdba78;
+	width: 90px;
+	height: 33px;
+	color: #FFF;
+	margin: 0px 10px;
+}
+.lcs-list-title{
+	font-size: 16px;
+  color: rgb( 66, 66, 66 );
+  padding: 10px 10px;
+  font-weight: normal;
+}
+.bd-content-lis-canter{
+	 border-top: 1px solid #e6e6e6;
+}
+.bd-content-lis-canter-1{
+	line-height: 35px;
+	height: 35px;
+	padding-top: 20px;
+}
+.bd-content-lis-canter-1 select{
+	width: 100px;
+	background-color: rgb( 249, 244, 223 );
+	line-height: 35px;
+	height: 35px;
+	margin-left: 20px;
+	border: 1px solid #e6e6e6;
+	color: #9c9b9a;
+	 float:left;
+}
+.bd-content-lis-canter-1 input[type="text"]{
+	width: 180px;
+	line-height: 34px;
+	height: 34px;
+	border: 1px solid #e6e6e6;
+	color: #9c9b9a;
+}
+.bd-content-lis-canter-1 input[type="button"]{
+	width: 100px;
+	line-height: 35px;
+	font-size: 16px;
+	height: 35px;
+	border: 1px solid #d9ca94;
+	color: #d9ca94;
+	background-color: #fff;
+	border-radius: 3px;
+	margin-left: 25px;
+}
+.bd-lcs-list-table{
+	margin-top: 20px;
+}
+.bd-lcs-list-table td{
+		width: 300px;
+		border: 1px solid #e6e6e6;
+}
+.bd-lcs-list-table td{
+		border-top: 1px solid #e6e6e6;
+		border-right: 1px solid #e6e6e6;
+}
+.bd-lcs-list-table td div{
+	padding-top:15px;
+	padding-bottom: 15px;
+	color: #848484;
+}
+.bd-lcs-list-table td img{
+	width: 90px;
+	height: 120px;
+	float: left;
+	margin-right: 15px;
+}
+.bd-lcs-list-table input{
+	line-height: 14px;
+	height: 14px;
+	font-size: 10px;
+}
+
+.bd-lcs-list-table input[type="button"]{
+	background-color: #Fff;
 }
