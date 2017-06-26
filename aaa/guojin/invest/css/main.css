@@ -451,3 +451,118 @@ footer .footer-out .footer-buttom div{
 .bd-lcs-list-table input[type="button"]{
 	background-color: #Fff;
 }
+/*.content{
+	padding: 0px 170px;
+	background-color: #f5f5f5;
+}*/
+.pd-content-out{
+	padding: 0px 0px;
+	background-color: #f5f5f5;
+	margin: 0px auto;
+	padding-top: 15px;
+}
+.pd-content{
+	background-color: #FFF;
+	width: 1200px;
+	margin: 0px auto;
+	border: 1px solid #e6e6e6;
+}
+.pd-content-top1{
+	line-height: 64px;
+	height: 64px;
+	border-bottom: 1px solid #e6e6e6;
+}
+.pd-content-top1 .pd-content-top1-td1{
+	font-size: 21px;
+	color: rgb( 66, 66, 66 );
+	padding-left: 32px;
+	width: 956px;
+}
+.pd-content-top1 .pd-content-top1-td2{
+	width: 11px;
+	background-image: url(../img/product_type_left.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.pd-content-top1 .pd-content-top1-td3{
+	width: 90px;
+}
+.pd-content-top1 .pd-content-top1-td3 a{
+	background-color: #ffa551;
+	height: 35px;
+	line-height: 35px;
+	display: inline-block;
+	width: 100%;
+	font-size: 14px;
+	color: white;
+}
+.pd-content-top1 .pd-content-top1-td4{
+	width: 30px;
+	background-image: url(../img/product_type_right.png);
+	background-repeat: no-repeat;
+	background-position:0px, center;
+}
+.pd-content-top1 .pd-content-top1-td5{
+	width: 80px;
+}
+.pd-content-top1 .pd-content-top1-td5 div{
+	width: 100%;
+	font-size: 11px;
+	padding-top: 20px;
+	background-image: url(../img/icon_fullstar.png);
+	background-repeat: no-repeat;
+	background-position:0px 25px ;
+	color: #999999;
+}
+.pd-content-top2-td1{
+	/*height: 320px;*/
+	width: 630px;
+	padding:45px 32px ;
+}
+.pd-content-top2-td1-table td{
+	width: 132px;
+	text-align: center;
+	border-left: 1px solid #f1f1f1;
+}
+.border-left-none{
+	border-left: none!important;
+}
+.pd-content-basic{
+	height: 84px;
+	width: 100%;
+}
+.pd-content-basic .keyName{
+	padding-top: 20px;
+	color:#909090;
+}
+.pd-content-basic-value{
+	font-size: 11px;
+}
+.pd-content-basic-value span{
+	font-size: 29px;
+}
+.colorff9d3d{
+	color: #ff9d3d
+}
+.pd-content-basic-gfx-key{
+	padding-top: 15px;
+	padding-left: 60px;
+	color: #cdba78;
+}
+.pd-content-basic-gfx-vlaue{
+	padding-top: 28px!important;
+}
+.pd-content-top2-td2-table{
+	color: #7a7a7a;
+	margin-top: 35px;
+}
+.pd-content-top2-td2-table tr:first-child{
+}
+.pd-content-top2-td2-table tr td:first-child{
+	padding-left: 25px;
+	line-height: 31px;
+	height: 31px;
+}
+.pd-content-top2-td2-table tr td:nth-child(2){
+	width: 300px;
+}
