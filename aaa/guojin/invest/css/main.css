@@ -566,3 +566,60 @@ footer .footer-out .footer-buttom div{
 .pd-content-top2-td2-table tr td:nth-child(2){
 	width: 300px;
 }
+.pd-content-top2-td2{
+	padding-left: 0px;
+}
+.pd-reserve-content{
+	width: 400px;
+	padding: 40px;
+	background-color: #f5f5f5;
+}
+.pd-reserve-content1{
+	color: #848484;
+	line-height: 36px;
+	height: 36px;
+}
+.pd-reserve-content2{
+	color: #848484;
+	line-height: 42px;
+	height: 42px;
+	position: relative;
+	padding-top: 15px;
+}
+.pd-reserve-content2 input[type="text"]{
+	color: #848484;
+	height: 41px;
+	width: 240px;
+	border: 1px solid #bcbcbc;
+	/*float: left;*/
+}
+.pd-reserve-content2 input[type="button"]{
+	color: #FFF;
+	background-color: #CDBA78;
+	height: 42px;
+	width: 140px;
+	margin-left: -4px;
+}
+.pd-reserve-content3{
+	color: rgb( 132, 132, 132 );
+		line-height: 45px;
+	height: 45px;
+}
+.pd-reserve-content4{
+	color: rgb( 132, 132, 132 );
+	line-height: 45px;
+	height: 45px;
+	text-align: right;
+}
+
+.pd-reserve-content4 i{
+	 font-size: 20px;
+	 color: #ff9d3d;
+	 padding: 0px 3px;
+}
+.pd-content-top3{
+	height: 15px;
+	border-top: 1px solid #e6e6e6;
+	border-bottom: 1px solid #e6e6e6;
+	background-color: #f5f5f5;
+}
