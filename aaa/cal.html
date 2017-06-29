@@ -3,15 +3,25 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		<style type="text/css">
+			input[type="button"]{
+				background-color: #F0AD4E;
+				border-radius: 3px;
+				color: #fff;
+			}
+		</style>
 	</head>
-	<body>
-		<div class="" style="width: 300px;margin: 100px auto;background-color: #C4E3F3;">
-			<div>
-				<input type="button" onclick="add()" value="添加一个输入框">
-				<input type="button" onclick="flash()" value="重置">
-				<input type="button" onclick="result(this)" value="=">
+	<body style="background-color: #000;">
+		<div class="" style="width: 300px;color: #285E8E;margin: 50px auto;background-color: #C4E3F3;padding: 20px;border: 6px solid #fff;border-radius: 8px;">
+			<div style="text-align: center;">
+				<div id="" style="color: #285E8E;text-align: center;padding: 20px 0px;font-size: 22px;font-weight: bold;">
+					连医生专用方差计算软件
+				</div>
+				<input type="button" style="width: 50%;" onclick="add()" value="添加一个输入框"><br/>
+				<input type="button" style="width: 50%;" onclick="flash()" value="重   置"><br/>
+				<input type="button" style="width: 50%;" onclick="result(this)" value="======="><br/>
 			</div>
-			<ul id="addInput">
+			<ul id="addInput" style="list-style: none;color: #285E8E;text-align: center;">
 				<li><input class="calcalcal" type="" name="" id="" value="" placeholder="请输入" /></li>
 			</ul>
 		</div>
