@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//共有属性和公有方法
+			function User(name,age){
+				this.name = name ;
+				this.age = age ;
+			}
+			User.prototype.getName = function(){
+				return this.name;
+			}
+			var user = new User('张三',30);
+			var name = user.getName();
+			var name = user.name;
+			var age  = user.age;
+		</script>
+		<script type="text/javascript">
+			//私有属性和私有方法
+			function User(name,age){
+				var name = name ;//私有属性
+				var age  = age ;
+				function alertAge(){//私有方法
+					console.log(age);
+				}
+				alertAge();//私有方法只能在内部调用
+			}
+			var user = new User('李四',55);
+		</script>
+		<script type="text/javascript">
+			//静态属性和静态方法
+			function User(){}
+			User.age = 26;//静态属性
+			User.myname = 'fire子海';
+			User.getName =function(){//静态方法
+			  return this.myname;//如果这里使用this.name，返回的将是User，所有改用了myname，
+			}
+			console.log(User.getName());//output:fire子海
+		</script>
+		<script type="text/javascript">
+			//特权方法
+			function User(name , age){
+				var name = name ;
+				var age = age ';
+				var getName = function(){
+					return name ;
+				}
+			}
+			var user = new User('lanjie',100);
+			var name = user.getName();
+		</script>
+	</body>
+</html>

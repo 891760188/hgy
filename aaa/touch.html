@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>touch demo</title>
+		<style type="text/css">
+			#demo {
+				margin-top: 200px;
+				height: 200px;
+				display: -webkit-box;/*盒子模型*/
+			}
+			
+			#demo1 {
+				background: red;
+				width: 100%;
+				height: 200px;
+			}
+			
+			#demo2 {
+				background: blue;
+				width: 100%;
+				height: 200px;
+			}
+			
+			body {
+				overflow: hidden;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="demo">
+			<div id="demo1"></div>
+			<div id="demo2"></div>
+		</div>
+		<script type="text/javascript">
+			var slideDom = document.getElementById("demo"); //滑动区域
+			var length = slideDom.children.length; //子类节点长度
+			var index = 0; //初始下标
+			window.prevX = 0;
+			slideDom.addEventListener('touchstart', touchstart, false);
+			slideDom.addEventListener('touchmove', touchmove, false);
+			slideDom.addEventListener('touchend', touchend, false);
+
+			//开始滑动
+			function touchstart(e) {
+				var point = getPoint(e);
+				window.startX = point.pageX;
+				console.log(window.startX);
+			};
+			//滑动过程中
+			function touchmove(e) {
+				e.preventDefault(); //阻止默认行为
+				var point = getPoint(e);
+				window.moveX = point.pageX;
+				window.deltaX = window.moveX - window.startX;
+				domove(window.deltaX + window.prevX);
+			};
+			//结束滑动
+			function touchend(e) {
+				var x = Math.abs(window.deltaX);
+				var item_w = document.getElementById("demo1").offsetWidth;
+				if(window.deltaX > 0) {
+					if(x > item_w) {
+						var indexd = Math.round(x / item_w);
+						index = index - indexd;
+					} else {
+						if(x / item_w > 0.3) {
+							index--
+						}
+					}
+				} else if(window.deltaX < 0) {
+					if(x > item_w) {
+						var indexd = Math.round(x / item_w);
+						index = index + indexd;
+					} else {
+						if(x / item_w > 0.3) {
+							index++;
+						}
+					}
+				}
+				if(index >= (length - 1)) {
+					index = length - 1;
+				}
+				if(index < 0) {
+					index = 0;
+				}
+				window.prevX = -index * item_w;
+				domove(window.prevX, true);
+			};
+			//默认以第一个手指的位置计算
+			function getPoint(e) {
+				return e.touches ? e.touches[0] : e;
+			};
+
+			//利用transform移动
+			function domove(x, t) {
+				if(t) {
+					slideDom.setAttribute('style', 'transform: translate(' + x + 'px, 0px);transition:transform 300ms ease');
+				} else {
+					slideDom.setAttribute('style', 'transform: translate(' + x + 'px, 0px);transition:transform 0ms ease');
+				}
+
+			};
+		</script>
+	</body>
+
+</html>
