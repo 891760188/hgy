@@ -2,49 +2,37 @@
 <html>
   <head>
 		<meta charset="utf-8">  
+			  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+			  <meta name="misapplication-tap-highlight" content="no"/>
+			  <meta name="HandheldFriendly" content="true"/>
+			  <meta name="MobileOptimized" content="320"/>
+			  <style type="text/css">
+			  		.contentDiv{
+			  			padding: 5px 20px;
+			  			position: fixed;
+			  			bottom: 70px;
+			  			width: 80%;
+			  			border: 1px solid #333333;
+			  		}
+			  		input{
+			  			width: 100%;
+			  		}
+			  </style>
   </head>
  
   <body>
-  	<input onclick="action();" type="button" name="" id="b1" value="b1" />
+  	<button onclick="clickMe()">我是按钮</button>
   	<script type="text/javascript">
-  		var inputEndTime = '2017/06/12 16:12:12';
-  		var date = new Date(1498564861000);
-  		alert(date);
+  		function clickMe(){
+  				debugger
+  				var div = document.createElement('div');
+  				div.id = 'contentDiv';
+  				div.classList.add('contentDiv');
+  				div.innerHTML = '<input id="content"  />';
+  				document.body.appendChild(div)
+  				document.getElementById('content').focus();
+  		}
   	</script>
-  	<!--<script type="text/javascript">
-  		var array = [1,2,4,3];
-  		array.forEach(function(e){
-  			console.log(e)
-  		})
-  		var func = () => {  alert('1')  };  
-  		//func();
-  		
-  		function replacer(match) {
-			  var re = /\${(.*?)}/g;
-			  var obj = re.exec(match);
-			  obj = obj[1].split('.');
-			  var value = this;
-			  obj.forEach(function(name){
-			    value = value[name];
-			  });
-			  return value == this ? '' : value;
-			}
-			
-			function formatString(str) {
-			  var re = /\${(.*?)}/g;
-			  var newStr = str.replace(re, replacer);
-			  return newStr;
-			}
-			
-			var person = {
-			  name: 'joe',
-			  age: 22
-			};
-			
-			var format = formatString('my name is ${person.name}, my age is ${person.age}');
-			alert(format);
-		  		
-  	</script>-->
   </body>
 
 </html>
