@@ -7,32 +7,27 @@
 			  <meta name="HandheldFriendly" content="true"/>
 			  <meta name="MobileOptimized" content="320"/>
 			  <style type="text/css">
-			  		.contentDiv{
-			  			padding: 5px 20px;
-			  			position: fixed;
-			  			bottom: 70px;
-			  			width: 80%;
-			  			border: 1px solid #333333;
-			  		}
-			  		input{
-			  			width: 100%;
-			  		}
+			  	.fg-goodstrg-bottom {
+		    /*position: relative;
+		    top: 3px;
+		    left: -8px;*/
+		    height: 40px;
+		    width: 40px;
+		    background: #0000FF;
+		    overflow: hidden;
+		    /*font-size: 0;
+		    line-height: 0;*/
+		    border-color: #ff893a #008800 #FF0000 #CDBA78;
+		    border-style: solid dashed dashed dashed;
+		    border-width: 20px;
+		}	
 			  </style>
   </head>
  
   <body>
-  	<button onclick="clickMe()">我是按钮</button>
-  	<script type="text/javascript">
-  		function clickMe(){
-  				debugger
-  				var div = document.createElement('div');
-  				div.id = 'contentDiv';
-  				div.classList.add('contentDiv');
-  				div.innerHTML = '<input id="content"  />';
-  				document.body.appendChild(div)
-  				document.getElementById('content').focus();
-  		}
-  	</script>
+  	<br />
+  	<br />
+  	<div class="fg-goodstrg-bottom"></div>
   </body>
 
 </html>
