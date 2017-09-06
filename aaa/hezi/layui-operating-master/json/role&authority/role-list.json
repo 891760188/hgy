@@ -1,0 +1,17 @@
+{
+	"data": [
+		{
+			"id": 1,
+			"groupName": "超级管理员",
+			"description": "描述12312",
+			"authValue":1024
+		}, {
+			"id": 2,
+			"groupName": "普通管理员",
+			"description": "描述12222222",
+			"authValue":1024
+		}
+	],
+	"recordsFiltered": "1",
+	"status": true
+}

@@ -1,0 +1,88 @@
+@charset "utf-8";
+/* CSS Document */
+   /*range*/
+.clearfix{*zoom:1;}
+.clearfix:after{display:block; overflow:hidden; clear:both; height:0; visibility:hidden; content:"";}
+.clear{clear: both;}
+.left{float: left;}
+.right{float: right;}
+.f-w500{width: 500px;}
+.f-range {
+    height: 20px;
+    width: 500px;
+    position: relative;
+    background: #70BAFF;
+}
+.f-hk {
+    position: absolute;
+    top: -3px;
+    height: 26px;
+    width: 8px;
+    z-index: 1;
+    cursor: move;
+}
+.f-hk1 {
+    left: 0px;
+    background-image: url(../images/hk1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.f-hk2 {
+    left: 8px;
+    background-image: url(../images/hk2.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.f-hk3 {
+    left: 16px;
+    background-image: url(../images/hk3.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.f-hk4 {
+    left: 24px;
+    background-image: url(../images/hk4.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.f-rangeArea{
+    margin-top: 10px;
+    color: #333;
+    font-size: 16px;
+    width: 500px;
+}
+.f-mt60{margin-top: 60px;}
+.f-color{
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    position: relative;
+    top: 7px;
+    *top:-7px;
+}
+.f-color1{background-color: #2FB9C5;}
+.f-color2{background-color: #E3B21E;}
+.f-color3{background-color: #A246DB;}
+.f-color4{background-color: #DB5D44;}
+.f-range-tips{
+    display: none;
+    color: #fff;
+    width: 35px;
+    font-size: 12px;
+    height: 22px;
+    line-height: 17px;
+    z-index: 2;
+    position: relative;
+    top: -30px;
+    left: -15px;
+    text-align: center;
+    background-image: url(../images/rangeNum.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.f-rangeArea {margin-bottom: 10px;}
+.f-range-msg{margin-top: 10px;font-size: 16px;text-align: left;color: #666;float: left;}
+.f-color-text{display: inline-block;margin-left: 10px;width: 105px;}
+.f-color-area{display: inline-block;width: 150px;color: #ff7916;}
+.f-mb40{margin-bottom: 40px;}

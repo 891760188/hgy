@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin:0;
+				padding:0;
+				border:0;
+				position: relative;
+			}
+			.hgy-canter{
+				width: 300px;
+				margin: 10px auto;
+			}
+			.hgy-xiala-div{
+				border: 1px solid #999;
+				width: 140px;
+				height: 20px;
+				line-height: 20px;
+			}
+			.hgy-xiala-iut{
+				height: 16px;
+				line-height: 16px;
+				width: 120px;
+				border-radius: 2px;
+			}
+			.hgy-xiala-span{
+				height: 18px;
+				line-height: 18px;
+				display: inline-block;
+				width: 7px;
+				border-radius: 2px;
+				text-align: center;
+			}
+			.hgy-xiala-from{
+				position: absolute;
+				border-left: 1px solid #e9e8e8;
+				border-right: 1px solid #e9e8e8;
+				border-bottom: 1px solid #e9e8e8;
+				width: 130px;
+				padding-left:10px ;
+				background: #FFF;
+				height: 70px!important;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<button id="aa" >111111111111111</button>
+		<h1>我是我是我是我是我是我是我是我是我是我是我是我是我是我是我是我是我是我是我是我是我是</h1>
+		<div class="hgy-canter">
+			<div>下拉复选框例子</div>
+			<div class="hgy-xiala-div">
+				<input class="hgy-xiala-iut" id="hgy-xiala-iut" readonly /><span onclick="openProper(this)" id="hgy-xiala-span" class="hgy-xiala-span">&or;</span>
+				<input value="aaaaaaaaaa" />
+				<input value="aaaaaaaaaa" />
+				<input value="aaaaaaaaaa" />
+			</div>
+		</div>
+		<form class="hgy-xiala-from no-close-check" id="hgy-xiala-from">
+			<div id="">
+				<input type="checkbox" onclick="checkThis()" class="hgy-input-Check" name="" data-value="1" id="" value="傻逼祺1" /> 傻逼祺1
+			</div>
+			<div id="">
+				<input type="checkbox" onclick="checkThis()" class="hgy-input-Check" name="" data-value="2" id="" value="傻逼祺2" /> 傻逼祺2
+			</div>
+			<div id="">
+				<input type="checkbox" onclick="checkThis()" class="hgy-input-Check" name="" data-value="3" id="" value="傻逼祺3" /> 傻逼祺3
+			</div>
+		</form>
+		<script type="text/javascript">
+			function openProper(obj){
+				obj = obj.previousSibling;
+			  	var from 		   = document.getElementById('hgy-xiala-from');
+			  	from.style.left    = pageX(obj) - 0 + 'px' ;
+			  	from.style.top  = pageY(obj) + 20 + 'px' ;
+			  	from.style.display = 'block'
+				
+			}
+			function checkThis(){
+				var textValue    = '';
+				var dataValues   = '';
+				var allChecks = document.getElementsByClassName('hgy-input-Check');
+				for (var i=0 ; i<allChecks.length ; i++) {
+					var item = allChecks[i];
+					var flag = item.checked ;
+					if(flag){
+						if(textValue != ''){
+							textValue += ',' + item.value ;
+							dataValues += ',' + item.getAttribute('data-value') ;
+						}else{
+							textValue += item.value ;
+							dataValues += item.getAttribute('data-value') ;
+						}
+					}
+				}
+				document.getElementById('hgy-xiala-iut').value = textValue ;
+				console.log('data-values='+dataValues);
+			}
+			document.addEventListener('DOMContentLoaded', function () {
+				document.addEventListener("click", function(event){
+					var target    = event.target ;
+					var innerHtml = target.outerHTML ; 
+					var outerHTML = document.getElementById('hgy-xiala-from').outerHTML ;
+					if(outerHTML.indexOf(innerHtml) != -1 || document.getElementById('hgy-xiala-span') == target){
+						return ;
+					}
+					document.getElementById('hgy-xiala-from').style.display = 'none' ;
+				},false);
+			}, false);
+			function pageX(elem){
+			   return elem.offsetParent?(elem.offsetLeft+pageX(elem.offsetParent)):elem.offsetLeft;
+			}
+			function pageY(elem){
+			   return elem.offsetParent?(elem.offsetTop+pageY(elem.offsetParent)):elem.offsetTop;
+			}
+		</script>
+	</body>
+</html>
